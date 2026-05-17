@@ -13,6 +13,34 @@ async function findOrCreate(req, res) {
             })
         }
 
+        const isFriends = 
+        user1.friends.some(id=>
+            id.toString() === user2._id.toString()
+        ) &&
+        user2.friends.some(id=>
+            id.toString() === user1._id.toString()
+        )
+
+        if(!isFriends){
+            return res.status(400).json({
+                message: "You need to be friends with the user to chat"
+            })
+        }
+
+        const blocked = 
+        user1.blockedUser.some(id=>
+            id.toString() === user2._id.toString()
+        ) ||
+        user2.blockedUser.some(id=>
+            id.toString() === user1._id.toString()
+        );
+
+        if(blocked){
+            return res.status(400).json({
+                message: "Failed to open chat"
+            })
+        }
+
         let chat = await chatModel.findOne({
             isGroupChat: false,
             participants: {

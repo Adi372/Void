@@ -104,14 +104,19 @@ async function deleteAccount(req, res) {
         //Get id's of all my posts
         const postIds = userPosts.map(p => p._id);
 
-        // Remove the other people's likes and comments on my post from their profile 
+        // Remove the other people's likes and comments on my post from their profile
+        // && remove my id from their friends, blocked user, every request
         await userModel.updateMany(
             {},
             {
                 $pull: {
                     likedPosts: {$in: postIds},
                     comments: {post: {$in: postIds}},
-                    savedPosts: {$in: postIds}
+                    savedPosts: {$in: postIds},
+                    friends: user._id,
+                    sentRequest: user._id,
+                    receivedRequest: user._id,
+                    blockedUser: user._id
                 }
             }
         )
@@ -127,6 +132,7 @@ async function deleteAccount(req, res) {
                 } 
             }
         )
+        
         await postModel.deleteMany({user: user._id});
 
         await userModel.findByIdAndDelete(user._id);

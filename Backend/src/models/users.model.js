@@ -24,6 +24,22 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    friends:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users"
+    }],
+    sentRequest: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users"
+    }],
+    receivedRequest: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users"
+    }],
+    blockedUser: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users"
+    }],
     createdPosts:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "posts"
