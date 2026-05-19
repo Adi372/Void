@@ -1,4 +1,6 @@
 const userModel = require('../models/users.model');
+const {getIo} = require('../sockets/socket.server');
+const io = getIo();
 
 async function searchUser(req, res) {
     try{
@@ -106,6 +108,20 @@ async function sendFriendRequest(req, res) {
         user2.receivedRequest.push(user1._id);
         await user1.save();
         await user2.save();
+
+        const sockets = await io.in(user2._id.toString()).fetchSockets();
+        const isOnline = sockets.length>0;
+        if(isOnline){
+            io.to(user2._id.toString()).emit("friend-request-received", {
+                from: user1._id,
+                message: "You received a friend request"
+            });
+        }
+        else{
+            user2.notifications.friendRequestsReceived.push(user1._id);
+            await user2.save();
+        }
+
         return res.status(200).json({
             message: "Friend request sent"
         })
@@ -166,6 +182,19 @@ async function acceptFriendRequest(req, res) {
                 }
             }
         )
+
+        const sockets = await io.in(user2._id.toString()).fetchSockets();
+        const isOnline = sockets.length > 0;
+        if(isOnline){
+            io.to(user2.toString()).emit("friend-request-accepted", {
+                from: user1._id,
+                message: "Friend request accepted"
+            })
+        }else{
+            user2.notifications.acceptedRequest.push(user1._id);
+            await user2.save();
+        }
+
         return res.status(200).json({
             message: "Friend request accepted"
         })

@@ -1,5 +1,6 @@
 const postModel = require('../models/posts.model');
 const userModel = require('../models/users.model');
+const io = getIo();
 
 async function create(req, res) {
     try{
@@ -139,6 +140,26 @@ async function like(req, res) {
         await userAccount.save();
         await likedPost.save();
 
+        const user2 = await userModel.findById(likedPost.user);
+        if(user2._id.toString() !== user._id.toString()){
+            const sockets = await io.in(user2._id.toString()).fetchSockets();
+            const isOnline = sockets.length > 0;
+            if(isOnline){
+                io.to(user2._id.toString()).emit("liked-post", {
+                    from: user._id,
+                    post: likedPost._id,
+                    message: "Your post got a like"
+                })
+            }
+            else{
+                user2.notifications.likes.push({
+                    post: likedPost._id,
+                    user: user._id
+                })
+                await user2.save();
+            }
+        }
+
         return res.status(200).json({
             message: "The like to post was added successfully",
             userWhoLiked: userAccount._id,
@@ -214,6 +235,26 @@ async function comment(req, res) {
 
         await commentedPost.save();
         await userAccount.save();
+
+        const user2 = await userModel.findById(commentedPost.user);
+        if(user2._id.toString() !== user._id.toString()){
+            const sockets = await io.in(user2._id.toString()).fetchSockets();
+            const isOnline = sockets.length > 0;
+            if(isOnline){
+                io.to(user2._id.toString()).emit("commented", {
+                    from: user._id,
+                    post: commentedPost._id,
+                    message: "Your post got a comment"
+                });
+            }
+            else{
+                user2.notifications.comments.push({
+                    post: commentedPost._id,
+                    user: user._id
+                });
+                await user2.save();
+            }
+        }
 
         return res.status(201).json({
             message: "Comment added successfully",

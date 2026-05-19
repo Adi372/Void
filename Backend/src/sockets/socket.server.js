@@ -2,8 +2,10 @@ const {Server} = require('socket.io');
 const socketAuth = require('./socket.auth');
 const registerChatEvents = require('./events/chat.events');
 
+let io;
+
 function socketServerConnection(httpServer){
-    const io = new Server(httpServer, {
+    io = new Server(httpServer, {
         cors: {origin: "*"}
     });
 
@@ -11,6 +13,10 @@ function socketServerConnection(httpServer){
 
     io.on("connection", (socket)=>{
         const user = socket.user;
+        if(!user){
+            socket.disconnect();
+            return;
+        }
         socket.join(user._id.toString());
         registerChatEvents(io, socket);
     })
@@ -18,4 +24,12 @@ function socketServerConnection(httpServer){
     return io;
 }
 
-module.exports = socketServerConnection;
+function getIO(){
+    if(!io) throw new Error("Socket not initialized");
+    return io;
+}
+
+module.exports = {
+    socketServerConnection,
+    getIO
+};

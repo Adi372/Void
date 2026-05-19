@@ -65,7 +65,37 @@ const userSchema = mongoose.Schema({
     savedPosts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "posts"
-    }]
+    }],
+    notifications: {
+        friendRequestsReceived: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "users"
+        }],
+        acceptedRequest: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "users"
+        }],
+        likes: [{
+            post: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "posts"
+            },
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "users"
+            }
+        }],
+        comments: [{
+            post: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "posts"
+            },
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "users"
+            }
+        }],
+    }
 }, {timestamps: true});
 
 const userModel = mongoose.model("users", userSchema);
