@@ -443,6 +443,26 @@ async function unblockUser(req, res) {
     }
 }
 
+async function clearNotifications(req, res) {
+    try{
+        const {user} = req.user;
+        user.notifications = {
+            friendRequestsReceived: [],
+            acceptedRequest: [],
+            likes: [],
+            comments: []
+        };
+        await user.save();
+        res.status(200).json({
+            message: "Notifications cleared"
+        });
+    }
+    catch(err){
+        return res.status(500).json({
+            message: err.message
+        })
+    }
+}
 
 module.exports = {
     searchUser,
@@ -452,5 +472,6 @@ module.exports = {
     blockUser,
     unblockUser,
     unsendFriendRequest,
-    rejectFriendRequest
+    rejectFriendRequest,
+    clearNotifications
 }
