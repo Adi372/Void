@@ -24,6 +24,19 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    interests: [{
+        type: String,
+        enum: [
+            "coding",
+            "music",
+            "sports",
+            "gaming",
+            "travel",
+            "movies",
+            "fitness",
+            "photography"
+        ]
+    }],
     friends:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "users"

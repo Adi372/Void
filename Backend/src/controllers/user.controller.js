@@ -465,6 +465,45 @@ async function clearNotifications(req, res) {
     }
 }
 
+async function accountSuggestions(req, res) {
+    try{
+        const user = req.user;
+        const interests = user.interests;
+        const similarInterests = await userModel.aggregate([
+            {
+                $match: {
+                    interests: {$in: user.interests},
+                    _id: {$ne: user._id}
+                }
+            },
+            {
+                $sample: {size: 10}
+            },
+            {
+                $project: {
+                    fullName: 1,
+                    username: 1,
+                    email: 1,
+                    interests: 1,
+                    friends: 1,
+                    createdPosts: 1,
+                }
+            }
+        ]);
+
+        return res.status(200).json({
+            message: "Fetched all acounts who have similar interests",
+            accountWithSimilarInterests: similarInterests
+        })
+    }
+    catch(err){
+        return res.status(500).json({
+            message: "Failed to load suggestions",
+            errro: err.message
+        })
+    }
+}
+
 module.exports = {
     searchUser,
     sendFriendRequest,
@@ -474,5 +513,6 @@ module.exports = {
     unblockUser,
     unsendFriendRequest,
     rejectFriendRequest,
-    clearNotifications
+    clearNotifications,
+    accountSuggestions
 }

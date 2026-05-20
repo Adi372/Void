@@ -9,7 +9,8 @@ async function register(req, res){
             fullName: {firstName, lastName}, 
             username, 
             email, 
-            password
+            password,
+            interests
         } = req.body;
 
         const checkUsername = await userModel.findOne({username});
@@ -28,6 +29,7 @@ async function register(req, res){
             username,
             email,
             password: await bcrypt.hash(password, 10),
+            interests: interests,
             createdPosts:[],
             likedPosts: [],
             comments: [],
@@ -44,7 +46,8 @@ async function register(req, res){
             id: user._id,
             fullName: user.fullName,
             username: user.username,
-            email: user.email
+            email: user.email,
+            interests: interests
         })
     }
     catch(err){
