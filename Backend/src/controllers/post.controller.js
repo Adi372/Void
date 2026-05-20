@@ -1,6 +1,6 @@
 const postModel = require('../models/posts.model');
 const userModel = require('../models/users.model');
-const io = getIo();
+const {getIO} = require('../sockets/socket.server')
 
 async function create(req, res) {
     try{
@@ -113,6 +113,7 @@ async function myPosts(req, res) {
 
 async function like(req, res) {
     try{
+        const io = getIO();
         const user = req.user;
         const userAccount = await userModel.findById(user._id);
         const {post} = req.body;
@@ -219,6 +220,7 @@ async function removeLike(req, res) {
 
 async function comment(req, res) {
     try{
+        const io = getIO();
         const user = req.user;
         const userAccount = await userModel.findById(user._id);
         const {postId, comment} = req.body;

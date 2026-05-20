@@ -1,6 +1,5 @@
 const userModel = require('../models/users.model');
-const {getIo} = require('../sockets/socket.server');
-const io = getIo();
+const {getIO} = require('../sockets/socket.server');
 
 async function searchUser(req, res) {
     try{
@@ -47,6 +46,7 @@ async function searchUser(req, res) {
 
 async function sendFriendRequest(req, res) {
     try{
+        const io = getIO();
         const user1 = req.user;
         const {user2Id} = req.body;
 
@@ -136,6 +136,7 @@ async function sendFriendRequest(req, res) {
 
 async function acceptFriendRequest(req, res) {
     try{
+        const io = getIO();
         const user1 = req.user;
         const {user2Id} = req.body;
 
@@ -186,7 +187,7 @@ async function acceptFriendRequest(req, res) {
         const sockets = await io.in(user2._id.toString()).fetchSockets();
         const isOnline = sockets.length > 0;
         if(isOnline){
-            io.to(user2.toString()).emit("friend-request-accepted", {
+            io.to(user2._id.toString()).emit("friend-request-accepted", {
                 from: user1._id,
                 message: "Friend request accepted"
             })
@@ -445,7 +446,7 @@ async function unblockUser(req, res) {
 
 async function clearNotifications(req, res) {
     try{
-        const {user} = req.user;
+        const user = req.user;
         user.notifications = {
             friendRequestsReceived: [],
             acceptedRequest: [],
