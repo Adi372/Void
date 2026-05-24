@@ -15,7 +15,7 @@ const aiMsgSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ["human", "ai", "system"],
+        enum: ["user", "assistant", "system"],
         default: "human"
     }
 },{timestamps: true})
