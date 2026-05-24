@@ -1,6 +1,7 @@
 const {Server} = require('socket.io');
 const socketAuth = require('./socket.auth');
 const registerChatEvents = require('./events/chat.events');
+const { registerAIChatEvents } = require('./events/aiChat.event');
 
 let io;
 
@@ -19,6 +20,7 @@ function socketServerConnection(httpServer){
         }
         socket.join(user._id.toString());
         registerChatEvents(io, socket);
+        registerAIChatEvents(io, socket);
     })
 
     return io;
