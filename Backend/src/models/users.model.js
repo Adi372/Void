@@ -81,32 +81,89 @@ const userSchema = mongoose.Schema({
     }],
     notifications: {
         friendRequestsReceived: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "users"
+            userId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "users"
+            },
+            username: {
+                type: String
+            },
+            fullName: {
+                firstName: {
+                    type: String,
+                },
+                lastName: {
+                    type: String,
+                }
+            }
         }],
         acceptedRequest: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "users"
+            userId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "users"
+            },
+            username: {
+                type: String
+            },
+            fullName: {
+                firstName: {
+                    type: String,
+                },
+                lastName: {
+                    type: String,
+                }
+            }
         }],
         likes: [{
-            post: {
+            postId: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "posts"
             },
-            user: {
+            postCaption: {
+                type: String
+            },
+            userId: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "users"
-            }
+            },
+            username: {
+                type: String
+            },
+            fullName: {
+                firstName: {
+                    type: String,
+                },
+                lastName: {
+                    type: String,
+                }
+            },
         }],
         comments: [{
-            post: {
+            comment: {
+                type: String
+            },
+            postId: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "posts"
             },
-            user: {
+            postCaption: {
+                type: String
+            },
+            userId: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "users"
-            }
+            },
+            username: {
+                type: String
+            },
+            fullName: {
+                firstName: {
+                    type: String,
+                },
+                lastName: {
+                    type: String,
+                }
+            },
         }],
     }
 }, {timestamps: true});

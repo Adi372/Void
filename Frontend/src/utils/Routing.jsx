@@ -13,6 +13,9 @@ import AIChat from '../components/AIChat'
 import Post from '../components/Post'
 import UserProfile from '../components/UserProfile'
 import Notifications from '../components/Notifications'
+import LikeNotifications from '../components/LikeNotifications'
+import CommentNotifications from '../components/CommentNotifications'
+import FriendNotifications from '../components/FriendNotifications'
 
 const Routing = () => {
 
@@ -30,7 +33,11 @@ const Routing = () => {
             <Route path='/addPost' element={<AddPost/>}/>
             <Route path='/profile' element={<Profile/>}/>
             <Route path='/aichat' element={<AIChat/>}/>
-            <Route path='/notifications' element={<Notifications/>}/>
+            <Route path='/notifications' element={<Notifications/>}>
+              <Route path='/notifications/likes' element={<LikeNotifications/>}/>
+              <Route path='/notifications/comments' element={<CommentNotifications/>}/>
+              <Route path='/notifications/friends' element={<FriendNotifications/>}/>
+            </Route>
             <Route path='/post/:postId' element={<Post/>}/>
             <Route path='/userProfile/:userId' element={<UserProfile/>}/>
             <Route path='/chat' element={<Chats/>}>

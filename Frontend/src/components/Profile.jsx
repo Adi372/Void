@@ -62,11 +62,9 @@ const Profile = () => {
                         <h1 className='text-2xl font-semibold'>{`${user.fullName.firstName} ${user.fullName.lastName}`}</h1>
                         <div className='flex font-semibold gap-12'>
                             <div className='flex gap-1'>
-                                <i class="ri-sticky-note-fill"></i>
                                 <h1>{`${user.createdPosts.length} posts`}</h1>
                             </div>
                             <div className='flex gap-1'>
-                                <i class="ri-user-heart-fill"></i>
                                 <h1>{`${user.friends.length} friends`}</h1>
                             </div>
                         </div>

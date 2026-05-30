@@ -162,19 +162,22 @@ async function like(req, res) {
         if(user2._id.toString() !== user._id.toString()){
             const sockets = await io.in(user2._id.toString()).fetchSockets();
             const isOnline = sockets.length > 0;
+
+            user2.notifications.likes.push({
+                postId: likedPost._id,
+                postCaption: likedPost.caption,
+                userId: user._id,
+                username: user.username,
+                fullName: user.fullName,
+            })                
+            await user2.save();
+
             if(isOnline){
                 io.to(user2._id.toString()).emit("liked-post", {
                     from: user._id,
                     post: likedPost._id,
                     message: "Your post got a like"
                 })
-            }
-            else{
-                user2.notifications.likes.push({
-                    post: likedPost._id,
-                    user: user._id
-                })
-                await user2.save();
             }
         }
 
@@ -259,19 +262,23 @@ async function comment(req, res) {
         if(user2._id.toString() !== user._id.toString()){
             const sockets = await io.in(user2._id.toString()).fetchSockets();
             const isOnline = sockets.length > 0;
+
+            user2.notifications.comments.push({
+                comment,
+                postId: commentedPost._id,
+                postCaption: commentedPost.caption,
+                userId: user._id,
+                username: user.username,
+                fullName: user.fullName,
+            })
+            await user2.save();
+
             if(isOnline){
                 io.to(user2._id.toString()).emit("commented", {
                     from: user._id,
                     post: commentedPost._id,
                     message: "Your post got a comment"
                 });
-            }
-            else{
-                user2.notifications.comments.push({
-                    post: commentedPost._id,
-                    user: user._id
-                });
-                await user2.save();
             }
         }
 
