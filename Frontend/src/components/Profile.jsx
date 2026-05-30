@@ -1,8 +1,51 @@
 import React from 'react'
 import Feed from './Feed'
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import axios from 'axios'
 
 const Profile = () => {
+
+    const [user, setUser] = useState(null);
+    const [posts, setPosts] = useState([]);
+
+    
+
+    useEffect(()=>{
+        axios.get('http://localhost:3000/api/auth/findUser',
+            {
+                withCredentials: true
+            }
+        )
+        .then((res)=>{
+            setUser(res.data);
+        })
+        .catch((err)=>{
+            console.log(err);
+            setUser(null);
+        });
+    }, []);
+
+    useEffect(()=>{
+        axios.get('http://localhost:3000/api/post/myPosts',
+            {
+                withCredentials: true
+            }
+        )
+        .then((res)=>{
+            console.log(res.data);
+            setPosts(res.data.posts)
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    },[]);
+
+    if(!user){
+        return <div className='h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>
+    }
+
   return (
     <div className='h-screen p-5 overflow-y-auto hide-scrollbar'>
         <div className=' p-7 flex flex-col gap-5'>
@@ -15,16 +58,16 @@ const Profile = () => {
                         <i class="ri-user-line"></i>
                     </div>
                     <div className='flex flex-col gap-3'>
-                        <h1 className='text-4xl font-bold'>Username</h1>
-                        <h1 className='text-2xl font-semibold'>Full Name</h1>
+                        <h1 className='text-4xl font-bold'>{user.username}</h1>
+                        <h1 className='text-2xl font-semibold'>{`${user.fullName.firstName} ${user.fullName.lastName}`}</h1>
                         <div className='flex font-semibold gap-12'>
                             <div className='flex gap-1'>
                                 <i class="ri-sticky-note-fill"></i>
-                                <h1>5 posts</h1>
+                                <h1>{`${user.createdPosts.length} posts`}</h1>
                             </div>
                             <div className='flex gap-1'>
                                 <i class="ri-user-heart-fill"></i>
-                                <h1>10 friends</h1>
+                                <h1>{`${user.friends.length} friends`}</h1>
                             </div>
                         </div>
                     </div>
@@ -43,7 +86,7 @@ const Profile = () => {
                         <div className='text-xl'>
                             <i class="ri-heart-3-fill"></i>
                         </div>
-                        <h1>Liked Posts: 100</h1>
+                        <h1>{`Liked Posts: ${user.likedPosts.length}`}</h1>
                     </div>
                 </Link>
                 <Link>
@@ -51,7 +94,7 @@ const Profile = () => {
                         <div className='text-xl'>
                             <i class="ri-chat-1-fill"></i>
                         </div>
-                        <h1>Commented Posts: 100</h1>
+                        <h1>{`Commented Posts: ${user.comments.length}`}</h1>
                     </div>
                 </Link>
                 <Link>
@@ -59,7 +102,7 @@ const Profile = () => {
                         <div className='text-xl'>
                             <i class="ri-bookmark-fill"></i>
                         </div>
-                        <h1>Saved Posts: 100</h1>
+                        <h1>{`Saved Posts: ${user.savedPosts.length}`}</h1>
                     </div>
                 </Link>
                 <Link>
@@ -67,7 +110,7 @@ const Profile = () => {
                         <div className='text-xl'>
                             <i class="ri-share-fill"></i>
                         </div>
-                        <h1>Shared Posts: 100</h1>
+                        <h1>{`Shared Posts: ${user.shares.length}`}</h1>
                     </div>
                 </Link>
                 <Link>
@@ -75,7 +118,7 @@ const Profile = () => {
                         <div className='text-xl'>
                             <i class="ri-prohibited-line"></i>
                         </div>
-                        <h1>Blocked Users: 100</h1>
+                        <h1>{`Blocked Users: ${user.blockedUser.length}`}</h1>
                     </div>
                 </Link>
             </div>
@@ -85,9 +128,11 @@ const Profile = () => {
                     <h1>Your Posts</h1>
                 </div>
                 <div className='flex flex-wrap py-3 justify-between gap-y-10'>
-                    <Feed />
-                    <Feed/>
-                    <Feed/>
+                    {
+                        posts.map((post, index)=>(
+                            <Feed key={post._id} post={post} />
+                        ))
+                    }
                 </div>
             </div>
 

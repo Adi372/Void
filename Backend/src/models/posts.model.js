@@ -6,6 +6,9 @@ const postSchema = mongoose.Schema({
         ref: "users",
         required: true
     },
+    username: {
+        type: String
+    },
     caption: {
         type: String
     },
@@ -24,6 +27,9 @@ const postSchema = mongoose.Schema({
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "users"
+        },
+        username: {
+            type: String
         },
         text: {
             type: String,

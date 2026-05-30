@@ -1,5 +1,6 @@
 require('dotenv').config();
 const app = require('./src/app');
+
 const connectToDB = require('./src/db/db');
 const {socketServerConnection} = require('./src/sockets/socket.server');
 

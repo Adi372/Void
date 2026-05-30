@@ -504,6 +504,22 @@ async function accountSuggestions(req, res) {
     }
 }
 
+async function allUsers (req, res){
+    try{
+        const users = await userModel.find().sort({createdAt: -1});
+        return res.status(200).json({
+            message: "All users fetched",
+            users
+        });
+    }
+    catch(err){
+        return res.status(500).json({
+            message: "Failed to load account",
+            errro: err.message
+        })
+    }
+}
+
 module.exports = {
     searchUser,
     sendFriendRequest,
@@ -514,5 +530,6 @@ module.exports = {
     unsendFriendRequest,
     rejectFriendRequest,
     clearNotifications,
-    accountSuggestions
+    accountSuggestions,
+    allUsers
 }

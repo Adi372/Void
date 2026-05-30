@@ -10,7 +10,8 @@ const {
     removeLike, 
     removeComment, 
     save,
-    unsave
+    unsave,
+    userPosts
 } = require('../controllers/post.controller')
 
 const router = express.Router();
@@ -25,5 +26,6 @@ router.post('/removeLike', isLoggedIn, removeLike);
 router.post('/removeComment', isLoggedIn, removeComment);
 router.post('/save', isLoggedIn, save);
 router.post('/unsave', isLoggedIn, unsave);
+router.post('/userPosts', isLoggedIn, userPosts);
 
 module.exports = router;

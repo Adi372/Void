@@ -7,6 +7,12 @@ import Register from '../components/Register'
 import Login from '../components/Login'
 import AddPost from '../components/AddPost'
 import Profile from '../components/Profile'
+import Chats from '../components/Chats'
+import ChatWindow from '../components/ChatWindow'
+import AIChat from '../components/AIChat'
+import Post from '../components/Post'
+import UserProfile from '../components/UserProfile'
+import Notifications from '../components/Notifications'
 
 const Routing = () => {
 
@@ -23,6 +29,13 @@ const Routing = () => {
             <Route path='/login' element={<Login/>}/>
             <Route path='/addPost' element={<AddPost/>}/>
             <Route path='/profile' element={<Profile/>}/>
+            <Route path='/aichat' element={<AIChat/>}/>
+            <Route path='/notifications' element={<Notifications/>}/>
+            <Route path='/post/:postId' element={<Post/>}/>
+            <Route path='/userProfile/:userId' element={<UserProfile/>}/>
+            <Route path='/chat' element={<Chats/>}>
+              <Route path=':id' element={<ChatWindow/>}/>
+            </Route>
           </Routes>
         </div>
         {bars && <RightBar/>}

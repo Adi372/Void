@@ -1,4 +1,5 @@
 const aiChatModel = require('../models/AI/aiChat.model');
+const aiMessageModel = require('../models/AI/aiMsg.model');
 
 async function findOrCreate(req, res) {
     try{
@@ -35,6 +36,37 @@ async function findOrCreate(req, res) {
     }
 }
 
+
+async function loadAIMessages(req, res) {
+    try{
+        const user = req.user;
+        const {chatId} = req.body;
+        const chat = await aiChatModel.findOne({
+            _id: chatId,
+            user: user._id
+        });
+        if(!chat){
+            return res.status(404).json({
+                message: "Chat not found",
+            })
+        } 
+
+        const messages = await aiMessageModel.find({chat: chat._id}).sort({createdAt: 1});
+  
+        return res.status(200).json({
+            message: "Messages loaded",
+            messages: messages
+        })
+    }
+    catch(err){
+        return res.status(500).json({
+            message: "Failed to load messages",
+            error: err.message
+        })
+    }
+}
+
 module.exports= {
-    findOrCreate
+    findOrCreate,
+    loadAIMessages
 }

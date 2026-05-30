@@ -94,6 +94,23 @@ async function allPosts(req, res) {
     }
 }
 
+async function userPosts(req, res){
+    try{
+        const {userId} = req.body;
+        const posts = await postModel.find({user: userId}).sort({createdAt: -1});
+        return res.status(200).json({
+            message: "All user posts fetched",
+            posts
+        })
+    }
+    catch(err){
+        return res.status(500).json({
+            message: "Failed to fetch posts",
+            error: err.message
+        });
+    }
+}
+
 async function myPosts(req, res) {
     try{
         const user = req.user;
@@ -232,7 +249,7 @@ async function comment(req, res) {
             })
         }
 
-        commentedPost.comments.push({user: userAccount._id, text: comment});
+        commentedPost.comments.push({user: userAccount._id, username: userAccount.username, text: comment});
         userAccount.comments.push({post: commentedPost._id, text: comment});
 
         await commentedPost.save();
@@ -374,6 +391,7 @@ async function save(req, res) {
             message: "Saved post successfully",
             savedPost: post._id,
             userwhoSaved: user._id,
+            totalSaves: post.saves.length
         })
     }
     catch(err){
@@ -419,7 +437,8 @@ async function unsave(req, res) {
         return res.status(200).json({
             message: "Post unsaved successfully",
             unsavedPost: post._id,
-            userWhoUnsaved: user._id
+            userWhoUnsaved: user._id,
+            totalSaves: post.saves.length
         })
     }
     catch(err){
@@ -440,5 +459,6 @@ module.exports = {
     removeLike,
     removeComment,
     save,
-    unsave
+    unsave,
+    userPosts
 }

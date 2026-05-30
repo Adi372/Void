@@ -10,7 +10,8 @@ const {
     unsendFriendRequest,
     rejectFriendRequest,
     clearNotifications,
-    accountSuggestions
+    accountSuggestions,
+    allUsers
     } 
     = require('../controllers/user.controller');
 const isLoggedIn = require('../middlewares/auth.middleware');
@@ -25,5 +26,6 @@ router.post('/unsendFriendRequest', isLoggedIn, unsendFriendRequest);
 router.post('/rejectFriendRequest', isLoggedIn, rejectFriendRequest);
 router.get('/clearNotifications', isLoggedIn, clearNotifications);
 router.get('/similarAccounts', isLoggedIn, accountSuggestions);
+router.get('/allUsers', isLoggedIn, allUsers);
 
 module.exports = router;

@@ -7,7 +7,10 @@ let io;
 
 function socketServerConnection(httpServer){
     io = new Server(httpServer, {
-        cors: {origin: "*"}
+        cors: {
+            origin: "http://localhost:5173",
+            credentials: true
+        }
     });
 
     io.use(socketAuth);

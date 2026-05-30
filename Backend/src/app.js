@@ -5,8 +5,15 @@ const chatRouter = require('./routes/chat.routes');
 const userRouter = require('./routes/user.routes');
 const aiRouter = require('./routes/aiChat.routes');
 const cookies = require('cookie-parser');
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}));
+
 app.use(express.json());
 app.use(cookies());
 
