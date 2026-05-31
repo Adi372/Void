@@ -10,8 +10,6 @@ const Profile = () => {
     const [user, setUser] = useState(null);
     const [posts, setPosts] = useState([]);
 
-    
-
     useEffect(()=>{
         axios.get('http://localhost:3000/api/auth/findUser',
             {

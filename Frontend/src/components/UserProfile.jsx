@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Feed from './Feed';
 
 const UserProfile = () => {
@@ -10,6 +10,8 @@ const UserProfile = () => {
     const {userId} = useParams();
     const [posts, setPosts] = useState([]);
     const [requestStatus, setRequestStatus] = useState("");
+
+    const navigate = useNavigate();
 
 
     function searchMe(userId){
@@ -227,6 +229,20 @@ const UserProfile = () => {
     console.log(requestStatus)
     console.log(me)
 
+    function openChat(user2Id){
+        axios.post('http://localhost:3000/api/chat/findOrCreate',
+            {user2Id},
+            {withCredentials: true}
+        )
+        .then((res)=>{
+            console.log(res.data);
+            navigate('/chat')
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
   return (
     <div className='h-screen overflow-y-auto hide-scrollbar'>
         <div className='w-full flex flex-col'>
@@ -267,7 +283,9 @@ const UserProfile = () => {
                         Remove Friend
                     </button>
                 </div>
-                <button className='border rounded h-fit w-fit py-2 px-3'>Message</button>
+                <button onClick={(()=>openChat(user._id))} className={` ${requestStatus === "accepted"? "flex":"hidden"} border rounded h-fit w-fit py-2 px-3`}>
+                    Message
+                </button>
             </div>
             <div className=' mt-10 px-15'>
                 <div className='flex flex-wrap py-3 justify-between gap-y-10'>

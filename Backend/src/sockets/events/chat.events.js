@@ -68,7 +68,7 @@ function registerChatEvents(io, socket){
                     createdAt: message.createdAt
                 }
             })
-            io.to(chatId).emit("receive-message", message, message._id);
+            io.to(chatId).emit("receive-message", message);
         }
         catch(err){
             console.log(err.message);

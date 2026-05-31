@@ -273,9 +273,52 @@ async function loadMessages(req, res) {
     }
 }
 
+async function allChats(req, res) {
+    try {
+        const user = req.user;
+
+        const chats = await chatModel.find({
+            participants: user._id
+        }).populate("participants", "username fullName _id");
+
+        const formattedChats = chats.map(chat => {
+            const me = chat.participants.find(p => p._id.toString() === user._id.toString());
+            const friend = chat.participants.find(p => p._id.toString() !== user._id.toString());
+
+            const lastMessageSender =
+                chat.lastMessage?.sender?.toString() === user._id.toString()
+                    ? me?.username
+                    : friend?.username;
+            
+            return {
+                _id: chat._id,
+                meId: user._id,
+                friendId: friend?._id,
+                me: me?.username,
+                friendUsername: friend?.username,
+                friendFullName: friend?.fullName,
+                lastMessage: chat.lastMessage.text,
+                lastMessageSender
+            };
+        });
+
+        return res.status(200).json({
+            message: "All your chats fetched",
+            chats: formattedChats
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            message: "Failed to load chats",
+            error: err.message
+        });
+    }
+}
+
 module.exports = {
     findOrCreate,
     deleteMessage,
     deleteChat,
-    loadMessages
+    loadMessages,
+    allChats
 }

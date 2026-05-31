@@ -12,7 +12,8 @@ const {
     clearNotifications,
     accountSuggestions,
     allUsers,
-    searchOneUser
+    searchOneUser,
+    allFriends
     } 
     = require('../controllers/user.controller');
 const isLoggedIn = require('../middlewares/auth.middleware');
@@ -29,5 +30,6 @@ router.get('/clearNotifications', isLoggedIn, clearNotifications);
 router.get('/similarAccounts', isLoggedIn, accountSuggestions);
 router.get('/allUsers', isLoggedIn, allUsers);
 router.post('/searchOneUser', isLoggedIn, searchOneUser);
+router.get('/allFriends', isLoggedIn, allFriends);
 
 module.exports = router;

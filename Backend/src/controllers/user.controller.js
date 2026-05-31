@@ -565,6 +565,26 @@ async function searchOneUser (req, res){
         })
     }
 }
+
+async function allFriends (req, res){
+    try{
+        const user = req.user;
+        const friends = await userModel.find({
+            _id: {$in: user.friends}
+        })
+        return res.status(200).json({
+            message: "All your friends fetched",
+            friends: friends
+        })
+    }
+    catch(err){
+        return res.status(500).json({
+            message: "Failed to fetch friends",
+            error: err.message
+        })
+    }
+}
+
 module.exports = {
     searchUser,
     sendFriendRequest,
@@ -577,5 +597,6 @@ module.exports = {
     clearNotifications,
     accountSuggestions,
     allUsers,
-    searchOneUser
+    searchOneUser,
+    allFriends
 }
