@@ -174,8 +174,11 @@ async function like(req, res) {
 
             if(isOnline){
                 io.to(user2._id.toString()).emit("liked-post", {
-                    from: user._id,
-                    post: likedPost._id,
+                    userId: user._id,
+                    username: user.username,
+                    fullName: user.fullName,
+                    postId: likedPost._id,
+                    postCaption: likedPost.caption,
                     message: "Your post got a like"
                 })
             }
@@ -275,8 +278,12 @@ async function comment(req, res) {
 
             if(isOnline){
                 io.to(user2._id.toString()).emit("commented", {
-                    from: user._id,
-                    post: commentedPost._id,
+                    userId: user._id,
+                    username: user.username,
+                    fullName: user.fullName,
+                    postId: commentedPost._id,
+                    postCaption: commentedPost.caption,
+                    comment: comment,
                     message: "Your post got a comment"
                 });
             }

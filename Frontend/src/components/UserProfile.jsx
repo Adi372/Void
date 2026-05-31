@@ -5,9 +5,27 @@ import Feed from './Feed';
 
 const UserProfile = () => {
 
+    const [me, setMe] = useState(null);
     const [user, setUser] = useState(null);
     const {userId} = useParams();
     const [posts, setPosts] = useState([]);
+    const [requestStatus, setRequestStatus] = useState("");
+
+
+    function searchMe(userId){
+        axios.get('http://localhost:3000/api/auth/findUser',
+            {
+                withCredentials: true
+            }
+        )
+        .then((res)=>{
+            setMe(res.data);
+        })
+        .catch((err)=>{
+            console.log(err);
+            setMe(null);
+        });
+    }
 
     function searchUser(userId){
         axios.post('http://localhost:3000/api/user/searchOneUser',
@@ -25,6 +43,33 @@ const UserProfile = () => {
       .catch((err)=>{
           console.log(err);
       });
+    }
+
+    function checkStatus(){
+        if (!me || !user) return;
+        let checkSent = me.sentRequest.find(id=>
+            id.toString() === user._id.toString()
+        )
+        if(checkSent){
+            setRequestStatus("sent")
+            return;
+        }
+
+        let checkReceived = me.receivedRequest.find((id)=>
+            id.toString() === user._id.toString()
+        )
+        if(checkReceived){
+            setRequestStatus("received");
+            return;
+        }
+        let checkAccepted = me.friends.find((id)=>
+            id.toString() === user._id.toString()
+        )
+        if(checkAccepted){
+            setRequestStatus("accepted");
+            return
+        }
+        setRequestStatus("unsent")
     }
 
     function getPosts(userId){
@@ -50,13 +95,137 @@ const UserProfile = () => {
     }, []);
 
     useEffect(()=>{
+        searchMe(userId);
+    }, []);
+
+    useEffect(()=>{
         getPosts(userId);
     },[]);
 
+    useEffect(()=>{
+        checkStatus();
+    }, [me, user]);
 
-    if(!user){
-        return <div className='h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>
+    function sendFriendRequest(user2Id){
+        axios.post('http://localhost:3000/api/user/sendFriendRequest',
+            {user2Id},
+            {withCredentials: true}
+        )
+        .then((res)=>{
+            console.log(res.data);
+            setRequestStatus(res.data.status);
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
     }
+
+    if (!user || !me) {
+        return <div className='h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>;
+    }
+
+
+    function unsendFriendRequest(user2Id){
+        if(requestStatus === "unsent" || requestStatus === ""){
+            return;
+        }
+        axios.post('http://localhost:3000/api/user/unsendFriendRequest',
+            {user2Id},
+            {withCredentials: true}
+        )
+        .then((res)=>{
+            console.log(res.data);
+            setRequestStatus(res.data.status);
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    function acceptFriendRequest(user2Id){
+        if(requestStatus === "unsent" || requestStatus === "sent"){
+            return;
+        }
+        axios.post('http://localhost:3000/api/user/acceptFriendRequest',
+            {user2Id},
+            {withCredentials: true}
+        )
+        .then((res)=>{
+            console.log(res.data);
+            setRequestStatus(res.data.status);
+            setMe(prev => ({
+            ...prev,
+            receivedRequest: prev.receivedRequest.filter(
+                id => id.toString() !== user2Id.toString()
+            ),
+            friends: [...prev.friends, user2Id]
+        }));
+
+            setUser(prev => ({
+                ...prev,
+                sentRequest: prev.sentRequest.filter(
+                    id => id.toString() !== me._id.toString()
+                ),
+                friends: [...prev.friends, me._id]
+            }));
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    function rejectFriendRequest(user2Id){
+        if(requestStatus === "unsent" || requestStatus === "sent"){
+            return;
+        }
+        axios.post('http://localhost:3000/api/user/rejectFriendRequest',
+            {user2Id},
+            {withCredentials: true}
+        )
+        .then((res)=>{
+            console.log(res.data);
+            setRequestStatus(res.data.status);
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    function removeFriend(user2Id){
+        if(requestStatus === "unsent" || requestStatus === "sent"){
+            return;
+        }
+        axios.post('http://localhost:3000/api/user/removeFriend',
+            {user2Id},
+            {withCredentials: true}
+        )
+        .then((res)=>{
+            console.log(res.data);
+            setRequestStatus(res.data.status);
+
+            setRequestStatus("unsent");
+
+            setMe(prev => ({
+                ...prev,
+                friends: prev.friends.filter(
+                    id => id.toString() !== user2Id.toString()
+                )
+            }));
+
+            setUser(prev => ({
+                ...prev,
+                friends: prev.friends.filter(
+                    id => id.toString() !== me._id.toString()
+                )
+            }));
+        })
+        .catch((err)=>{
+            console.log(err)
+        })
+    }
+
+    console.log(requestStatus)
+    console.log(me)
 
   return (
     <div className='h-screen overflow-y-auto hide-scrollbar'>
@@ -75,7 +244,29 @@ const UserProfile = () => {
                 </div>
             </div>
             <div className=' items-center h-15 flex justify-center gap-10'>
-                <button className='border rounded h-fit w-fit py-2 px-3'>Add Friend</button>
+                <div className={`${requestStatus === "unsent"? "block":"hidden"}`}>
+                    <button onClick={() =>sendFriendRequest(user._id)} className='border rounded h-fit w-fit py-2 px-3'>
+                        Add Friend
+                    </button>
+                </div>
+                <div className={`${requestStatus === "sent"? "block":"hidden"}`}>
+                    <button onClick={() =>unsendFriendRequest(user._id)} className='border rounded h-fit w-fit py-2 px-3'>
+                        Cancel Request
+                    </button>
+                </div>
+                <div className={`${requestStatus === "received"? "flex":"hidden"} flex gap-2`}>
+                    <button onClick={() =>acceptFriendRequest(user._id)} className={`border rounded h-fit w-fit py-2 px-3`}>
+                        Accept
+                    </button>
+                    <button onClick={() =>rejectFriendRequest(user._id)} className={`border rounded h-fit w-fit py-2 px-3`}>
+                        Reject
+                    </button>
+                </div>
+                <div className={`${requestStatus === "accepted"? "flex":"hidden"} flex gap-2`}>
+                    <button onClick={() =>removeFriend(user._id)} className={`border rounded h-fit w-fit py-2 px-3`}>
+                        Remove Friend
+                    </button>
+                </div>
                 <button className='border rounded h-fit w-fit py-2 px-3'>Message</button>
             </div>
             <div className=' mt-10 px-15'>

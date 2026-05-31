@@ -111,19 +111,28 @@ async function sendFriendRequest(req, res) {
 
         const sockets = await io.in(user2._id.toString()).fetchSockets();
         const isOnline = sockets.length>0;
+
+        user2.notifications.friendRequestsReceived.push({
+            userId: user1._id,
+            username: user1.username,
+            fullName: user1.fullName,
+        });
+        await user2.save();
+
         if(isOnline){
             io.to(user2._id.toString()).emit("friend-request-received", {
-                from: user1._id,
+                userId: user1._id,
+                username: user1.username,
+                fullName: user1.fullName,
                 message: "You received a friend request"
             });
         }
-        else{
-            user2.notifications.friendRequestsReceived.push(user1._id);
-            await user2.save();
-        }
 
         return res.status(200).json({
-            message: "Friend request sent"
+            message: "Friend request sent",
+            sender: user1,
+            receiver: user2,
+            status: "sent"
         })
     }
     catch(err){
@@ -186,18 +195,28 @@ async function acceptFriendRequest(req, res) {
 
         const sockets = await io.in(user2._id.toString()).fetchSockets();
         const isOnline = sockets.length > 0;
+
+        user2.notifications.acceptedRequest.push({
+            userId: user1._id,
+            username: user1.username,
+            fullName: user1.fullName
+        });
+        await user2.save();
+            
         if(isOnline){
             io.to(user2._id.toString()).emit("friend-request-accepted", {
-                from: user1._id,
+                userId: user1._id,
+                username: user1.username,
+                fullName: user1.fullName,
                 message: "Friend request accepted"
             })
-        }else{
-            user2.notifications.acceptedRequest.push(user1._id);
-            await user2.save();
         }
 
         return res.status(200).json({
-            message: "Friend request accepted"
+            message: "Friend request accepted",
+            sender: user2,
+            receiver: user1,
+            status: "accepted"
         })
     }
     catch(err){
@@ -240,7 +259,10 @@ async function removeFriend(req, res) {
         await user2.save();
 
         return res.status(200).json({
-            message: "Removed friend successfully"
+            message: "Removed friend successfully",
+            sender: user1,
+            receiver: user2,
+            status: "unsent"
         })
     }
     catch(err){
@@ -278,7 +300,11 @@ async function unsendFriendRequest(req, res) {
         await user1.save();
         await user2.save();
         return res.status(200).json({
-            message: "Your friend request was cancelled successfully"
+            message: "Your friend request was cancelled successfully",
+            message: "Friend request unsent",
+            sender: user1,
+            receiver: user2,
+            status: "unsent"
         })
     }
     catch(err){
@@ -317,7 +343,10 @@ async function rejectFriendRequest(req, res) {
         await user1.save();
         await user2.save();
         return res.status(200).json({
-            message: "Rejected incoming friend request successfully"
+            message: "Rejected incoming friend request successfully",
+            sender: user2,
+            receiver: user1,
+            status: "unsent"
         })
     }
     catch(err){

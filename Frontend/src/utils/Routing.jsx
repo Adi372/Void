@@ -17,14 +17,24 @@ import LikeNotifications from '../components/LikeNotifications'
 import CommentNotifications from '../components/CommentNotifications'
 import FriendNotifications from '../components/FriendNotifications'
 
-const Routing = () => {
+const Routing = ({likeNotifications, setLikeNotifications, commentNotifications, setCommentNotifications, friendRequestReceivedNotifications, setFriendRequestReceivedNotifications, friendRequestAcceptedNotifications, setFriendRequestAcceptedNotifications}) => {
 
   const location = useLocation();
   const bars = location.pathname !== '/login' && location.pathname !== '/register';
 
   return (
     <div className='flex h-screen'>
-        {bars && <LeftBar/>}
+        {
+          bars && <LeftBar 
+          likeNotifications={likeNotifications} 
+          setLikeNotifications={setLikeNotifications} 
+          commentNotifications={commentNotifications} 
+          setCommentNotifications={setCommentNotifications} 
+          friendRequestReceivedNotifications={friendRequestReceivedNotifications} 
+          setFriendRequestReceivedNotifications={setFriendRequestReceivedNotifications} 
+          friendRequestAcceptedNotifications={friendRequestAcceptedNotifications} 
+          setFriendRequestAcceptedNotifications={setFriendRequestAcceptedNotifications}/>
+        }
         <div className='flex-1'>
           <Routes>
             <Route path='/' element={<Home/>}/>

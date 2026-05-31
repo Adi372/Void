@@ -111,14 +111,6 @@ const Profile = () => {
                         <h1>{`Shared Posts: ${user.shares.length}`}</h1>
                     </div>
                 </Link>
-                <Link>
-                    <div className='flex items-center gap-2'>
-                        <div className='text-xl'>
-                            <i class="ri-prohibited-line"></i>
-                        </div>
-                        <h1>{`Blocked Users: ${user.blockedUser.length}`}</h1>
-                    </div>
-                </Link>
             </div>
 
             <div className=' flex flex-col gap-2'>

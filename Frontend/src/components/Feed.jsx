@@ -138,7 +138,7 @@ const Feed = ({post, user}) => {
                                             <h1 className='font-semibold'>{comment.username}</h1>
                                             <h1 className='break-all'>{comment.text}</h1>
                                         </div>
-                                        {comment.user === user._id && (
+                                        {comment.user === user?._id && (
                                             <button type="button" onClick={(()=>deleteComment(post._id, comment.text, comment._id))}>
                                                 <i className="ri-delete-bin-2-line"></i>
                                             </button>
