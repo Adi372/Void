@@ -13,11 +13,22 @@ import AIChat from '../components/AIChat'
 import Post from '../components/Post'
 import UserProfile from '../components/UserProfile'
 import Notifications from '../components/Notifications'
-import LikeNotifications from '../components/LikeNotifications'
-import CommentNotifications from '../components/CommentNotifications'
-import FriendNotifications from '../components/FriendNotifications'
+import LikedPosts from '../components/LikedPosts'
+import CommentedPosts from '../components/CommentedPosts'
+import SavedPosts from '../components/SavedPosts'
 
-const Routing = ({likeNotifications, setLikeNotifications, commentNotifications, setCommentNotifications, friendRequestReceivedNotifications, setFriendRequestReceivedNotifications, friendRequestAcceptedNotifications, setFriendRequestAcceptedNotifications}) => {
+const Routing = ({
+  likeNotifications, 
+  setLikeNotifications, 
+  commentNotifications, 
+  setCommentNotifications, 
+  friendRequestReceivedNotifications, 
+  setFriendRequestReceivedNotifications, 
+  friendRequestAcceptedNotifications, 
+  setFriendRequestAcceptedNotifications,
+  newMsg,
+  setNewMsg
+}) => {
 
   const location = useLocation();
   const bars = location.pathname !== '/login' && location.pathname !== '/register';
@@ -33,7 +44,10 @@ const Routing = ({likeNotifications, setLikeNotifications, commentNotifications,
           friendRequestReceivedNotifications={friendRequestReceivedNotifications} 
           setFriendRequestReceivedNotifications={setFriendRequestReceivedNotifications} 
           friendRequestAcceptedNotifications={friendRequestAcceptedNotifications} 
-          setFriendRequestAcceptedNotifications={setFriendRequestAcceptedNotifications}/>
+          setFriendRequestAcceptedNotifications={setFriendRequestAcceptedNotifications}
+          newMsg={newMsg}
+          setNewMsg={setNewMsg}
+          />
         }
         <div className='flex-1'>
           <Routes>
@@ -43,14 +57,25 @@ const Routing = ({likeNotifications, setLikeNotifications, commentNotifications,
             <Route path='/addPost' element={<AddPost/>}/>
             <Route path='/profile' element={<Profile/>}/>
             <Route path='/aichat' element={<AIChat/>}/>
-            <Route path='/notifications' element={<Notifications/>}>
-              <Route path='/notifications/likes' element={<LikeNotifications/>}/>
-              <Route path='/notifications/comments' element={<CommentNotifications/>}/>
-              <Route path='/notifications/friends' element={<FriendNotifications/>}/>
-            </Route>
+            <Route path='/likedPosts' element={<LikedPosts/>}/>
+            <Route path='/commentedPosts' element={<CommentedPosts/>}/>
+            <Route path='/savedPosts' element={<SavedPosts/>}/>
+            <Route path='/notifications' 
+            element=
+            {<Notifications  
+              likeNotifications={likeNotifications} 
+              setLikeNotifications={setLikeNotifications} 
+              commentNotifications={commentNotifications} 
+              setCommentNotifications={setCommentNotifications} 
+              friendRequestReceivedNotifications={friendRequestReceivedNotifications} 
+              setFriendRequestReceivedNotifications={setFriendRequestReceivedNotifications} 
+              friendRequestAcceptedNotifications={friendRequestAcceptedNotifications} 
+              setFriendRequestAcceptedNotifications={setFriendRequestAcceptedNotifications}
+            />}/>
+
             <Route path='/post/:postId' element={<Post/>}/>
             <Route path='/userProfile/:userId' element={<UserProfile/>}/>
-            <Route path='/chat' element={<Chats/>}>
+            <Route path='/chat' element={<Chats newMsg={newMsg} setNewMsg={setNewMsg} />}>
               <Route path=':id' element={<ChatWindow/>}/>
             </Route>
           </Routes>

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import Feed from './Feed';
+import { socket } from '../utils/socket';
 
 const UserProfile = () => {
 
@@ -236,7 +237,8 @@ const UserProfile = () => {
         )
         .then((res)=>{
             console.log(res.data);
-            navigate('/chat')
+            socket.emit("join-chat", res.data.chatId);
+            navigate(`/chat/${res.data.chatId}`)
         })
         .catch((err)=>{
             console.log(err);

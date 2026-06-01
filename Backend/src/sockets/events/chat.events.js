@@ -69,6 +69,13 @@ function registerChatEvents(io, socket){
                 }
             })
             io.to(chatId).emit("receive-message", message);
+            io.to(otherUserId.toString()).emit(
+                "new-message-notification",
+                {
+                    chatId,
+                    message
+                }
+            );
         }
         catch(err){
             console.log(err.message);

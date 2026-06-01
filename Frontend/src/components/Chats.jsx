@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
-const Chats = () => {
+const Chats = ({newMsg, setNewMsg}) => {
 
     const [user, setUser] = useState(null);
     const [friends, setFriends] = useState([]);
@@ -45,7 +45,7 @@ const Chats = () => {
             }
         )
         .then((res)=>{
-            console.log(res.data);
+            console.log("chats: ", res.data);
             setChats(res.data.chats);
         })
         .catch((err)=>{
@@ -65,13 +65,46 @@ const Chats = () => {
         allChats();
     },[])
 
+    useEffect(() => {
+        if (!newMsg.length) return;
+
+        const latestMsg = newMsg[newMsg.length - 1];
+
+        setChats(prevChats => {
+            const updatedChats = prevChats.map(chat => {
+                if (chat._id === latestMsg.chatId) {
+                    return {
+                        ...chat,
+                        lastMessage: latestMsg.message.text,
+                        lastMessageSender:
+                            latestMsg.message.sender === chat.meId
+                                ? chat.me
+                                : chat.friendUsername
+                    };
+                }
+                return chat;
+            });
+
+            const activeChat = updatedChats.find(
+                chat => chat._id === latestMsg.chatId
+            );
+            const remainingChats = updatedChats.filter(
+                chat => chat._id !== latestMsg.chatId
+            );
+
+            return activeChat
+                ? [activeChat, ...remainingChats]
+                : updatedChats;
+        });
+
+    }, [newMsg]);
+
+
   return (
     <div className='h-screen'>
         <div className='h-full flex '>
             <div className='w-[30%] border flex flex-col p-5 gap-5 overflow-y-auto hide-scrollbar'>
-                <div className='sticky top-0 z-10'>
-                    <input className=' h-full w-full border rounded px-3 py-2' placeholder='Search...' type="text" />
-                </div>
+                <h1 className='text-2xl font-semibold'>Chats</h1>
 
                 {
                     chats.map((chat)=>(
@@ -84,7 +117,7 @@ const Chats = () => {
                                 <div className='flex flex-col  h-[65%] justify-start items-start'>
                                     <h1 className='font-semibold  text-lg'>{chat.friendFullName.firstName}</h1>
                                     <div>
-                                        <h1 className='text-sm'>{chat.lastMessage}</h1>
+                                        <h1 className='text-sm truncate w-50'>{chat.lastMessage}</h1>
                                     </div>
                                     
                                 </div>

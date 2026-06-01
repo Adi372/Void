@@ -76,18 +76,26 @@ const ChatWindow = () => {
     if(user){
       loadMessages(id);
     }
-  }, [user, id, messages]);
+  }, [user, id]);
+
+  useEffect(() => {
+    if(id){
+      socket.emit("join-chat", id);
+      console.log("chat opened");
+    }
+  }, [id]);
 
   useEffect(()=>{
   
    const handler = (data) => {
-    if (data.chatId !== id) return;
+    console.log("received socket event:", data);
+    if (data.chatId.toString() !== id) return;
      console.log(data);
-     const msg = {
-       id: Date.now(),
-       sender: "friend",
-       message: data.text
-     }
+      const msg = {
+        id: data._id,
+        sender: data.sender === user._id ? "me" : "friend",
+        message: data.text
+      };
      setMessages((prev)=>[...prev, msg]);
    }
   
@@ -95,7 +103,7 @@ const ChatWindow = () => {
    return () => {
      socket.off("receive-message", handler);
    };
-  }, []);
+  }, [user, id]);
 
   const handleSubmit = (e)=>{
     e.preventDefault();
@@ -106,13 +114,6 @@ const ChatWindow = () => {
       participants: [user._id, chat.friendId]
     }
     socket.emit("send-message", data);
-    let msg = {
-     id: Date.now(),
-     sender: "me",
-     message: myMessage
-    }
-    console.log("message submited");
-    setMessages((prev)=>[...prev, msg]);
     setMyMessage("");
   }
 
@@ -132,7 +133,7 @@ const ChatWindow = () => {
 
         {
           messages.map((msg)=>(
-            <div key={msg.id} className={`flex gap-3 items-center w-fit max-w-[45%] break-all ${msg.sender === 'me'?'self-end flex-row-reverse':''}`}>
+            <div key={msg.id} className={`flex gap-3 items-center w-fit max-w-[93%] break-all ${msg.sender === 'me'?'self-end flex-row-reverse':''}`}>
               <div className='border h-10 w-10 rounded-full flex justify-center items-center self-start shrink-0'>
                 <i class="ri-user-line"></i>
               </div>

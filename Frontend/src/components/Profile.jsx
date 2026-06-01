@@ -1,6 +1,6 @@
 import React from 'react'
 import Feed from './Feed'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import axios from 'axios'
@@ -9,6 +9,7 @@ const Profile = () => {
 
     const [user, setUser] = useState(null);
     const [posts, setPosts] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(()=>{
         axios.get('http://localhost:3000/api/auth/findUser',
@@ -40,6 +41,19 @@ const Profile = () => {
         })
     },[]);
 
+    function logout(){
+        axios.get('http://localhost:3000/api/auth/logout', 
+            {withCredentials: true}
+        )
+        .then((res)=>{
+            console.log(res.data);
+            navigate('/login');
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
     if(!user){
         return <div className='h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>
     }
@@ -49,7 +63,7 @@ const Profile = () => {
         <div className=' p-7 flex flex-col gap-5'>
             <div>
                 <div className=' h-10 flex py-2 px-1 items-center gap-5'>
-                    <button className='ml-auto border rounded py-1 px-2'><i class="ri-logout-box-r-line"></i></button>
+                    <button onClick={(()=>logout())} className='ml-auto border rounded py-1 px-2'><i class="ri-logout-box-r-line"></i></button>
                 </div>
                 <div className='flex  h-50 items-center gap-20'>
                     <div className='border h-40 w-40 rounded-full flex items-center justify-center text-[170px] overflow-hidden'>
@@ -76,8 +90,8 @@ const Profile = () => {
                 </div>   
             </div>
 
-            <div className=' flex p-1 gap-2 font-semibold justify-between'>
-                <Link>
+            <div className=' flex px-1 py-5 gap-2 font-semibold justify-between'>
+                <Link to='/likedPosts'>
                     <div className='flex items-center gap-2'>
                         <div className='text-xl'>
                             <i class="ri-heart-3-fill"></i>
@@ -85,7 +99,7 @@ const Profile = () => {
                         <h1>{`Liked Posts: ${user.likedPosts.length}`}</h1>
                     </div>
                 </Link>
-                <Link>
+                <Link to='/commentedPosts'>
                     <div className='flex items-center gap-2'>
                         <div className='text-xl'>
                             <i class="ri-chat-1-fill"></i>
@@ -93,20 +107,12 @@ const Profile = () => {
                         <h1>{`Commented Posts: ${user.comments.length}`}</h1>
                     </div>
                 </Link>
-                <Link>
+                <Link to='/savedPosts'>
                     <div className='flex items-center gap-2'>
                         <div className='text-xl'>
                             <i class="ri-bookmark-fill"></i>
                         </div>
                         <h1>{`Saved Posts: ${user.savedPosts.length}`}</h1>
-                    </div>
-                </Link>
-                <Link>
-                    <div className='flex items-center gap-2'>
-                        <div className='text-xl'>
-                            <i class="ri-share-fill"></i>
-                        </div>
-                        <h1>{`Shared Posts: ${user.shares.length}`}</h1>
                     </div>
                 </Link>
             </div>

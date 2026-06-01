@@ -279,7 +279,9 @@ async function allChats(req, res) {
 
         const chats = await chatModel.find({
             participants: user._id
-        }).populate("participants", "username fullName _id");
+        })
+        .populate("participants", "username fullName _id")
+        .sort({ "lastMessage.createdAt": -1 });
 
         const formattedChats = chats.map(chat => {
             const me = chat.participants.find(p => p._id.toString() === user._id.toString());

@@ -1,3 +1,4 @@
+const postModel = require('../models/posts.model');
 const userModel = require('../models/users.model');
 const {getIO} = require('../sockets/socket.server');
 

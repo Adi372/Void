@@ -164,9 +164,25 @@ async function findUser(req, res) {
     }
 }
 
+async function logout(req, res) {
+    try{
+        res.clearCookie("token");
+        res.status(200).json({
+            message: "User logged out successfully"
+        })
+    }
+    catch(err){
+        return res.status(500).json({
+            message: "Failed to logout",
+            error: err.message
+        })
+    }
+}
+
 module.exports = {
     register,
     login,
     deleteAccount,
-    findUser
+    findUser,
+    logout
 }

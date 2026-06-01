@@ -463,6 +463,68 @@ async function unsave(req, res) {
     }
 }
 
+async function likedPosts(req, res){
+    try{
+        const user = req.user;
+        
+        const likedPosts = await postModel.find({
+            likes: user._id
+        })
+        return res.status(200).json({
+            message: "All your likedPosts fetched",
+            likedPosts
+        })
+    }
+    catch(err){
+        return res.status(500).json({
+            message: "Failed to fetch likedPosts",
+            error: err.message
+        })
+    }
+}
+
+async function commentedPosts(req, res) {
+    try {
+        const user = req.user;
+
+        const commentedPosts = await postModel.find({
+            "comments.user": user._id
+        });
+
+        return res.status(200).json({
+            message: "All your commented posts fetched",
+            commentedPosts
+        });
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: "Failed to fetch commented posts",
+            error: err.message
+        });
+    }
+}
+
+async function savedPosts(req, res) {
+    try {
+        const user = req.user;
+
+        const savedPosts = await postModel.find({
+            saves: user._id
+        });
+
+        return res.status(200).json({
+            message: "All your saved posts fetched",
+            savedPosts
+        });
+    }
+    catch (err) {
+        return res.status(500).json({
+            message: "Failed to fetch saved posts",
+            error: err.message
+        });
+    }
+}
+
 module.exports = {
     create,
     deletePost,
@@ -474,5 +536,8 @@ module.exports = {
     removeComment,
     save,
     unsave,
-    userPosts
+    userPosts,
+    likedPosts,
+    commentedPosts,
+    savedPosts
 }

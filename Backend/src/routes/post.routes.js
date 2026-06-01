@@ -11,7 +11,10 @@ const {
     removeComment, 
     save,
     unsave,
-    userPosts
+    userPosts,
+    likedPosts,
+    commentedPosts,
+    savedPosts
 } = require('../controllers/post.controller')
 
 const router = express.Router();
@@ -27,5 +30,8 @@ router.post('/removeComment', isLoggedIn, removeComment);
 router.post('/save', isLoggedIn, save);
 router.post('/unsave', isLoggedIn, unsave);
 router.post('/userPosts', isLoggedIn, userPosts);
+router.get('/likedPosts', isLoggedIn, likedPosts);
+router.get('/commentedPosts', isLoggedIn, commentedPosts);
+router.get('/savedPosts', isLoggedIn, savedPosts);
 
 module.exports = router;
