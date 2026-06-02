@@ -7,70 +7,51 @@ import { useLocation } from 'react-router-dom'
 
 function App() {
 
-  const [likeNotifications, setLikeNotifications] = useState([]);
-  const [commentNotifications, setCommentNotifications] = useState([]);
-  const [friendRequestReceivedNotifications, setFriendRequestReceivedNotifications] = useState([]);
-  const [friendRequestAcceptedNotifications, setFriendRequestAcceptedNotifications] = useState([]);
-  const [user, setUser] = useState(null);
-
+  const [likeNotification, setLikeNotification] = useState(null);
+  const [commentNotification, setCommentNotification] = useState(null);
+  const [friendRequestReceivedNotification, setFriendRequestReceivedNotification] = useState(null);
+  const [friendRequestAcceptedNotification, setFriendRequestAcceptedNotification] = useState(null);
   const [newMsg, setNewMsg] = useState([]);
 
   useEffect(()=>{
-        axios.get('http://localhost:3000/api/auth/findUser',
-            {
-                withCredentials: true
-            }
-        )
-        .then((res)=>{
-            setUser(res.data);
-            setLikeNotifications(res.data.notifications.likes);
-            setCommentNotifications(res.data.notifications.comments);
-            setFriendRequestReceivedNotifications(res.data.notifications.friendRequestsReceived);
-            setFriendRequestAcceptedNotifications(res.data.notifications.acceptedRequest);
-        })
-        .catch((err)=>{
-            console.log(err);
-            setUser(null);
-        });
-    }, []);
-
-  useEffect(()=>{
-    const handleNotifitcations = (data) =>{
-      setLikeNotifications(prev => [...prev, data]);
+    const handleNotifitcation = (data) =>{
+      console.log("liked-post received", data);
+      setLikeNotification(data);
     }
-    socket.on("liked-post", handleNotifitcations);
+    socket.on("liked-post", handleNotifitcation);
     return()=>{
-      socket.off("liked-post", handleNotifitcations);
+      socket.off("liked-post", handleNotifitcation);
     }
   }, []);
 
   useEffect(()=>{
-    const handleNotifitcations = (data) =>{
-      setCommentNotifications(prev => [...prev, data]);
+    const handleNotifitcation = (data) =>{
+       console.log("commented-post received", data);
+      setCommentNotification(data);
     }
-    socket.on("commented", handleNotifitcations);
+    socket.on("commented", handleNotifitcation);
     return()=>{
-      socket.off("commented", handleNotifitcations);
+      socket.off("commented", handleNotifitcation);
     }
   }, []);
 
   useEffect(()=>{
-    const handleNotifitcations = (data) =>{
-      setFriendRequestReceivedNotifications(prev => [...prev, data]);
+    const handleNotifitcation = (data) =>{
+      setFriendRequestReceivedNotification(data);
     }
-    socket.on("friend-request-received", handleNotifitcations);
+    socket.on("friend-request-received", handleNotifitcation);
     return()=>{
-      socket.off("friend-request-received", handleNotifitcations);
+      socket.off("friend-request-received", handleNotifitcation);
     }
   }, []);
 
   useEffect(()=>{
-    const handleNotifitcations = (data) =>{
-      setFriendRequestAcceptedNotifications(prev => [...prev, data]);
+    const handleNotifitcation = (data) =>{
+      setFriendRequestAcceptedNotification(data);
     }
-    socket.on("friend-request-accepted", handleNotifitcations);
+    socket.on("friend-request-accepted", handleNotifitcation);
     return()=>{
-      socket.off("friend-request-accepted", handleNotifitcations);
+      socket.off("friend-request-accepted", handleNotifitcation);
     }
   }, []);
 
@@ -88,14 +69,14 @@ function App() {
   return (
     <div>
       <Routing 
-        likeNotifications={likeNotifications} 
-        setLikeNotifications={setLikeNotifications} 
-        commentNotifications={commentNotifications} 
-        setCommentNotifications={setCommentNotifications}
-        friendRequestReceivedNotifications={friendRequestReceivedNotifications}
-        setFriendRequestReceivedNotifications={setFriendRequestReceivedNotifications}
-        friendRequestAcceptedNotifications={friendRequestAcceptedNotifications}
-        setFriendRequestAcceptedNotifications={setFriendRequestAcceptedNotifications}
+        likeNotification={likeNotification} 
+        setLikeNotification={setLikeNotification} 
+        commentNotification={commentNotification} 
+        setCommentNotification={setCommentNotification}
+        friendRequestReceivedNotification={friendRequestReceivedNotification}
+        setFriendRequestReceivedNotification={setFriendRequestReceivedNotification}
+        friendRequestAcceptedNotification={friendRequestAcceptedNotification}
+        setFriendRequestAcceptedNotification={setFriendRequestAcceptedNotification}
         newMsg={newMsg}
         setNewMsg={setNewMsg}
       />

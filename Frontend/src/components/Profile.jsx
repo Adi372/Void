@@ -76,9 +76,9 @@ const Profile = () => {
                             <div className='flex gap-1'>
                                 <h1>{`${user.createdPosts.length} posts`}</h1>
                             </div>
-                            <div className='flex gap-1'>
+                            <Link to='/friends' className='flex gap-1'>
                                 <h1>{`${user.friends.length} friends`}</h1>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                 </div>

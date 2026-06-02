@@ -95,6 +95,10 @@ const userSchema = mongoose.Schema({
                 lastName: {
                     type: String,
                 }
+            },
+            createdAt: {
+                type: Date,
+                default: Date.now
             }
         }],
         acceptedRequest: [{
@@ -112,6 +116,10 @@ const userSchema = mongoose.Schema({
                 lastName: {
                     type: String,
                 }
+            },
+            createdAt: {
+                type: Date,
+                default: Date.now
             }
         }],
         likes: [{
@@ -137,6 +145,10 @@ const userSchema = mongoose.Schema({
                     type: String,
                 }
             },
+            createdAt: {
+                type: Date,
+                default: Date.now
+            }
         }],
         comments: [{
             comment: {
@@ -164,6 +176,10 @@ const userSchema = mongoose.Schema({
                     type: String,
                 }
             },
+            createdAt: {
+                type: Date,
+                default: Date.now
+            }
         }],
     }
 }, {timestamps: true});

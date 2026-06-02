@@ -3,47 +3,57 @@ import { Link, useLocation } from 'react-router-dom'
 
 const LeftBar = (
   {
-    likeNotifications, 
-    setLikeNotifications, 
-    commentNotifications, 
-    setCommentNotifications, 
-    friendRequestReceivedNotifications, 
-    setFriendRequestReceivedNotifications, 
-    friendRequestAcceptedNotifications, 
-    setFriendRequestAcceptedNotifications,
+    likeNotification, 
+    setLikeNotification, 
+    commentNotification, 
+    setCommentNotification, 
+    friendRequestReceivedNotification, 
+    setFriendRequestReceivedNotification, 
+    friendRequestAcceptedNotification, 
+    setFriendRequestAcceptedNotification,
     newMsg,
     setNewMsg
   }) => {
 
   const [msgNotificationLength, setMsgNotificationLength] = useState('');
-  const [notificationsLength, setNotificationsLength] = useState('');
+  const [notificationsLength, setNotificationsLength] = useState(0);
   const location = useLocation();
   console.log(location.pathname);
 
-  useEffect(()=>{
-    if(notificationsLength >= 99){
-      return;
-    }
+  useEffect(() => {
+  if (likeNotification) {
+    setNotificationsLength(prev => Math.min(prev + 1, 99));
+  }
+}, [likeNotification]);
 
-    setNotificationsLength(likeNotifications.length + commentNotifications.length + friendRequestReceivedNotifications.length + friendRequestAcceptedNotifications.length);
-  }, [likeNotifications, commentNotifications, friendRequestReceivedNotifications, friendRequestAcceptedNotifications])
+useEffect(() => {
+  if (commentNotification) {
+    setNotificationsLength(prev => Math.min(prev + 1, 99));
+  }
+}, [commentNotification]);
+
+useEffect(() => {
+  if (friendRequestReceivedNotification) {
+    setNotificationsLength(prev => Math.min(prev + 1, 99));
+  }
+}, [friendRequestReceivedNotification]);
+
+useEffect(() => {
+  if (friendRequestAcceptedNotification) {
+    setNotificationsLength(prev => Math.min(prev + 1, 99));
+  }
+}, [friendRequestAcceptedNotification]);
 
   useEffect(() => {
-    if (newMsg.length >= 99) {
-      setMsgNotificationLength(99);
-      return;
-    }
-  
-
-    setMsgNotificationLength(newMsg.length);
+    setMsgNotificationLength(Math.min(newMsg.length, 99));
     console.log('Msg Notifications: ', newMsg);
   }, [newMsg]);
   
 
-  console.log('like notifications: ', likeNotifications);
-  console.log('comment notifications: ', commentNotifications);
-  console.log('Friend requests received notifications: ', friendRequestReceivedNotifications);
-  console.log('Friend requests accepted notifications: ', friendRequestAcceptedNotifications);
+  console.log('like notifications: ', likeNotification);
+  console.log('comment notifications: ', commentNotification);
+  console.log('Friend requests received notifications: ', friendRequestReceivedNotification);
+  console.log('Friend requests accepted notifications: ', friendRequestAcceptedNotification);
 
 
     const prevPath = useRef(location.pathname);
@@ -52,9 +62,19 @@ const LeftBar = (
       const wasInChat = prevPath.current.startsWith("/chat");
       const nowInChat = location.pathname.startsWith("/chat");
 
-      // User just left chat
       if (wasInChat && !nowInChat) {
         setNewMsg([]);
+      }
+
+      const wasInNotifications = prevPath.current.startsWith("/notifications");
+      const nowInNotifications = location.pathname.startsWith("/notifications");
+
+      if (wasInNotifications && !nowInNotifications) {
+        setLikeNotification('');
+        setCommentNotification('');
+        setFriendRequestReceivedNotification('');
+        setFriendRequestAcceptedNotification('');
+        setNotificationsLength(0);
       }
 
       prevPath.current = location.pathname;
@@ -66,7 +86,7 @@ const LeftBar = (
         <Link to='/' className='text-2xl font-bold w-fit'>Logo</Link>
         <div className=' relative flex flex-col gap-8'>
 
-          <Link to='/notifications' className={`${notificationsLength? "flex":"hidden"} border absolute h-5 w-5 overflow-hidden right-3 top-3 bg-black rounded-full text-2xl flex justify-center items-center`}>
+          <Link to='/notifications' className={`${notificationsLength && !location.pathname.startsWith("/notifications")? "flex":"hidden"} border absolute h-5 w-5 overflow-hidden right-3 top-3 bg-black rounded-full text-2xl flex justify-center items-center`}>
             <h1 className='text-[12px] font-semibold text-white'>{notificationsLength}</h1>
           </Link>
 

@@ -179,7 +179,8 @@ async function like(req, res) {
                     fullName: user.fullName,
                     postId: likedPost._id,
                     postCaption: likedPost.caption,
-                    message: "Your post got a like"
+                    message: "Your post got a like",
+                    createdAt: new Date()
                 })
             }
         }
@@ -284,7 +285,8 @@ async function comment(req, res) {
                     postId: commentedPost._id,
                     postCaption: commentedPost.caption,
                     comment: comment,
-                    message: "Your post got a comment"
+                    message: "Your post got a comment",
+                    createdAt: new Date()
                 });
             }
         }

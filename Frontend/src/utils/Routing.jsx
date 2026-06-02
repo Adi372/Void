@@ -16,16 +16,17 @@ import Notifications from '../components/Notifications'
 import LikedPosts from '../components/LikedPosts'
 import CommentedPosts from '../components/CommentedPosts'
 import SavedPosts from '../components/SavedPosts'
+import AllFriends from '../components/AllFriends'
 
 const Routing = ({
-  likeNotifications, 
-  setLikeNotifications, 
-  commentNotifications, 
-  setCommentNotifications, 
-  friendRequestReceivedNotifications, 
-  setFriendRequestReceivedNotifications, 
-  friendRequestAcceptedNotifications, 
-  setFriendRequestAcceptedNotifications,
+  likeNotification, 
+  setLikeNotification, 
+  commentNotification, 
+  setCommentNotification, 
+  friendRequestReceivedNotification, 
+  setFriendRequestReceivedNotification, 
+  friendRequestAcceptedNotification, 
+  setFriendRequestAcceptedNotification,
   newMsg,
   setNewMsg
 }) => {
@@ -37,14 +38,14 @@ const Routing = ({
     <div className='flex h-screen'>
         {
           bars && <LeftBar 
-          likeNotifications={likeNotifications} 
-          setLikeNotifications={setLikeNotifications} 
-          commentNotifications={commentNotifications} 
-          setCommentNotifications={setCommentNotifications} 
-          friendRequestReceivedNotifications={friendRequestReceivedNotifications} 
-          setFriendRequestReceivedNotifications={setFriendRequestReceivedNotifications} 
-          friendRequestAcceptedNotifications={friendRequestAcceptedNotifications} 
-          setFriendRequestAcceptedNotifications={setFriendRequestAcceptedNotifications}
+          likeNotification={likeNotification} 
+          setLikeNotification={setLikeNotification} 
+          commentNotification={commentNotification} 
+          setCommentNotification={setCommentNotification} 
+          friendRequestReceivedNotification={friendRequestReceivedNotification} 
+          setFriendRequestReceivedNotification={setFriendRequestReceivedNotification} 
+          friendRequestAcceptedNotification={friendRequestAcceptedNotification} 
+          setFriendRequestAcceptedNotification={setFriendRequestAcceptedNotification}
           newMsg={newMsg}
           setNewMsg={setNewMsg}
           />
@@ -60,17 +61,18 @@ const Routing = ({
             <Route path='/likedPosts' element={<LikedPosts/>}/>
             <Route path='/commentedPosts' element={<CommentedPosts/>}/>
             <Route path='/savedPosts' element={<SavedPosts/>}/>
+            <Route path='/friends' element={<AllFriends/>}/>
             <Route path='/notifications' 
             element=
             {<Notifications  
-              likeNotifications={likeNotifications} 
-              setLikeNotifications={setLikeNotifications} 
-              commentNotifications={commentNotifications} 
-              setCommentNotifications={setCommentNotifications} 
-              friendRequestReceivedNotifications={friendRequestReceivedNotifications} 
-              setFriendRequestReceivedNotifications={setFriendRequestReceivedNotifications} 
-              friendRequestAcceptedNotifications={friendRequestAcceptedNotifications} 
-              setFriendRequestAcceptedNotifications={setFriendRequestAcceptedNotifications}
+              likeNotification={likeNotification} 
+              setLikeNotification={setLikeNotification} 
+              commentNotification={commentNotification} 
+              setCommentNotification={setCommentNotification} 
+              friendRequestReceivedNotification={friendRequestReceivedNotification} 
+              setFriendRequestReceivedNotification={setFriendRequestReceivedNotification} 
+              friendRequestAcceptedNotification={friendRequestAcceptedNotification} 
+              setFriendRequestAcceptedNotification={setFriendRequestAcceptedNotification}
             />}/>
 
             <Route path='/post/:postId' element={<Post/>}/>

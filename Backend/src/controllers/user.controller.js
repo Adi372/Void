@@ -125,7 +125,8 @@ async function sendFriendRequest(req, res) {
                 userId: user1._id,
                 username: user1.username,
                 fullName: user1.fullName,
-                message: "You received a friend request"
+                message: "You received a friend request",
+                createdAt: new Date()
             });
         }
 
@@ -209,7 +210,8 @@ async function acceptFriendRequest(req, res) {
                 userId: user1._id,
                 username: user1.username,
                 fullName: user1.fullName,
-                message: "Friend request accepted"
+                message: "Friend request accepted",
+                createdAt: new Date()
             })
         }
 
