@@ -54,6 +54,19 @@ const Profile = () => {
         })
     }
 
+    function deleteAccount(){
+        axios.get('http://localhost:3000/api/auth/delete', 
+            {withCredentials: true}
+        )
+        .then((res)=>{
+            console.log(res.data);
+            navigate('/register');
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
     if(!user){
         return <div className='h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>
     }
@@ -62,8 +75,10 @@ const Profile = () => {
     <div className='h-screen p-5 overflow-y-auto hide-scrollbar'>
         <div className=' p-7 flex flex-col gap-5'>
             <div>
-                <div className=' h-10 flex py-2 px-1 items-center gap-5'>
-                    <button onClick={(()=>logout())} className='ml-auto border rounded py-1 px-2'><i class="ri-logout-box-r-line"></i></button>
+                <div className=' flex py-2 px-1 gap-5 justify-end'>
+                    <button onClick={(()=>deleteAccount())} className='border w-fit rounded py-1 px-2 font-semibold'>Delete Account <i class="ri-delete-bin-7-line"></i></button>
+                    <button onClick={(()=>logout())} className='w-fit border rounded py-1 px-2 font-semibold'>Logout <i class="ri-logout-box-r-line"></i></button>
+                    
                 </div>
                 <div className='flex  h-50 items-center gap-20'>
                     <div className='border h-40 w-40 rounded-full flex items-center justify-center text-[170px] overflow-hidden'>
@@ -82,12 +97,6 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
-                <div className=' h-10 flex py-2 px-5 items-center gap-5'>
-                    <button className='border rounded py-1 px-2 gap-2 flex'>
-                        <i class="ri-pencil-fill"></i>
-                        <h1 className='font-semibold'>Edit Profile</h1>
-                    </button>
-                </div>   
             </div>
 
             <div className=' flex px-1 py-5 gap-2 font-semibold justify-between'>

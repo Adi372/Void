@@ -39,7 +39,7 @@ const Chats = ({newMsg, setNewMsg}) => {
     }
 
     function allChats(){
-        axios.get('http://localhost:3000/api/chat/allChats', 
+        axios.get('http://localhost:3000/api/chat/allRealChats', 
             {
                 withCredentials: true
             }

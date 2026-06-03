@@ -13,7 +13,8 @@ const {
     accountSuggestions,
     allUsers,
     searchOneUser,
-    allFriends
+    allFriends,
+    updateInterests
     } 
     = require('../controllers/user.controller');
 const isLoggedIn = require('../middlewares/auth.middleware');
@@ -31,5 +32,6 @@ router.get('/similarAccounts', isLoggedIn, accountSuggestions);
 router.get('/allUsers', isLoggedIn, allUsers);
 router.post('/searchOneUser', isLoggedIn, searchOneUser);
 router.get('/allFriends', isLoggedIn, allFriends);
+router.post('/updateInterests', isLoggedIn, updateInterests);
 
 module.exports = router;

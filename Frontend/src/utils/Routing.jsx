@@ -17,6 +17,7 @@ import LikedPosts from '../components/LikedPosts'
 import CommentedPosts from '../components/CommentedPosts'
 import SavedPosts from '../components/SavedPosts'
 import AllFriends from '../components/AllFriends'
+import Interests from '../components/Interests'
 
 const Routing = ({
   likeNotification, 
@@ -32,7 +33,7 @@ const Routing = ({
 }) => {
 
   const location = useLocation();
-  const bars = location.pathname !== '/login' && location.pathname !== '/register';
+  const bars = location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/interests';
 
   return (
     <div className='flex h-screen'>
@@ -62,6 +63,7 @@ const Routing = ({
             <Route path='/commentedPosts' element={<CommentedPosts/>}/>
             <Route path='/savedPosts' element={<SavedPosts/>}/>
             <Route path='/friends' element={<AllFriends/>}/>
+            <Route path='interests' element={<Interests/>} />
             <Route path='/notifications' 
             element=
             {<Notifications  

@@ -33,7 +33,7 @@ const Register = () => {
         .then((res)=>{
             setUserDetails(res.data);
             socket.disconnect().connect();
-            navigate('/profile')
+            navigate('/interests')
         })
         .catch((err)=>{
             if(err.response?.status === 409){

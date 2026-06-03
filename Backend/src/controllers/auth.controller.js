@@ -138,7 +138,14 @@ async function deleteAccount(req, res) {
         
         await postModel.deleteMany({user: user._id});
 
-        await userModel.findByIdAndDelete(user._id);
+        await userModel.findByIdAndUpdate(user._id, {
+            username: `deleted_user_${user._id}`,
+            fullName: {
+                firstName: "Deleted",
+                lastName: "User"
+            },
+            email: `deleted_${user._id}@deleted.com`,
+        });
         return res.status(200).json({
             message: "Account and all posts deleted successfully"
         })

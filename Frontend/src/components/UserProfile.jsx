@@ -248,7 +248,7 @@ const UserProfile = () => {
   return (
     <div className='h-screen overflow-y-auto hide-scrollbar'>
         <div className='w-full flex flex-col'>
-            <div className='flex  h-50 items-center gap-10 px-5 w-full justify-center'>
+            <div className='flex pt-15 pb-10 gap-10 px-5 w-full justify-center'>
                 <div className='border h-40 w-40 rounded-full flex items-center justify-center text-[170px] overflow-hidden'>
                     <i class="ri-user-line"></i>
                 </div>

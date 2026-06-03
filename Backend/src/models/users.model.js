@@ -27,14 +27,11 @@ const userSchema = mongoose.Schema({
     interests: [{
         type: String,
         enum: [
-            "coding",
-            "music",
-            "sports",
-            "gaming",
-            "travel",
-            "movies",
-            "fitness",
-            "photography"
+            "Technology","Music","Sports","Gaming","Travel",
+            "Movies & TV","Fitness","Photography","Food",
+            "Fashion","Art & Design","Business","Education",
+            "Science","Books","Lifestyle","Creators","Anime",
+            "Memes","News"
         ]
     }],
     friends:[{

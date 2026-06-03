@@ -588,6 +588,41 @@ async function allFriends (req, res){
     }
 }
 
+async function updateInterests(req, res) {
+    try {
+        const user = req.user;
+        const { interests } = req.body;
+
+        if (!Array.isArray(interests)) {
+            return res.status(400).json({
+                message: "Interests must be an array"
+            });
+        }
+
+        const updatedUser = await userModel.findByIdAndUpdate(
+            user._id,
+            {
+                interests
+            },
+            {
+                new: true,
+                runValidators: true
+            }
+        );
+
+        return res.status(200).json({
+            message: "Profile updated successfully",
+            user: updatedUser
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            message: "Failed to update profile",
+            error: err.message
+        });
+    }
+}
+
 module.exports = {
     searchUser,
     sendFriendRequest,
@@ -601,5 +636,6 @@ module.exports = {
     accountSuggestions,
     allUsers,
     searchOneUser,
-    allFriends
+    allFriends,
+    updateInterests
 }
