@@ -358,5 +358,5 @@ Stores:
 - Group chats
 - Voice/video calling
 - Advanced AI agents
-
+- Small 2d metaverse
 ---
