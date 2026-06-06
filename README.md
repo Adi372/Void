@@ -1,6 +1,8 @@
 # Social Media Platform with AI Chat
 
-> **Project Status:** This project is currently under active development. Features, APIs, UI components, and documentation may change as development continues.
+> 🚧 **Project Status:** This project is currently under active development. Features, APIs, UI components, and documentation may change as development continues.
+
+> 🎬 **Video Teaser:** Coming Soon.
 
 ## Overview
 A full-stack social media application featuring user authentication, social posting, friendships, notifications, real-time messaging, and an AI-powered chat assistant with long-term memory using embeddings and vector search.
