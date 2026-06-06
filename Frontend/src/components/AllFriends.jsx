@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const AllFriends = () => {
 
@@ -44,16 +45,28 @@ const AllFriends = () => {
                 friends.map((f)=>(
                     <div key={f._id} className='border-b px-4 py-4 w-full flex items-center justify-between'>
 
-                        <div className='flex gap-4'>
-                            <div className='border h-15 w-15 rounded-full flex justify-center items-center'>
-                                <i class="ri-user-line"></i>
+                        <Link to={`/userProfile/${f._id}`} className='flex gap-4'>
+                            <div className="border h-15 w-15 rounded-full overflow-hidden cursor-pointer">
+                                {!f?.profilePic ? (
+                                <div className="h-full w-full flex items-center justify-center text-2xl">
+                                    <i className="ri-user-line"></i>
+                                </div>
+                                ) : (
+                                <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
+                                    <img
+                                        src={f.profilePic}
+                                        alt="Profile Preview"
+                                        className="h-full w-full object-cover"
+                                    />
+                                </div>
+                                )}
                             </div>
                             <div className='flex flex-col justify-center'>
                                 <h1 className='font-semibold text-xl'>{f.username}</h1>
                                 <h1 className='text-sm'>{f.fullName.firstName} {f.fullName.lastName}</h1>
                             </div>
-                        </div>
-                        <button onClick={(()=>removeFriend(f._id))} className='border rounded py-1 px-2'>
+                        </Link>
+                        <button onClick={(()=>removeFriend(f._id))} className='cursor-pointer border rounded py-1 px-2'>
                             <h1>Remove</h1>
                         </button>
 

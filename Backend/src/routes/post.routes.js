@@ -1,5 +1,6 @@
 const express = require('express');
 const isLoggedIn = require('../middlewares/auth.middleware');
+const multer = require('multer');
 const {
     create, 
     deletePost, 
@@ -19,7 +20,11 @@ const {
 
 const router = express.Router();
 
-router.post('/create', isLoggedIn, create);
+const upload = multer({
+    storage: multer.memoryStorage()
+})
+
+router.post('/create', isLoggedIn, upload.single("image"), create);
 router.post('/deletePost', isLoggedIn, deletePost);
 router.get('/allPosts', isLoggedIn, allPosts);
 router.get('/myPosts', isLoggedIn, myPosts);

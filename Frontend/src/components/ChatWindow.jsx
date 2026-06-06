@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { socket } from '../utils/socket';
 
 const ChatWindow = () => {
@@ -54,8 +54,10 @@ const ChatWindow = () => {
       console.log(res.data);
       const formatted = res.data.messages.map((msg)=>({
           id: msg._id.toString(),
+          senderId: msg.sender,
           sender: msg.sender === user._id? "me":"friend",
-          message: msg.text
+          message: msg.text,
+          senderPic: msg.senderPic
         }));
         setMessages(formatted);
     })
@@ -94,6 +96,8 @@ const ChatWindow = () => {
       const msg = {
         id: data._id,
         sender: data.sender === user._id ? "me" : "friend",
+        senderId: data.sender === user._id ? user._id : chat.friendId,
+        senderPic: data.sender === user._id ? user.profilePic : chat.friendPic,
         message: data.text
       };
      setMessages((prev)=>[...prev, msg]);
@@ -120,13 +124,25 @@ const ChatWindow = () => {
   return (
     <div className='h-full w-full flex flex-col'>
       <div className='border w-full h-[12%] flex items-center px-5 gap-4'>
-        <div className='border h-15 w-15 rounded-full flex justify-center items-center'>
-          <i class="ri-user-line"></i>
-        </div>
-        <div className='flex flex-col justify-center'>
+        <Link to={`/userProfile/${chat?.friendId}`} className="border h-10 w-10 rounded-full overflow-hidden cursor-pointer">
+            {!chat?.friendPic ? (
+            <div className="h-full w-full flex items-center justify-center text-2xl">
+                <i className="ri-user-line"></i>
+            </div>
+            ) : (
+            <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
+                <img
+                    src={chat.friendPic}
+                    alt="Profile Preview"
+                    className="h-full w-full object-cover"
+                />
+            </div>
+            )}
+        </Link>
+        <Link to={`/userProfile/${chat?.friendId}`} className='flex flex-col justify-center'>
             <h1 className='font-semibold text-lg'>{chat?.friendFullName?.firstName} {chat?.friendFullName?.lastName}</h1>
             <h1 className='text-sm'>{chat?.friendUsername}</h1>
-        </div>
+        </Link>
       </div>
 
       <div className='border h-[76%] flex flex-col px-5 py-5 overflow-y-auto hide-scrollbar gap-5'>
@@ -134,9 +150,21 @@ const ChatWindow = () => {
         {
           messages.map((msg)=>(
             <div key={msg.id} className={`flex gap-3 items-center w-fit max-w-[93%] break-all ${msg.sender === 'me'?'self-end flex-row-reverse':''}`}>
-              <div className='border h-10 w-10 rounded-full flex justify-center items-center self-start shrink-0'>
-                <i class="ri-user-line"></i>
-              </div>
+              <Link to={`/userProfile/${msg?.senderId}`} className="border h-10 w-10 rounded-full overflow-hidden cursor-pointer">
+                  {!msg?.senderPic ? (
+                  <div className="h-full w-full flex items-center justify-center text-2xl">
+                      <i className="ri-user-line"></i>
+                  </div>
+                  ) : (
+                  <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
+                      <img
+                          src={msg.senderPic}
+                          alt="Profile Preview"
+                          className="h-full w-full object-cover"
+                      />
+                  </div>
+                  )}
+              </Link>
               <div className='border px-2 py-1 rounded h-fit w-fit'>
                 {msg.message}
               </div>

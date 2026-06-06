@@ -25,15 +25,28 @@ const RightBar = () => {
         <div className='flex flex-col gap-5'>
             {
               similarAccounts.map((a, index)=>(
-                <Link key={index} to={`/userProfile/${a._id}`} className=' rounded flex items-center gap-3'>
-                  <div className='border h-15 w-15 rounded-full flex justify-center items-center'>
-                    <i class="ri-user-line"></i>
-                  </div>
+                <div className='flex gap-5 items-center'>
+                  <Link to={`/userProfile/${a._id}`} className="border h-14.5 w-14.5 rounded-full overflow-hidden cursor-pointer">
+                      {!a?.profilePic ? (
+                      <div className="h-full w-full flex items-center justify-center text-2xl">
+                          <i className="ri-user-line"></i>
+                      </div>
+                      ) : (
+                      <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
+                          <img
+                              src={a.profilePic}
+                              alt="Profile Preview"
+                              className="h-full w-full object-cover"
+                          />
+                      </div>
+                      )}
+                  </Link>
+
                   <div className='flex flex-col justify-center'>
                     <h1 className='font-semibold text-xl'>{a.username}</h1>
                     <h1 className='text-sm'>{a.fullName.firstName} {a.fullName.lastName}</h1>
                   </div>
-                </Link>
+                </div>
               ))
             }
         </div>

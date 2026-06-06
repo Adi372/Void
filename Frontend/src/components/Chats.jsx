@@ -111,8 +111,20 @@ const Chats = ({newMsg, setNewMsg}) => {
                         <div key={chat._id} className='h-fit flex flex-col gap-4'>
                             <Link to={`/chat/${chat._id}`}>
                             <div className='rounded border h-20 flex items-center px-2 gap-4'>
-                                <div className='h-15 w-15 rounded-full border flex justify-center items-center'>
-                                    <i class="ri-user-line"></i>
+                                <div className="border h-15 w-15 rounded-full overflow-hidden cursor-pointer">
+                                    {!chat?.friendPic ? (
+                                    <div className="h-full w-full flex items-center justify-center text-2xl">
+                                        <i className="ri-user-line"></i>
+                                    </div>
+                                    ) : (
+                                    <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
+                                        <img
+                                            src={chat.friendPic}
+                                            alt="Profile Preview"
+                                            className="h-full w-full object-cover"
+                                        />
+                                    </div>
+                                    )}
                                 </div>
                                 <div className='flex flex-col  h-[65%] justify-start items-start'>
                                     <h1 className='font-semibold  text-lg'>{chat.friendFullName.firstName}</h1>

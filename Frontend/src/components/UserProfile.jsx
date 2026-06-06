@@ -249,9 +249,21 @@ const UserProfile = () => {
     <div className='h-screen overflow-y-auto hide-scrollbar'>
         <div className='w-full flex flex-col'>
             <div className='flex pt-15 pb-10 gap-10 px-5 w-full justify-center'>
-                <div className='border h-40 w-40 rounded-full flex items-center justify-center text-[170px] overflow-hidden'>
-                    <i class="ri-user-line"></i>
-                </div>
+                <label onClick={() => navigate(`/userProfile/${post.user}`)} className="h-40 w-40 rounded-full overflow-hidden cursor-pointer">
+                    {!user.profilePic ? (
+                    <div className="h-full w-full flex items-center justify-center text-[170px]">
+                        <i className="ri-user-line"></i>
+                    </div>
+                    ) : (
+                    <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden text-[160px]">
+                        <img
+                            src={user.profilePic}
+                            alt="Profile Preview"
+                            className="h-full w-full object-cover"
+                        />
+                    </div>
+                    )}
+                </label>
                 <div className='flex flex-col gap-2'>
                     <h1 className='text-4xl font-bold'>{user.username}</h1>
                     <h1 className='text-xl font-semibold'>{`${user.fullName.firstName} ${user.fullName.lastName}`}</h1>

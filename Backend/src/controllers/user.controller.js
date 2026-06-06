@@ -1,6 +1,9 @@
 const postModel = require('../models/posts.model');
 const userModel = require('../models/users.model');
 const {getIO} = require('../sockets/socket.server');
+const uploadFile = require('../services/storage.service');
+const {v4: uuidv4} = require('uuid');
+
 
 async function searchUser(req, res) {
     try{
@@ -28,7 +31,7 @@ async function searchUser(req, res) {
                     }
                 }
             ]
-        }).select("username fullName createdPosts").sort({ username: 1 });;
+        }).select("username fullName createdPosts profilePic").sort({ username: 1 });;
 
         if(users.length === 0){
             return res.status(404).json({
@@ -115,6 +118,7 @@ async function sendFriendRequest(req, res) {
 
         user2.notifications.friendRequestsReceived.push({
             userId: user1._id,
+            profilePic: user1.profilePic,
             username: user1.username,
             fullName: user1.fullName,
         });
@@ -123,6 +127,7 @@ async function sendFriendRequest(req, res) {
         if(isOnline){
             io.to(user2._id.toString()).emit("friend-request-received", {
                 userId: user1._id,
+                profilePic: user1.profilePic,
                 username: user1.username,
                 fullName: user1.fullName,
                 message: "You received a friend request",
@@ -200,6 +205,7 @@ async function acceptFriendRequest(req, res) {
 
         user2.notifications.acceptedRequest.push({
             userId: user1._id,
+            profilePic: user1.profilePic,
             username: user1.username,
             fullName: user1.fullName
         });
@@ -208,6 +214,7 @@ async function acceptFriendRequest(req, res) {
         if(isOnline){
             io.to(user2._id.toString()).emit("friend-request-accepted", {
                 userId: user1._id,
+                profilePic: user1.profilePic,
                 username: user1.username,
                 fullName: user1.fullName,
                 message: "Friend request accepted",
@@ -519,6 +526,7 @@ async function accountSuggestions(req, res) {
                     interests: 1,
                     friends: 1,
                     createdPosts: 1,
+                    profilePic: 1
                 }
             }
         ]);
@@ -623,6 +631,87 @@ async function updateInterests(req, res) {
     }
 }
 
+async function updateProfile(req, res) {
+    try {
+        const user = req.user;
+        const {
+            firstName,
+            lastName,
+            username,
+            email,
+            interests
+        } = req.body;
+
+        const updateData = {};
+
+        if (req.file) {
+            const uploadImage = await uploadFile(
+                req.file.buffer,
+                `${uuidv4()}`
+            );
+
+            updateData.profilePic = uploadImage;
+        }
+
+        if (firstName !== undefined) {
+            updateData["fullName.firstName"] = firstName;
+        }
+
+        if (lastName !== undefined) {
+            updateData["fullName.lastName"] = lastName;
+        }
+
+        if (username !== undefined) {
+            updateData.username = username;
+        }
+
+        if (email !== undefined) {
+            updateData.email = email;
+        }
+
+        if (interests !== undefined) {
+            updateData.interests = JSON.parse(interests);
+        }
+
+        const updatedUser = await userModel.findByIdAndUpdate(
+            user._id,
+            { $set: updateData },
+            {
+                returnDocument: "after",
+                runValidators: true
+            }
+        );
+
+        const postUpdateData = {};
+
+        if (updateData.profilePic) {
+            postUpdateData.profilePic = updateData.profilePic;
+        }
+
+        if (updateData.username) {
+            postUpdateData.username = updateData.username;
+        }
+
+        if (Object.keys(postUpdateData).length > 0) {
+            await postModel.updateMany(
+                { user: user._id },
+                { $set: postUpdateData }
+            );
+        }
+
+        res.status(200).json({
+            message: "Profile updated successfully",
+            user: updatedUser
+        });
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            message: err.message
+        });
+    }
+}
+
 module.exports = {
     searchUser,
     sendFriendRequest,
@@ -637,5 +726,6 @@ module.exports = {
     allUsers,
     searchOneUser,
     allFriends,
-    updateInterests
+    updateInterests,
+    updateProfile
 }

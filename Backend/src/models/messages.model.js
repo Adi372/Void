@@ -11,6 +11,9 @@ const messageSchema = mongoose.Schema({
         ref: "users",
         required: true
     },
+    senderPic:{
+        type: String
+    },
     text: {
         type: String,
         default: ""

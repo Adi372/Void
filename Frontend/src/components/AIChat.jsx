@@ -18,6 +18,7 @@ const AIChat = () => {
         )
         .then((res)=>{
           console.log("user fetched")
+          console.log(res.data)
             setUser(res.data);
         })
         .catch((err)=>{
@@ -116,8 +117,8 @@ const AIChat = () => {
   return (
     <div className='h-full w-full flex flex-col'>
       <div className='border w-full h-[12%] flex items-center px-5 gap-4'>
-        <div className='border h-15 w-15 rounded-full flex justify-center items-center'>
-          <i class="ri-user-line"></i>
+        <div className='text-2xl border h-12 w-12 rounded-full flex justify-center items-center'>
+          <i class="ri-robot-2-line"></i>
         </div>
         <div className='flex flex-col justify-center'>
             <h1 className='font-semibold text-lg'>AI</h1>
@@ -129,9 +130,16 @@ const AIChat = () => {
         {
           messages.map((msg)=>(
 
-            <div key={msg.id} className={`flex gap-3 items-center w-fit max-w-[45%] break-all ${msg.sender === 'user'?'self-end flex-row-reverse':''}`}>
-              <div className='border h-10 w-10 rounded-full flex justify-center items-center self-start shrink-0'>
-                <i class="ri-user-line"></i>
+            <div key={msg.id} className={`flex gap-3 items-center w-fit max-w-[45%] break-words ${msg.sender === 'user'?'self-end flex-row-reverse':''}`}>
+              <div className={`${msg.sender === 'user'?'hidden':'flex'} border h-10 w-10 rounded-full flex justify-center items-center self-start shrink-0 text-xl`}>
+                <i class="ri-robot-2-line"></i>
+              </div>
+              <div className={` ${msg.sender === 'user'?'flex':'hidden'} h-10 w-10 rounded-full flex items-center justify-center overflow-hidden`}>
+                  <img
+                      src={user.profilePic}
+                      alt="Profile Preview"
+                      className="h-full w-full object-cover"
+                  />
               </div>
               <div className='border px-2 py-1 rounded h-fit w-fit'>
                 {msg.message}

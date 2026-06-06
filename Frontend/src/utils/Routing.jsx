@@ -18,6 +18,7 @@ import CommentedPosts from '../components/CommentedPosts'
 import SavedPosts from '../components/SavedPosts'
 import AllFriends from '../components/AllFriends'
 import Interests from '../components/Interests'
+import EditProfile from '../components/EditProfile'
 
 const Routing = ({
   likeNotification, 
@@ -63,7 +64,8 @@ const Routing = ({
             <Route path='/commentedPosts' element={<CommentedPosts/>}/>
             <Route path='/savedPosts' element={<SavedPosts/>}/>
             <Route path='/friends' element={<AllFriends/>}/>
-            <Route path='interests' element={<Interests/>} />
+            <Route path='/interests' element={<Interests/>} />
+            <Route path='/EditProfile' element={<EditProfile/>}/>
             <Route path='/notifications' 
             element=
             {<Notifications  

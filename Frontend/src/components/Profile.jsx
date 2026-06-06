@@ -74,16 +74,27 @@ const Profile = () => {
   return (
     <div className='h-screen p-5 overflow-y-auto hide-scrollbar'>
         <div className=' p-7 flex flex-col gap-5'>
-            <div>
-                <div className=' flex py-2 px-1 gap-5 justify-end'>
+            <div className='flex flex-col gap-1'>
+                <div className=' flex py-2 px-1 justify-end gap-5'>
                     <button onClick={(()=>deleteAccount())} className='border w-fit rounded py-1 px-2 font-semibold'>Delete Account <i class="ri-delete-bin-7-line"></i></button>
                     <button onClick={(()=>logout())} className='w-fit border rounded py-1 px-2 font-semibold'>Logout <i class="ri-logout-box-r-line"></i></button>
                     
                 </div>
-                <div className='flex  h-50 items-center gap-20'>
-                    <div className='border h-40 w-40 rounded-full flex items-center justify-center text-[170px] overflow-hidden'>
-                        <i class="ri-user-line"></i>
-                    </div>
+                <div className=' flex h-50 items-center gap-20'>
+                    {!user.profilePic ? (
+                        <div className="h-40 w-40 border rounded-full flex items-center justify-center overflow-hidden text-[160px]">
+                            <i className="ri-user-line"></i>
+                        </div>
+                        ) : (
+
+                        <div className="h-40 w-40 border rounded-full flex items-center justify-center overflow-hidden text-[160px]">
+                            <img
+                                src={user.profilePic}
+                                alt="Profile Preview"
+                                className="h-full w-full object-cover"
+                            />
+                        </div>
+                    )}
                     <div className='flex flex-col gap-3'>
                         <h1 className='text-4xl font-bold'>{user.username}</h1>
                         <h1 className='text-2xl font-semibold'>{`${user.fullName.firstName} ${user.fullName.lastName}`}</h1>
@@ -96,6 +107,9 @@ const Profile = () => {
                             </Link>
                         </div>
                     </div>
+                </div>
+                <div className=' h-full w-40 flex justify-center'>
+                    <Link className='border w-fit rounded px-3 py-1' to='/EditProfile'>Edit Profile</Link>
                 </div>
             </div>
 

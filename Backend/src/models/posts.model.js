@@ -1,13 +1,11 @@
 const mongoose = require('mongoose');
 
 const postSchema = mongoose.Schema({
+    profilePic: String,
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "users",
         required: true
-    },
-    username: {
-        type: String
     },
     caption: {
         type: String
@@ -29,6 +27,9 @@ const postSchema = mongoose.Schema({
             ref: "users"
         },
         username: {
+            type: String
+        },
+        profilePic: {
             type: String
         },
         text: {

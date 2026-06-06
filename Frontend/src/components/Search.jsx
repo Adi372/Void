@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Search = () => {
 
@@ -14,7 +15,7 @@ const Search = () => {
     )
     .then((res)=>{
       setResult(res.data);
-      console.log(res.data);
+      console.log("Search Results: ", res.data);
     })
     .catch((err)=>{
       console.log(err);
@@ -37,13 +38,25 @@ const Search = () => {
             {
               result.map((r)=>(
                 <div className='my-1 flex items-center gap-3'>
-                  <div className='self-start h-10 w-10 border rounded-full flex justify-center items-center'>
-                      <i class="ri-user-line"></i>
-                  </div>
-                  <div className='flex flex-col items-center text-sm'>
+                  <Link to={`/userProfile/${r._id}`} className="border h-10 w-10 rounded-full overflow-hidden cursor-pointer">
+                      {!r?.profilePic ? (
+                      <div className="h-full w-full flex items-center justify-center text-2xl">
+                          <i className="ri-user-line"></i>
+                      </div>
+                      ) : (
+                      <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
+                          <img
+                              src={r.profilePic}
+                              alt="Profile Preview"
+                              className="h-full w-full object-cover"
+                          />
+                      </div>
+                      )}
+                  </Link>
+                  <Link to={`/userProfile/${r._id}`} className='flex flex-col items-center text-sm'>
                       <h1 className='break-all font-semibold'>{r.username}</h1>
                       <h1 className='break-all'>{r.fullName.firstName} {r.fullName.lastName}</h1>
-                  </div>
+                  </Link>
               </div>
               ))
             }

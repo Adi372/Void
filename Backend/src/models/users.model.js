@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = mongoose.Schema({
+    profilePic: String,
     fullName: {
         firstName: {
             type: String,
@@ -82,6 +83,7 @@ const userSchema = mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "users"
             },
+            profilePic: String,
             username: {
                 type: String
             },
@@ -103,6 +105,7 @@ const userSchema = mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "users"
             },
+            profilePic: String,
             username: {
                 type: String
             },
@@ -127,6 +130,7 @@ const userSchema = mongoose.Schema({
             postCaption: {
                 type: String
             },
+            profilePic: String,
             userId: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "users"
@@ -162,6 +166,7 @@ const userSchema = mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "users"
             },
+            profilePic: String,
             username: {
                 type: String
             },

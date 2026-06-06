@@ -23,11 +23,12 @@ const Notifications = ({
           }
       )
       .then((res) => {
-        console.log(res.data);
+        console.log("User: ", res.data);
         const likeNotifications = res.data.notifications.likes.map((n) => ({
           postId: n.postId,
           postCaption: n.postCaption,
           userId: n.userId,
+          profilePic: n.profilePic,
           username: n.username,
           fullName: n.fullName,
           id: n._id,
@@ -39,6 +40,7 @@ const Notifications = ({
           postId: n.postId,
           postCaption: n.postCaption,
           userId: n.userId,
+          profilePic: n.profilePic,
           username: n.username,
           fullName: n.fullName,
           id: n._id,
@@ -49,6 +51,7 @@ const Notifications = ({
 
         const friendRequest = res.data.notifications.friendRequestsReceived.map((f)=>({
           userId: f.userId,
+          profilePic: f.profilePic,
           username: f.username,
           fullName: f.fullName,
           id: f._id,
@@ -58,6 +61,7 @@ const Notifications = ({
 
         const friendAccepted = res.data.notifications.acceptedRequest.map((f)=>({
           userId: f.userId,
+          profilePic: f.profilePic,
           username: f.username,
           fullName: f.fullName,
           id: f._id,
@@ -152,8 +156,20 @@ const Notifications = ({
         {
           notifications.map((n)=>(
             <div key={n.id} className='border rounded p-4 w-fit flex items-center gap-2 '>
-              <Link to={`/userProfile/${n.userId}`} className='border h-10 w-10 rounded-full flex gap-2 justify-center items-center'>
-                <i class="ri-user-line"></i>
+              <Link to={`/userProfile/${n.userId}`} className="border h-10 w-10 rounded-full overflow-hidden cursor-pointer">
+                  {!n?.profilePic ? (
+                  <div className="h-full w-full flex items-center justify-center text-2xl">
+                      <i className="ri-user-line"></i>
+                  </div>
+                  ) : (
+                  <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
+                      <img
+                          src={n.profilePic}
+                          alt="Profile Preview"
+                          className="h-full w-full object-cover"
+                      />
+                  </div>
+                  )}
               </Link>
 
               <div className={`${n.type === "like"?"flex":"hidden"}`}>

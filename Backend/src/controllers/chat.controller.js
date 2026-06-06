@@ -280,7 +280,7 @@ async function allChats(req, res) {
         const chats = await chatModel.find({
             participants: user._id
         })
-        .populate("participants", "username fullName _id")
+        .populate("participants", "username fullName _id profilePic")
         .sort({ "lastMessage.createdAt": -1 });
 
         const formattedChats = chats.map(chat => {
@@ -296,6 +296,7 @@ async function allChats(req, res) {
                 _id: chat._id,
                 meId: user._id,
                 friendId: friend?._id,
+                friendPic: friend?.profilePic,
                 me: me?.username,
                 friendUsername: friend?.username,
                 friendFullName: friend?.fullName,
@@ -325,7 +326,7 @@ async function allRealChats(req, res) {
         const chats = await chatModel.find({
             participants: user._id
         })
-        .populate("participants", "username fullName _id")
+        .populate("participants", "username fullName _id profilePic")
         .sort({ "lastMessage.createdAt": -1 });
 
         const chatsWithMessages = chats.filter(
@@ -345,6 +346,7 @@ async function allRealChats(req, res) {
                 _id: chat._id,
                 meId: user._id,
                 friendId: friend?._id,
+                friendPic: friend?.profilePic,
                 me: me?.username,
                 friendUsername: friend?.username,
                 friendFullName: friend?.fullName,

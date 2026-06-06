@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import axios from 'axios'
 
 const LeftBar = (
   {
@@ -15,10 +16,28 @@ const LeftBar = (
     setNewMsg
   }) => {
 
+    const [user, setUser] = useState(null);
+
   const [msgNotificationLength, setMsgNotificationLength] = useState('');
   const [notificationsLength, setNotificationsLength] = useState(0);
   const location = useLocation();
   console.log(location.pathname);
+
+  useEffect(()=>{
+        axios.get('http://localhost:3000/api/auth/findUser',
+            {
+                withCredentials: true
+            }
+        )
+        .then((res)=>{
+          console.log(res.data)
+            setUser(res.data);
+        })
+        .catch((err)=>{
+            console.log(err);
+            setUser(null);
+        });
+    }, []);
 
   useEffect(() => {
   if (likeNotification) {
@@ -108,7 +127,21 @@ useEffect(() => {
             </Link>
 
             <Link to='/aichat' className='border w-fit px-4 py-3 rounded-full text-2xl'><i class="ri-robot-2-line"></i></Link>
-            <Link to='/profile' className='border w-fit px-4 py-3 rounded-full text-2xl'><i class="ri-user-line"></i></Link>
+            <Link to='/profile' className="border h-14.5 w-14.5 rounded-full overflow-hidden cursor-pointer">
+                {!user?.profilePic ? (
+                <div className="h-full w-full flex items-center justify-center text-2xl">
+                    <i className="ri-user-line"></i>
+                </div>
+                ) : (
+                <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
+                    <img
+                        src={user.profilePic}
+                        alt="Profile Preview"
+                        className="h-full w-full object-cover"
+                    />
+                </div>
+                )}
+            </Link>
         </div>
     </div>
   )

@@ -1,17 +1,26 @@
 const postModel = require('../models/posts.model');
 const userModel = require('../models/users.model');
 const {getIO} = require('../sockets/socket.server')
+const uploadFile = require('../services/storage.service');
+const {v4: uuidv4} = require('uuid');
 
 async function create(req, res) {
     try{
         const user = req.user;
-        const {caption, image} = req.body;
+
+        const file = req.file;
+        const base64Image = file.buffer.toString('base64');
+        const uploadImage = await uploadFile(file.buffer, `${uuidv4()}`);
+        const {caption} = req.body;
+        console.log("BODY:", req.body);
+        console.log("FILE:", req.file);
         const post  = await postModel.create({
             user: user._id,
             caption: caption,
-            image: image,
+            image: uploadImage,
             username: user.username,
-            likes: []
+            likes: [],
+            profilePic: user.profilePic
         })
         const userAccount = await userModel.findById(user._id);
         userAccount.createdPosts.push(post._id);
@@ -167,6 +176,7 @@ async function like(req, res) {
                 postId: likedPost._id,
                 postCaption: likedPost.caption,
                 userId: user._id,
+                profilePic: user.profilePic,
                 username: user.username,
                 fullName: user.fullName,
             })                
@@ -175,6 +185,7 @@ async function like(req, res) {
             if(isOnline){
                 io.to(user2._id.toString()).emit("liked-post", {
                     userId: user._id,
+                    profilePic: user.profilePic,
                     username: user.username,
                     fullName: user.fullName,
                     postId: likedPost._id,
@@ -256,7 +267,7 @@ async function comment(req, res) {
             })
         }
 
-        commentedPost.comments.push({user: userAccount._id, username: userAccount.username, text: comment});
+        commentedPost.comments.push({user: userAccount._id, username: userAccount.username, text: comment, profilePic: userAccount.profilePic});
         userAccount.comments.push({post: commentedPost._id, text: comment});
 
         await commentedPost.save();
@@ -272,6 +283,7 @@ async function comment(req, res) {
                 postId: commentedPost._id,
                 postCaption: commentedPost.caption,
                 userId: user._id,
+                profilePic: user.profilePic,
                 username: user.username,
                 fullName: user.fullName,
             })
@@ -280,6 +292,7 @@ async function comment(req, res) {
             if(isOnline){
                 io.to(user2._id.toString()).emit("commented", {
                     userId: user._id,
+                    profilePic: user.profilePic,
                     username: user.username,
                     fullName: user.fullName,
                     postId: commentedPost._id,

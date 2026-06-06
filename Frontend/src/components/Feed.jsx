@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Feed = ({post, user}) => {
 
@@ -10,6 +10,8 @@ const Feed = ({post, user}) => {
     const [comments, setComments] = useState(post.comments);
     const [saves, setSavesCount] = useState(post.saves.length);
     const navigate = useNavigate();
+
+    console.log("post: ", post)
 
     function likePost (post){
         axios.post('http://localhost:3000/api/post/like',
@@ -89,18 +91,31 @@ const Feed = ({post, user}) => {
         })
     }
 
-
   return (
     <div className='flex gap-20'>
             <div className='w-120 h-fit overflow-hidden border rounded-md flex flex-col'>
                 <div className='flex py-3 px-4 items-center gap-2 border-b'>
-                    <div onClick={() => navigate(`/userProfile/${post.user}`)} className='border h-10 w-10 rounded-full flex items-center justify-center '>
-                        <i class="ri-user-line"></i>
-                    </div>
+                    <label onClick={() => navigate(`/userProfile/${post.user}`)} className="border h-10 w-10 rounded-full overflow-hidden cursor-pointer">
+                        {!post.profilePic ? (
+                        <div className="h-full w-full flex items-center justify-center text-2xl">
+                            <i className="ri-user-line"></i>
+                        </div>
+                        ) : (
+                        <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden">
+                            <img
+                                src={post.profilePic}
+                                alt="Profile Preview"
+                                className="h-full w-full object-cover"
+                            />
+                        </div>
+                        )}
+                    </label>
                     <h1 className='font-semibold'>{post.username}</h1>
                 </div>
                 <div className='flex flex-col'>
-                    <div className='h-100 border-b'></div>
+                    <div className='h-100 border-b'>
+                        <img src={post.image} className='h-full w-full object-cover' alt="postImage" />
+                    </div>
                     <div className='border-b py-3 px-4 font-semibold'>
                         <h1>{post.caption}</h1>
                     </div>
@@ -131,13 +146,25 @@ const Feed = ({post, user}) => {
                             {
                                 comments.map((comment)=>(
                                     <div key={comment._id} className='border flex items-center gap-3'>
-                                        <div className='self-start h-10 w-10 border rounded-full flex justify-center items-center'>
-                                            <i class="ri-user-line"></i>
-                                        </div>
-                                        <div className='flex flex-1 gap-2 flex'>
+                                        <Link to={`/userProfile/${comment.user}`} className="border h-10 w-10 rounded-full overflow-hidden cursor-pointer">
+                                            {!comment?.profilePic ? (
+                                            <div className="h-full w-full flex items-center justify-center text-2xl">
+                                                <i className="ri-user-line"></i>
+                                            </div>
+                                            ) : (
+                                            <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
+                                                <img
+                                                    src={comment.profilePic}
+                                                    alt="Profile Preview"
+                                                    className="h-full w-full object-cover"
+                                                />
+                                            </div>
+                                            )}
+                                        </Link>
+                                        <Link to={`/userProfile/${comment.user}`} className='flex flex-1 gap-2 flex'>
                                             <h1 className='font-semibold'>{comment.username}</h1>
                                             <h1 className='break-all'>{comment.text}</h1>
-                                        </div>
+                                        </Link>
                                         {comment.user === user?._id && (
                                             <button type="button" onClick={(()=>deleteComment(post._id, comment.text, comment._id))}>
                                                 <i className="ri-delete-bin-2-line"></i>

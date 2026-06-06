@@ -58,7 +58,8 @@ function registerChatEvents(io, socket){
             const message = await messageModel.create({
                 chatId,
                 sender: user._id,
-                text
+                senderPic: user.profilePic,
+                text,
             })
             await chatModel.findByIdAndUpdate(chatId, {
                 lastMessage: {

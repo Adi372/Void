@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 const {
     searchUser,
@@ -14,10 +15,15 @@ const {
     allUsers,
     searchOneUser,
     allFriends,
-    updateInterests
+    updateInterests,
+    updateProfile
     } 
     = require('../controllers/user.controller');
 const isLoggedIn = require('../middlewares/auth.middleware');
+
+const upload = multer({
+    storage: multer.memoryStorage()
+})
 
 router.post('/searchUser', isLoggedIn, searchUser);
 router.post('/sendFriendRequest', isLoggedIn, sendFriendRequest);
@@ -33,5 +39,6 @@ router.get('/allUsers', isLoggedIn, allUsers);
 router.post('/searchOneUser', isLoggedIn, searchOneUser);
 router.get('/allFriends', isLoggedIn, allFriends);
 router.post('/updateInterests', isLoggedIn, updateInterests);
+router.post('/updateProfile', isLoggedIn, upload.single("image"), updateProfile);
 
 module.exports = router;
