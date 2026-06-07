@@ -93,9 +93,9 @@ const Feed = ({post, user}) => {
 
   return (
     <div className='flex gap-20'>
-            <div className='w-120 h-fit overflow-hidden border rounded-md flex flex-col'>
-                <div className='flex py-3 px-4 items-center gap-2 border-b'>
-                    <label onClick={() => navigate(`/userProfile/${post.user}`)} className="border h-10 w-10 rounded-full overflow-hidden cursor-pointer">
+            <div className='w-200 bg-white h-fit border-zinc-100 border-1 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.15)] rounded-md flex flex-col'>
+                <div className='flex py-3 px-4 items-center gap-2'>
+                    <label onClick={() => navigate(`/userProfile/${post.user}`)} className="h-10 w-10 rounded-full overflow-hidden cursor-pointer">
                         {!post.profilePic ? (
                         <div className="h-full w-full flex items-center justify-center text-2xl">
                             <i className="ri-user-line"></i>
@@ -113,13 +113,13 @@ const Feed = ({post, user}) => {
                     <h1 className='font-semibold'>{post.username}</h1>
                 </div>
                 <div className='flex flex-col'>
-                    <div className='h-100 border-b'>
+                    <div className='h-100'>
                         <img src={post.image} className='h-full w-full object-cover' alt="postImage" />
                     </div>
-                    <div className='border-b py-3 px-4 font-semibold'>
+                    <div className='py-3 px-4 font-semibold'>
                         <h1>{post.caption}</h1>
                     </div>
-                    <div className='flex justify-between px-4 py-2'>
+                    <div className='flex justify-between px-4 py-2 text-zinc-700'>
                         <div onClick={() => likePost(post._id)} className='flex items-center gap-1 text-2xl'>
                             <i class="ri-heart-3-line"></i>
                             <h1 className='text-sm font-semibold'>{like}</h1>

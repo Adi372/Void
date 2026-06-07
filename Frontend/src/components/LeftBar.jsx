@@ -101,7 +101,7 @@ useEffect(() => {
 
 
   return (
-    <div className='h-full w-[100px] border-r flex flex-col py-8 items-center gap-25'>
+    <div className='h-full w-[100px] bg-[#7163BA] text-white flex flex-col py-8 items-center gap-25'>
         <Link to='/' className='text-2xl font-bold w-fit'>Logo</Link>
         <div className=' relative flex flex-col gap-8'>
 
@@ -109,25 +109,25 @@ useEffect(() => {
             <h1 className='text-[12px] font-semibold text-white'>{notificationsLength}</h1>
           </Link>
 
-            <Link to='/notifications' className='border w-fit px-4 py-3 rounded-full text-2xl'>
+            <Link to='/notifications' className={` ${location.pathname.startsWith('/notifications')? "text-[#7163BA] bg-white":""} w-fit px-4 py-3 rounded-full text-2xl`}>
               <div className=''>
                 <i class="ri-notification-line"></i>
               </div>
             </Link>
 
-            <Link to='/addPost' className='border w-fit px-4 py-3 rounded-full text-2xl'><i class="ri-add-large-line"></i></Link>
-            <Link to='/' className='border w-fit px-4 py-3 rounded-full text-2xl'><i class="ri-home-line"></i></Link>
+            <Link to='/addPost' className={` ${location.pathname.startsWith('/addPost')? "text-[#7163BA] bg-white":""} w-fit px-4 py-3 rounded-full text-2xl`}><i class="ri-add-large-line"></i></Link>
+            <Link to='/' className={` ${location.pathname === '/' ? "text-[#7163BA] bg-white":""} w-fit px-4 py-3 rounded-full text-2xl`}><i class="ri-home-line"></i></Link>
 
             <Link to='/chat' className={`${msgNotificationLength && !location.pathname.startsWith("/chat")? "flex":"hidden"} border absolute h-5 w-5 overflow-hidden right-2.5 top-72 bg-black rounded-full text-2xl flex justify-center items-center`}>
               <h1 className='text-[12px] font-semibold text-white'>{msgNotificationLength}</h1>
             </Link>
 
-            <Link to='/chat' className='border w-fit px-4 py-3 rounded-full text-2xl'>
+            <Link to='/chat' className={` ${location.pathname.startsWith('/chat') ? "text-[#7163BA] bg-white":""} w-fit px-4 py-3 rounded-full text-2xl`}>
               <i class="ri-mail-line"></i>
             </Link>
 
-            <Link to='/aichat' className='border w-fit px-4 py-3 rounded-full text-2xl'><i class="ri-robot-2-line"></i></Link>
-            <Link to='/profile' className="border h-14.5 w-14.5 rounded-full overflow-hidden cursor-pointer">
+            <Link to='/aichat' className={` ${location.pathname.startsWith('/aichat') ? "text-[#7163BA] bg-white":""} w-fit px-4 py-3 rounded-full text-2xl`}><i class="ri-robot-2-line"></i></Link>
+            <Link to='/profile' className={` ${location.pathname.startsWith('/profile') ? "border-white border-2":""} h-14.5 w-14.5 rounded-full overflow-hidden cursor-pointer`}>
                 {!user?.profilePic ? (
                 <div className="h-full w-full flex items-center justify-center text-2xl">
                     <i className="ri-user-line"></i>

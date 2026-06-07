@@ -44,7 +44,7 @@ const Home = () => {
 
 
   return (
-    <div className='h-screen items-center py-5 overflow-y-auto hide-scrollbar flex flex-col gap-5'>
+    <div className='h-screen items-center py-5 overflow-y-auto hide-scrollbar flex flex-col gap-20'>
         <Search/>
         {
             posts.map((post, index)=>(

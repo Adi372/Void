@@ -20,13 +20,13 @@ const RightBar = () => {
   }, []);
 
   return (
-    <div className='h-full w-[300px] border-l flex flex-col py-5 px-10 self-end gap-5'>
+    <div className='h-full w-[300px] bg-[#7163BA] text-white flex flex-col py-5 px-10 self-end gap-5'>
         <h1 className='font-semibold text-xl'>Suggested for you</h1>
         <div className='flex flex-col gap-5'>
             {
               similarAccounts.map((a, index)=>(
                 <div className='flex gap-5 items-center'>
-                  <Link to={`/userProfile/${a._id}`} className="border h-14.5 w-14.5 rounded-full overflow-hidden cursor-pointer">
+                  <Link to={`/userProfile/${a._id}`} className=" h-14.5 w-14.5 rounded-full overflow-hidden cursor-pointer">
                       {!a?.profilePic ? (
                       <div className="h-full w-full flex items-center justify-center text-2xl">
                           <i className="ri-user-line"></i>
