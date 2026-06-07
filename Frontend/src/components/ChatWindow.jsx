@@ -81,45 +81,63 @@ const ChatWindow = () => {
   }, [user, id]);
 
   useEffect(() => {
-    if(id){
+  if (!id) return;
+
+    const joinRoom = () => {
       socket.emit("join-chat", id);
-      console.log("chat opened");
+      console.log("Joined room:", id);
+    };
+
+    if (socket.connected) {
+      joinRoom();
     }
+
+    socket.on("connect", joinRoom);
+
+    return () => {
+      socket.off("connect", joinRoom);
+    };
   }, [id]);
 
-  useEffect(()=>{
-  
-   const handler = (data) => {
-    console.log("received socket event:", data);
-    if (data.chatId.toString() !== id) return;
-     console.log(data);
+  useEffect(() => {
+    const handler = (data) => {
+      console.log("received socket event:", data);
+      if (data.chatId.toString() !== id) return;
+
+      // Determine who sent the message using ONLY the incoming data
+      const isMine = data.sender === user._id;
+      const senderId = isMine ? user._id : data.sender;            // `data.sender` is the friend's ID
+      const senderPic = isMine
+        ? user?.profilePic
+        : (data.senderPic || null);                                // server may include friend's pic
+
       const msg = {
         id: data._id,
-        sender: data.sender === user._id ? "me" : "friend",
-        senderId: data.sender === user._id ? user._id : chat.friendId,
-        senderPic: data.sender === user._id ? user.profilePic : chat.friendPic,
-        message: data.text
+        sender: isMine ? "me" : "friend",
+        senderId,
+        senderPic,
+        message: data.text,
       };
-     setMessages((prev)=>[...prev, msg]);
-   }
-  
-   socket.on("receive-message", handler);
-   return () => {
-     socket.off("receive-message", handler);
-   };
-  }, [user, id]);
+      setMessages((prev) => [...prev, msg]);
+    };
 
-  const handleSubmit = (e)=>{
+    socket.on("receive-message", handler);
+    return () => {
+      socket.off("receive-message", handler);
+    };
+  }, [user, id, chat]);   // added `chat` only if you still need it elsewhere
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if(!myMessage.trim()) return;
+    if (!myMessage.trim() || !chat) return;   // don't send if chat not loaded
     let data = {
       chatId: id,
       text: myMessage,
-      participants: [user._id, chat.friendId]
-    }
+      participants: [user._id, chat.friendId],
+    };
     socket.emit("send-message", data);
     setMyMessage("");
-  }
+  };
 
   return (
     <div className='h-full w-full flex flex-col'>

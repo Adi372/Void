@@ -23,6 +23,9 @@ const Profile = () => {
         .catch((err)=>{
             console.log(err);
             setUser(null);
+            if (err.response?.status === 401) {
+                navigate('/login');
+            }
         });
     }, []);
 

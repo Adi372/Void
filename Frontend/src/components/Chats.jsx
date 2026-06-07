@@ -98,6 +98,7 @@ const Chats = ({newMsg, setNewMsg}) => {
         });
 
     }, [newMsg]);
+    
 
 
   return (
