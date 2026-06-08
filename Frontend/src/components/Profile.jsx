@@ -71,16 +71,16 @@ const Profile = () => {
     }
 
     if(!user){
-        return <div className='h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>
+        return <div className='h-full text-[#808191] flex justify-center items-center font-semibold text-4xl'>Loading...</div>
     }
 
   return (
     <div className='h-screen p-5 overflow-y-auto hide-scrollbar'>
         <div className=' p-7 flex flex-col gap-5'>
             <div className='flex flex-col gap-1'>
-                <div className=' flex py-2 px-1 justify-end gap-5'>
-                    <button onClick={(()=>deleteAccount())} className='border w-fit rounded py-1 px-2 font-semibold'>Delete Account <i class="ri-delete-bin-7-line"></i></button>
-                    <button onClick={(()=>logout())} className='w-fit border rounded py-1 px-2 font-semibold'>Logout <i class="ri-logout-box-r-line"></i></button>
+                <div className=' flex py-2 px-1 justify-end gap-5 '>
+                    <button onClick={(()=>deleteAccount())} className='hover:bg-[#4F3ECA] bg-[#6B5DD3] rounded-2xl text-white w-fit py-3 px-5 font-semibold'>Delete Account <i class="ri-delete-bin-7-line"></i></button>
+                    <button onClick={(()=>logout())} className='w-fit hover:bg-[#4F3ECA] bg-[#6B5DD3] rounded-2xl text-white py-3 px-5 font-semibold'>Logout <i class="ri-logout-box-r-line"></i></button>
                     
                 </div>
                 <div className=' flex h-50 items-center gap-20'>
@@ -98,26 +98,26 @@ const Profile = () => {
                             />
                         </div>
                     )}
-                    <div className='flex flex-col gap-3'>
+                    <div className='flex flex-col gap-3 text-white'>
                         <h1 className='text-4xl font-bold'>{user.username}</h1>
                         <h1 className='text-2xl font-semibold'>{`${user.fullName.firstName} ${user.fullName.lastName}`}</h1>
-                        <div className='flex font-semibold gap-12'>
+                        <div className='flex font-semibold gap-12 text-[#808191]'>
                             <div className='flex gap-1'>
                                 <h1>{`${user.createdPosts.length} posts`}</h1>
                             </div>
-                            <Link to='/friends' className='flex gap-1'>
+                            <Link to='/friends' className='flex gap-1 hover:text-white'>
                                 <h1>{`${user.friends.length} friends`}</h1>
                             </Link>
                         </div>
                     </div>
                 </div>
                 <div className=' h-full w-40 flex justify-center'>
-                    <Link className='border w-fit rounded px-3 py-1' to='/EditProfile'>Edit Profile</Link>
+                    <Link className='rounded-2xl font-semibold px-8 py-3 hover:bg-[#4F3ECA] bg-[#6B5DD3] text-white' to='/EditProfile'>Edit Profile</Link>
                 </div>
             </div>
 
-            <div className=' flex px-1 py-5 gap-2 font-semibold justify-between'>
-                <Link to='/likedPosts'>
+            <div className=' flex px-1 py-5 gap-2 font-semibold justify-between text-[#808191]'>
+                <Link to='/likedPosts' className='hover:text-white'>
                     <div className='flex items-center gap-2'>
                         <div className='text-xl'>
                             <i class="ri-heart-3-fill"></i>
@@ -125,7 +125,7 @@ const Profile = () => {
                         <h1>{`Liked Posts: ${user.likedPosts.length}`}</h1>
                     </div>
                 </Link>
-                <Link to='/commentedPosts'>
+                <Link to='/commentedPosts' className='hover:text-white'>
                     <div className='flex items-center gap-2'>
                         <div className='text-xl'>
                             <i class="ri-chat-1-fill"></i>
@@ -133,7 +133,7 @@ const Profile = () => {
                         <h1>{`Commented Posts: ${user.comments.length}`}</h1>
                     </div>
                 </Link>
-                <Link to='/savedPosts'>
+                <Link to='/savedPosts' className='hover:text-white'>
                     <div className='flex items-center gap-2'>
                         <div className='text-xl'>
                             <i class="ri-bookmark-fill"></i>
@@ -144,7 +144,7 @@ const Profile = () => {
             </div>
 
             <div className=' flex flex-col gap-2'>
-                <div className='text-xl font-semibold py-1'>
+                <div className='text-xl font-semibold py-1 text-white'>
                     <h1>Your Posts</h1>
                 </div>
                 <div className='flex flex-wrap py-3 justify-between gap-y-10'>

@@ -141,10 +141,10 @@ const ChatWindow = () => {
 
   return (
     <div className='h-full w-full flex flex-col'>
-      <div className='border w-full h-[12%] flex items-center px-5 gap-4'>
-        <Link to={`/userProfile/${chat?.friendId}`} className="border h-10 w-10 rounded-full overflow-hidden cursor-pointer">
+      <div className=' w-full h-[12%] flex items-center px-5 gap-4'>
+        <Link to={`/userProfile/${chat?.friendId}`} className=" h-10 w-10 rounded-full overflow-hidden cursor-pointer">
             {!chat?.friendPic ? (
-            <div className="h-full w-full flex items-center justify-center text-2xl">
+            <div className="text-white h-full w-full flex items-center justify-center text-2xl">
                 <i className="ri-user-line"></i>
             </div>
             ) : (
@@ -157,24 +157,24 @@ const ChatWindow = () => {
             </div>
             )}
         </Link>
-        <Link to={`/userProfile/${chat?.friendId}`} className='flex flex-col justify-center'>
+        <Link to={`/userProfile/${chat?.friendId}`} className='text-white flex flex-col justify-center'>
             <h1 className='font-semibold text-lg'>{chat?.friendFullName?.firstName} {chat?.friendFullName?.lastName}</h1>
             <h1 className='text-sm'>{chat?.friendUsername}</h1>
         </Link>
       </div>
 
-      <div className='border h-[76%] flex flex-col px-5 py-5 overflow-y-auto hide-scrollbar gap-5'>
+      <div className='border-y-2 text-white border-[#373A43] h-[76%] flex flex-col px-5 py-5 overflow-y-auto hide-scrollbar gap-5'>
 
         {
           messages.map((msg)=>(
             <div key={msg.id} className={`flex gap-3 items-center w-fit max-w-[93%] break-all ${msg.sender === 'me'?'self-end flex-row-reverse':''}`}>
-              <Link to={`/userProfile/${msg?.senderId}`} className="border h-10 w-10 rounded-full overflow-hidden cursor-pointer">
+              <Link to={`/userProfile/${msg?.senderId}`} className=" h-10 w-10 rounded-full overflow-hidden cursor-pointer">
                   {!msg?.senderPic ? (
-                  <div className="h-full w-full flex items-center justify-center text-2xl">
+                  <div className=" h-full w-full flex items-center justify-center text-2xl">
                       <i className="ri-user-line"></i>
                   </div>
                   ) : (
-                  <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
+                  <div className="hover:border-white hover:border-2 h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
                       <img
                           src={msg.senderPic}
                           alt="Profile Preview"
@@ -183,7 +183,7 @@ const ChatWindow = () => {
                   </div>
                   )}
               </Link>
-              <div className='border px-2 py-1 rounded h-fit w-fit'>
+              <div className={` ${msg.sender === 'me'?'bg-[#181A20]':'bg-[#1F2128]'} px-3 py-2 rounded-md h-fit w-fit`}>
                 {msg.message}
               </div>
             </div>
@@ -191,9 +191,9 @@ const ChatWindow = () => {
         }
       </div>
 
-      <form onSubmit={handleSubmit} className='border h-[12%] flex items-center px-5 gap-2'>
-        <input value={myMessage} onChange={(e)=>setMyMessage(e.target.value)} className='border rounded w-[93%] h-12 py-2 px-3' placeholder='Message...' type="text" />
-        <button type='submit' className='border flex items-center h-12 text-2xl w-[7%] rounded justify-center'><i class="ri-send-plane-2-line"></i></button>
+      <form onSubmit={handleSubmit} className=' h-[12%] flex items-center px-5 gap-2'>
+        <input value={myMessage} onChange={(e)=>setMyMessage(e.target.value)} className='bg-[#181A20] focus:outline-none text-white placeholder:text-[#808191] rounded w-[93%] h-12 py-2 px-3' placeholder='Message...' type="text" />
+        <button type='submit' className='text-[#808191] hover:text-white flex items-center h-12 text-2xl w-[7%] rounded justify-center'><i class="ri-send-plane-2-line"></i></button>
       </form>
     </div>
   )

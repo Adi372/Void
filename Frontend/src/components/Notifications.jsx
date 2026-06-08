@@ -145,24 +145,24 @@ const Notifications = ({
 
   return (
     <div className='h-screen flex flex-col gap-5'>
-      <div className='border text-4xl p-6 flex justify-between'>
+      <div className=' text-4xl p-6 flex justify-between text-white'>
         Notifications
-        <button onClick={(()=>clearNotifications())} className='text-xl flex items-center border px-2 py-1 rounded gap-1'>
+        <button onClick={(()=>clearNotifications())} className='hover:text-white text-[#808191] text-xl flex items-center px-2 py-1 rounded gap-1'>
           <i className="ri-delete-bin-2-line"></i>
-          <h1 className='font-semibold'>Clear</h1>
+          {/* <h1 className='font-semibold'>Clear</h1> */}
         </button>
       </div>
-      <div className='border h-full flex flex-col p-5 gap-4 overflow-y-auto hide-scrollbar'>
+      <div className=' h-full flex flex-col p-5 gap-4 overflow-y-auto hide-scrollbar'>
         {
           notifications.map((n)=>(
-            <div key={n.id} className='border rounded p-4 w-fit flex items-center gap-2 '>
-              <Link to={`/userProfile/${n.userId}`} className="border h-10 w-10 rounded-full overflow-hidden cursor-pointer">
+            <div key={n.id} className='border-b border-[#373A43] text-[#808191] p-4 w-full flex items-center gap-2 '>
+              <Link to={`/userProfile/${n.userId}`} className=" h-10 w-10 rounded-full overflow-hidden cursor-pointer">
                   {!n?.profilePic ? (
-                  <div className="h-full w-full flex items-center justify-center text-2xl">
+                  <div className="hover:text-[#6B5DD3] h-full w-full flex items-center justify-center text-2xl">
                       <i className="ri-user-line"></i>
                   </div>
                   ) : (
-                  <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
+                  <div className="hover:border-[#6B5DD3] hover:border-2 h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
                       <img
                           src={n.profilePic}
                           alt="Profile Preview"
@@ -174,24 +174,24 @@ const Notifications = ({
 
               <div className={`${n.type === "like"?"flex":"hidden"}`}>
                 <h1>
-                  <Link to={`/userProfile/${n.userId}`} className='font-semibold'>{n.username} </Link> 
+                  <Link to={`/userProfile/${n.userId}`} className='font-semibold text-white'>{n.username} </Link> 
                   liked your post 
-                  <Link to={`/post/${n.postId}`} className='font-semibold'> {n.postCaption}</Link>
+                  <Link to={`/post/${n.postId}`} className='font-semibold text-white'> {n.postCaption}</Link>
                 </h1>
               </div>
 
               <div className={`${n.type === "comment"?"flex":"hidden"}`}>
                 <h1>
-                  <Link to={`/userProfile/${n.userId}`} className='font-semibold'>{n.username} </Link>
+                  <Link to={`/userProfile/${n.userId}`} className='font-semibold text-white'>{n.username} </Link>
                    commented 
-                   <Link to={`/post/${n.postId}`} className='font-semibold'> {n.comment} </Link> 
+                   <Link to={`/post/${n.postId}`} className='font-semibold text-white'> {n.comment} </Link> 
                     on your post 
-                   <Link to={`/post/${n.postId}`} className='font-semibold'> {n.postCaption}</Link>
+                   <Link to={`/post/${n.postId}`} className='font-semibold text-white'> {n.postCaption}</Link>
                 </h1>
               </div>
 
               <Link to={`/userProfile/${n.userId}`} className={`${n.type === "friend-request"?"flex":"hidden"}`}>
-                <h1><span className='font-semibold'>{n.username}</span> sent you a friend request</h1>
+                <h1><span className='font-semibold text-white'>{n.username}</span> sent you a friend request</h1>
               </Link>
 
               <Link to={`/userProfile/${n.userId}`} className={`${n.type === "friend-accepted"?"flex":"hidden"}`}>

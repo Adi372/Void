@@ -123,7 +123,7 @@ const EditProfile = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <div className="py-6 flex justify-center">
-        <h1 className="text-4xl font-semibold">Edit Profile</h1>
+        <h1 className="text-4xl font-semibold text-white">Edit Profile</h1>
       </div>
 
       <form
@@ -155,30 +155,30 @@ const EditProfile = () => {
 
         <div className="flex gap-8 flex-wrap justify-center">
           <div className="flex flex-col gap-2">
-            <label>First Name</label>
+            <label className="text-[#808191] font-semibold">First Name</label>
             <input
               type="text"
-              className="border rounded px-3 py-2 w-70"
+              className="bg-[#181A20] focus:outline-none text-white placeholder:text-[#808191] rounded px-3 py-2 w-70"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label>Last Name</label>
+            <label className="text-[#808191] font-semibold">Last Name</label>
             <input
               type="text"
-              className="border rounded px-3 py-2 w-70"
+              className="bg-[#181A20] focus:outline-none text-white placeholder:text-[#808191] rounded rounded px-3 py-2 w-70"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label>Email</label>
+            <label className="text-[#808191] font-semibold">Email</label>
             <input
               type="email"
-              className="border rounded px-3 py-2 w-70"
+              className="bg-[#181A20] focus:outline-none text-white placeholder:text-[#808191] rounded rounded px-3 py-2 w-70"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -191,11 +191,11 @@ const EditProfile = () => {
               type="button"
               key={cat}
               onClick={() => toggleInterest(cat)}
-              className={`px-6 py-3 rounded border transition cursor-pointer
+              className={`rounded-2xl font-semibold px-8 py-3 bg-[#1B1D21] hover:bg-[#6B5DD3] text-white transition cursor-pointer
                 ${
                   chosen.includes(cat)
-                    ? "border-red-500 bg-red-50"
-                    : "border-gray-300"
+                    ? "bg-[#6B5DD3]"
+                    : ""
                 }`}
             >
               {cat}
@@ -204,11 +204,11 @@ const EditProfile = () => {
         </div>
 
         <div className="flex gap-4">
-          <button type="button" onClick={() => navigate("/profile")} className="border px-6 py-2 rounded">
+          <button type="button" onClick={() => navigate("/profile")} className="rounded-2xl font-semibold px-8 py-3 bg-[#D97A7A] hover:bg-[#C76666] text-white transition cursor-pointer">
             Cancel
           </button>
 
-          <button type="submit" className="border px-6 py-2 rounded">
+          <button type="submit" className="rounded-2xl font-semibold px-8 py-3 bg-[#7FBA7A] hover:hover:bg-[#6FA86A] text-white transition cursor-pointer">
             Save Changes
           </button>
         </div>

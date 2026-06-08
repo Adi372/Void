@@ -67,7 +67,7 @@ function App() {
   }, []);
 
   return (
-    <div className='bg-[#F5F5F5]'>
+    <div className='bg-[#232630]'>
       <Routing 
         likeNotification={likeNotification} 
         setLikeNotification={setLikeNotification} 

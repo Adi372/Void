@@ -104,17 +104,17 @@ const Chats = ({newMsg, setNewMsg}) => {
   return (
     <div className='h-screen'>
         <div className='h-full flex '>
-            <div className='w-[30%] border flex flex-col p-5 gap-5 overflow-y-auto hide-scrollbar'>
-                <h1 className='text-2xl font-semibold'>Chats</h1>
+            <div className='w-[30%] border-r-2 border-[#373A43] flex flex-col items-start overflow-y-auto hide-scrollbar'>
+                <h1 className='text-2xl text-white font-semibold p-5'>Chats</h1>
 
                 {
                     chats.map((chat)=>(
-                        <div key={chat._id} className='h-fit flex flex-col gap-4'>
+                        <div key={chat._id} className=' hover:bg-[#1F2128] h-fit w-full flex flex-col gap-4'>
                             <Link to={`/chat/${chat._id}`}>
-                            <div className='rounded border h-20 flex items-center px-2 gap-4'>
-                                <div className="border h-15 w-15 rounded-full overflow-hidden cursor-pointer">
+                            <div className='h-20 flex items-center px-2 gap-4 '>
+                                <div className="h-15 w-15 rounded-full overflow-hidden cursor-pointer ml-2">
                                     {!chat?.friendPic ? (
-                                    <div className="h-full w-full flex items-center justify-center text-2xl">
+                                    <div className="h-full text-white w-full flex items-center justify-center text-2xl">
                                         <i className="ri-user-line"></i>
                                     </div>
                                     ) : (
@@ -128,9 +128,9 @@ const Chats = ({newMsg, setNewMsg}) => {
                                     )}
                                 </div>
                                 <div className='flex flex-col  h-[65%] justify-start items-start'>
-                                    <h1 className='font-semibold  text-lg'>{chat.friendFullName.firstName}</h1>
+                                    <h1 className='font-semibold text-white text-lg'>{chat.friendFullName.firstName}</h1>
                                     <div>
-                                        <h1 className='text-sm truncate w-50'>{chat.lastMessage}</h1>
+                                        <h1 className='text-sm truncate w-50 text-[#808191] font-semibold'>{chat.lastMessage}</h1>
                                     </div>
                                     
                                 </div>
@@ -140,7 +140,7 @@ const Chats = ({newMsg, setNewMsg}) => {
                     ))
                 }
             </div>
-            <div className='w-[70%] border h-full'>
+            <div className='w-[70%] h-full'>
                 <Outlet/>
             </div>
         </div>

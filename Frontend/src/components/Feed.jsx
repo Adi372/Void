@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const Feed = ({post, user}) => {
 
+    const location = useLocation();
     const [like, setLike] = useState(post.likes.length);
     const [commentStatus, setCommentStatus] = useState(false);
     const [comment, setComment] = useState('');
@@ -11,7 +13,34 @@ const Feed = ({post, user}) => {
     const [saves, setSavesCount] = useState(post.saves.length);
     const navigate = useNavigate();
 
+    const[me, setMe] = useState(null);
+
+    const [isLiked, setIsLiked] = useState(false);
+
+    useEffect(() => {
+        axios.get('http://localhost:3000/api/auth/findUser', {
+            withCredentials: true
+        })
+        .then((res) => {
+            setMe(res.data);
+
+            setIsLiked(
+                res.data.likedPosts.some(id =>
+                    id.toString() === post._id.toString()
+                )
+            );
+        })
+        .catch((err) => {
+            console.log(err);
+            setMe(null);
+            if (err.response?.status === 401) {
+                navigate('/login');
+            }
+        });
+    }, [like, post._id]);
+
     console.log("post: ", post)
+    console.log("user: ", user);
 
     function likePost (post){
         axios.post('http://localhost:3000/api/post/like',
@@ -93,7 +122,7 @@ const Feed = ({post, user}) => {
 
   return (
     <div className='flex gap-20'>
-            <div className='w-200 bg-white h-fit border-zinc-100 border-1 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.15)] rounded-md flex flex-col'>
+            <div className={`shadow-[0_10px_40px_rgba(0,0,0,0.6)] rounded-2xl ${location.pathname === '/' ? "w-180":"w-120"} bg-[#1F2128] h-fit overflow-hidden text-white rounded-md flex flex-col`}>
                 <div className='flex py-3 px-4 items-center gap-2'>
                     <label onClick={() => navigate(`/userProfile/${post.user}`)} className="h-10 w-10 rounded-full overflow-hidden cursor-pointer">
                         {!post.profilePic ? (
@@ -110,30 +139,35 @@ const Feed = ({post, user}) => {
                         </div>
                         )}
                     </label>
-                    <h1 className='font-semibold'>{post.username}</h1>
+                    <h1 className='font-semibold '>{post.username}</h1>
                 </div>
                 <div className='flex flex-col'>
-                    <div className='h-100'>
+                    <div className={`${location.pathname === '/' ? "h-100":"h-100"}`}>
                         <img src={post.image} className='h-full w-full object-cover' alt="postImage" />
                     </div>
                     <div className='py-3 px-4 font-semibold'>
                         <h1>{post.caption}</h1>
                     </div>
-                    <div className='flex justify-between px-4 py-2 text-zinc-700'>
+                    <div className='flex justify-between px-8 py-2 text-[#808191] mb-1'>
                         <div onClick={() => likePost(post._id)} className='flex items-center gap-1 text-2xl'>
-                            <i class="ri-heart-3-line"></i>
-                            <h1 className='text-sm font-semibold'>{like}</h1>
+                            <div className={`${isLiked? "hidden": "flex"} hover:text-rose-400`}>
+                                <i class="ri-heart-3-line"></i>
+                            </div>
+                            <div className={`${isLiked? "flex": "hidden"} text-rose-400`}>
+                                <i class="ri-heart-3-fill"></i>
+                            </div>
+                            <h1 className={`${like > 0 ? "flex" : "hidden"} text-sm font-semibold ${isLiked? "text-rose-400": ""}`}>{like}</h1>
                         </div>
-                        <div onClick={(()=>setCommentStatus(!commentStatus))} className='flex items-center gap-1 text-2xl'>
+                        <div onClick={(()=>setCommentStatus(!commentStatus))} className='flex items-center gap-1 text-2xl hover:text-white'>
                             <i class="ri-chat-1-line"></i>
-                            <h1 className='text-sm font-semibold'>{comments.length}</h1>
+                            <h1 className={` ${comments?.length > 0 ? "flex" : "hidden"} text-sm font-semibold`}>{comments.length}</h1>
                         </div>
-                        <div type="button" onClick={()=>navigator.clipboard.writeText(`http://localhost:5173/post/${post._id}`)} className='flex items-center gap-1 text-2xl'>
+                        <div type="button" onClick={()=>navigator.clipboard.writeText(`http://localhost:5173/post/${post._id}`)} className='hover:text-white cursor-pointer flex items-center gap-1 text-2xl'>
                             <i class="ri-link"></i>
                         </div>
-                        <div onClick={() => savePost(post._id)} className='flex items-center gap-1 text-2xl'>
+                        <div onClick={() => savePost(post._id)} className='flex items-center gap-1 text-2xl hover:text-white'>
                             <i class="ri-bookmark-line"></i>
-                            <h1 className='text-sm font-semibold'>{saves}</h1>
+                            <h1 className={` ${saves > 0 ? "flex" : "hidden"} text-sm font-semibold`}>{saves}</h1>
                         </div>  
                     </div>
                     <form 
@@ -145,8 +179,8 @@ const Feed = ({post, user}) => {
                         <div className='h-full overflow-y-auto overflow-x-hidden hide-scrollbar flex flex-col gap-2'>
                             {
                                 comments.map((comment)=>(
-                                    <div key={comment._id} className='border flex items-center gap-3'>
-                                        <Link to={`/userProfile/${comment.user}`} className="border h-10 w-10 rounded-full overflow-hidden cursor-pointer">
+                                    <div key={comment._id} className=' flex items-center gap-3'>
+                                        <Link to={`/userProfile/${comment.user}`} className=" h-10 w-10 rounded-full overflow-hidden cursor-pointer">
                                             {!comment?.profilePic ? (
                                             <div className="h-full w-full flex items-center justify-center text-2xl">
                                                 <i className="ri-user-line"></i>
@@ -166,7 +200,7 @@ const Feed = ({post, user}) => {
                                             <h1 className='break-all'>{comment.text}</h1>
                                         </Link>
                                         {comment.user === user?._id && (
-                                            <button type="button" onClick={(()=>deleteComment(post._id, comment.text, comment._id))}>
+                                            <button className='mr-3' type="button" onClick={(()=>deleteComment(post._id, comment.text, comment._id))}>
                                                 <i className="ri-delete-bin-2-line"></i>
                                             </button>
                                         )}
@@ -174,9 +208,9 @@ const Feed = ({post, user}) => {
                                 ))
                             }
                         </div>
-                        <div className='h-fit mb-1 flex gap-1'>
-                            <input value={comment} onChange={(e)=>setComment(e.target.value)} className='border rounded w-full py-2 px-3' placeholder='Comment...' type="text" />
-                            <button type='submit' className='border px-3 py-1 rounded border-2'><i class="ri-send-plane-2-line"></i></button>
+                        <div className='h-fit my-3 flex gap-1'>
+                            <input value={comment} onChange={(e)=>setComment(e.target.value)} className='focus:outline-none rounded w-full py-2 px-3' placeholder='Comment...' type="text" />
+                            <button type='submit' className=' px-3 py-1 rounded'><i class="ri-send-plane-2-line"></i></button>
                         </div>
                     </form>
                 </div>

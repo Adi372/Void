@@ -45,12 +45,12 @@ const SavedPosts = () => {
     }, []);
 
     if(!user){
-        return <div className='h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>
+        return <div className='h-full text-[#808191] flex justify-center items-center font-semibold text-4xl'>Loading...</div>
     }
 
   return (
-    <div className='border h-screen flex flex-col'>
-      <div className='border py-10 text-3xl font-semibold px-5'>
+    <div className=' h-screen flex flex-col'>
+      <div className='text-4xl py-10 px-6 flex justify-between text-white'>
         Saved Posts
       </div>
       <div className='px-15 py-5 flex flex-wrap justify-between gap-y-14 overflow-y-auto hide-scrollbar'>

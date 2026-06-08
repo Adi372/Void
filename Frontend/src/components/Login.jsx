@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import {socket} from '../utils/socket'
+import VoidFull from '../assets/VoidFull.png'
 
 const Login = () => {
 
@@ -39,18 +40,20 @@ const Login = () => {
 
   return (
     <div className='h-screen flex justify-center py-10'>
-        <div className='h-full rounded w-120 border flex flex-col items-center px-10 py-5 gap-10'>
-            <div className='text-3xl font-semibold mt-25 mb-10'>
-                <h1>Platform Name</h1>
+        <div className='h-full rounded w-120 bg-[#1F2128] rounded-md shadow-[0_10px_40px_rgba(0,0,0,0.6)] flex flex-col items-center px-10 py-5 gap-10'>
+            <div className='text-3xl font-semibold mt-25 mb-10 text-white'>
+                <div className='h-35 w-full'>
+                    <img src={VoidFull} className='h-full w-full object-cover' alt="" />
+                </div>
             </div>
             <form onSubmit={handleSubmit} className='flex flex-col gap-2 w-80'>
-                <input value={email} onChange={(e)=>setEmail(e.target.value)} className='border rounded px-3 py-2' placeholder='email' type="text" />
-                <input value={password} onChange={(e)=>setPassword(e.target.value)} className='border rounded px-3 py-2' placeholder='password' type="text" />
-                <button type='submit' className='w-80 px-3 py-2 font-semibold border rounded mt-10'>Login</button>
+                <input value={email} onChange={(e)=>setEmail(e.target.value)} className='bg-[#181A20] focus:outline-none text-white placeholder:text-[#808191] rounded px-3 py-2' placeholder='email' type="text" />
+                <input value={password} onChange={(e)=>setPassword(e.target.value)} className='bg-[#181A20] focus:outline-none text-white placeholder:text-[#808191] rounded px-3 py-2' placeholder='password' type="text" />
+                <button type='submit' className='w-80 rounded-xl font-semibold px-8 py-3 hover:bg-[#4F3ECA] bg-[#6B5DD3] text-white mt-10'>Login</button>
             </form>
-            <div className='flex gap-2 w-full justify-center border-t py-3 mt-auto'>
+            <div className='flex gap-2 w-full text-[#808191] justify-center border-t-2 border-[#373A43] py-3 mt-auto'>
                 <h1>Don't have an account?</h1>
-                <Link to='/register' className='font-semibold'>Register</Link>
+                <Link to='/register' className='font-semibold text-white'>Register</Link>
             </div>
         </div>
     </div>

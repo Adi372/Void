@@ -37,16 +37,16 @@ const AllFriends = () => {
 
   return (
     <div className='h-screen flex flex-col'>
-        <div className='border text-4xl p-6 flex justify-between'>
+        <div className=' font-semibold text-white text-4xl p-6 flex justify-between'>
             Friends
         </div>
-        <div className='border h-full overflow-y-auto hide-scrollbar p-6'>
+        <div className=' h-full overflow-y-auto hide-scrollbar px-4 py-6'>
             {
                 friends.map((f)=>(
-                    <div key={f._id} className='border-b px-4 py-4 w-full flex items-center justify-between'>
+                    <div key={f._id} className='border-b border-[#373A43] px-4 py-4 w-full flex items-center justify-between'>
 
                         <Link to={`/userProfile/${f._id}`} className='flex gap-4'>
-                            <div className="border h-15 w-15 rounded-full overflow-hidden cursor-pointer">
+                            <div className="text-white h-15 w-15 rounded-full overflow-hidden cursor-pointer">
                                 {!f?.profilePic ? (
                                 <div className="h-full w-full flex items-center justify-center text-2xl">
                                     <i className="ri-user-line"></i>
@@ -61,12 +61,12 @@ const AllFriends = () => {
                                 </div>
                                 )}
                             </div>
-                            <div className='flex flex-col justify-center'>
+                            <div className='flex flex-col justify-center text-white'>
                                 <h1 className='font-semibold text-xl'>{f.username}</h1>
                                 <h1 className='text-sm'>{f.fullName.firstName} {f.fullName.lastName}</h1>
                             </div>
                         </Link>
-                        <button onClick={(()=>removeFriend(f._id))} className='cursor-pointer border rounded py-1 px-2'>
+                        <button onClick={(()=>removeFriend(f._id))} className='cursor-pointer bg-red-500 hover:bg-red-600 rounded-2xl text-white w-fit py-3 px-5 font-semibold'>
                             <h1>Remove</h1>
                         </button>
 

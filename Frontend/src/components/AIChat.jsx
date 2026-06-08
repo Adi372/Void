@@ -93,7 +93,7 @@ const AIChat = () => {
     }, []);
 
     if(!user){
-        return <div className='h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>
+        return <div className='text-[#808191] h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>
     }
 
     const handleSubmit = (e)=>{
@@ -116,7 +116,7 @@ const AIChat = () => {
 
   return (
     <div className='h-full w-full flex flex-col'>
-      <div className='border w-full h-[12%] flex items-center px-5 gap-4'>
+      <div className='text-white w-full h-[12%] flex items-center px-5 gap-4'>
         <div className='text-2xl border h-12 w-12 rounded-full flex justify-center items-center'>
           <i class="ri-robot-2-line"></i>
         </div>
@@ -125,12 +125,12 @@ const AIChat = () => {
         </div>
       </div>
 
-      <div className='border h-[76%] flex flex-col px-5 py-5 overflow-y-auto hide-scrollbar gap-5'>
+      <div className='border-y-2 text-white border-[#373A43] h-[76%] flex flex-col px-5 py-5 overflow-y-auto hide-scrollbar gap-5'>
 
         {
           messages.map((msg)=>(
 
-            <div key={msg.id} className={`flex gap-3 items-center w-fit max-w-[45%] break-words ${msg.sender === 'user'?'self-end flex-row-reverse':''}`}>
+            <div key={msg.id} className={` flex gap-3 items-center w-fit max-w-[45%] break-words ${msg.sender === 'user'?'self-end flex-row-reverse':''}`}>
               <div className={`${msg.sender === 'user'?'hidden':'flex'} border h-10 w-10 rounded-full flex justify-center items-center self-start shrink-0 text-xl`}>
                 <i class="ri-robot-2-line"></i>
               </div>
@@ -141,7 +141,7 @@ const AIChat = () => {
                       className="h-full w-full object-cover"
                   />
               </div>
-              <div className='border px-2 py-1 rounded h-fit w-fit'>
+              <div className={`${msg.sender === 'user'?'bg-[#181A20]':'bg-[#1F2128]'} flex-1 px-3 py-2 rounded h-fit w-fit`}>
                 {msg.message}
               </div>
             </div>
@@ -149,9 +149,9 @@ const AIChat = () => {
         }
       </div>
 
-      <form onSubmit={handleSubmit} className='border h-[12%] flex items-center px-5 gap-2'>
-        <input value={userMessage} onChange={(e)=>setUserMessage(e.target.value)} className='border rounded w-[93%] h-12 py-2 px-3' placeholder='Message...' type="text" />
-        <button type='submit' className='border flex items-center h-12 text-2xl w-[7%] rounded justify-center'><i class="ri-send-plane-2-line"></i></button>
+      <form onSubmit={handleSubmit} className=' h-[12%] flex items-center px-5 gap-2'>
+        <input value={userMessage} onChange={(e)=>setUserMessage(e.target.value)} className='bg-[#181A20] focus:outline-none text-white placeholder:text-[#808191] rounded w-[93%] h-12 py-2 px-3' placeholder='Message...' type="text" />
+        <button type='submit' className=' flex items-center h-12 text-2xl w-[7%] justify-center text-[#808191] hover:text-white'><i class="ri-send-plane-2-line"></i></button>
       </form>
     </div>
   )

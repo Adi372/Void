@@ -48,16 +48,16 @@ const AddPost = () => {
     }
 
     if(!user){
-        return <div className='h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>
+        return <div className='text-[#808191] h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>
     }
 
   return (
     <div className='h-screen flex justify-center items-center'>
-        <form onSubmit={handleSubmit} className='border h-fit w-150 rounded flex flex-col p-5 overflow-hidden gap-5'>
-            <textarea value={caption} onChange={(e) => setCaption(e.target.value)} className='hide-scrollbar border px-5 py-3 rounded h-100 w-full resize-none' placeholder="What's on your mood" type="text" />
+        <form onSubmit={handleSubmit} className='bg-[#1F2128] h-fit w-150 shadow-[0_10px_40px_rgba(0,0,0,0.6)] rounded-2xl flex flex-col p-5 overflow-hidden gap-5'>
+            <textarea value={caption} onChange={(e) => setCaption(e.target.value)} className='focus:outline-none text-white placeholder:text-[#808191] hide-scrollbar bg-[#181A20] rounded-2xl  px-5 py-3 rounded h-100 w-full resize-none' placeholder="What's on your mood" type="text" />
             <div className='flex justify-between items-center'>
                 <div className='flex items-center gap-5'>
-                    <label className='rounded overflow-hidden w-fit px-3 py-1 text-xl border-2'>
+                    <label className='hover:text-white overflow-hidden w-fit px-3 py-1 text-xl text-[#808191]'>
                         <i class="ri-image-add-line"></i>
                         <input onChange={(e)=>
                             {
@@ -82,7 +82,7 @@ const AddPost = () => {
                         )
                     }
                 </div>
-                <button type='submit' className='border px-3 py-1 rounded border-2'>Post</button>
+                <button type='submit' className='text-[#808191] px-3 py-1 rounded font-semibold hover:text-white'>Post</button>
             </div>
         </form>
     </div>

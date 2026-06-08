@@ -124,7 +124,7 @@ const UserProfile = () => {
     }
 
     if (!user || !me) {
-        return <div className='h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>;
+        return <div className='h-full text-[#808191] flex justify-center items-center font-semibold text-4xl'>Loading...</div>;
     }
 
 
@@ -244,6 +244,7 @@ const UserProfile = () => {
             console.log(err);
         })
     }
+    
 
   return (
     <div className='h-screen overflow-y-auto hide-scrollbar'>
@@ -264,40 +265,40 @@ const UserProfile = () => {
                     </div>
                     )}
                 </label>
-                <div className='flex flex-col gap-2'>
+                <div className='flex flex-col gap-2 text-white'>
                     <h1 className='text-4xl font-bold'>{user.username}</h1>
                     <h1 className='text-xl font-semibold'>{`${user.fullName.firstName} ${user.fullName.lastName}`}</h1>
-                    <div className='flex gap-5'>
-                        <h1 className='text-xl font-semibold'>{`${user.createdPosts.length} posts`}</h1>
-                        <h1 className='text-xl font-semibold'>{`${user.friends.length} friends`}</h1>
+                    <div className='flex gap-5 text-md'>
+                        <h1 className=' font-semibold text-[#808191]'>{`${user.createdPosts.length} posts`}</h1>
+                        <h1 className=' font-semibold text-[#808191]'>{`${user.friends.length} friends`}</h1>
                     </div>
                 </div>
             </div>
             <div className=' items-center h-15 flex justify-center gap-10'>
                 <div className={`${requestStatus === "unsent"? "block":"hidden"}`}>
-                    <button onClick={() =>sendFriendRequest(user._id)} className='border rounded h-fit w-fit py-2 px-3'>
+                    <button onClick={() =>sendFriendRequest(user._id)} className='rounded-2xl font-semibold px-8 py-3 bg-[#1B1D21] hover:bg-[#6B5DD3] text-white'>
                         Add Friend
                     </button>
                 </div>
                 <div className={`${requestStatus === "sent"? "block":"hidden"}`}>
-                    <button onClick={() =>unsendFriendRequest(user._id)} className='border rounded h-fit w-fit py-2 px-3'>
+                    <button onClick={() =>unsendFriendRequest(user._id)} className='cursor-pointer bg-[#D97A7A] hover:bg-[#C76666] rounded-2xl text-white w-fit py-3 px-5 font-semibold'>
                         Cancel Request
                     </button>
                 </div>
                 <div className={`${requestStatus === "received"? "flex":"hidden"} flex gap-2`}>
-                    <button onClick={() =>acceptFriendRequest(user._id)} className={`border rounded h-fit w-fit py-2 px-3`}>
+                    <button onClick={() =>acceptFriendRequest(user._id)} className={`cursor-pointer bg-[#7FBA7A] hover:hover:bg-[#6FA86A] rounded-2xl text-white w-fit py-3 px-5 font-semibold`}>
                         Accept
                     </button>
-                    <button onClick={() =>rejectFriendRequest(user._id)} className={`border rounded h-fit w-fit py-2 px-3`}>
+                    <button onClick={() =>rejectFriendRequest(user._id)} className={`cursor-pointer bg-[#D97A7A] hover:bg-[#C76666] rounded-2xl text-white w-fit py-3 px-5 font-semibold`}>
                         Reject
                     </button>
                 </div>
                 <div className={`${requestStatus === "accepted"? "flex":"hidden"} flex gap-2`}>
-                    <button onClick={() =>removeFriend(user._id)} className={`border rounded h-fit w-fit py-2 px-3`}>
+                    <button onClick={() =>removeFriend(user._id)} className={`cursor-pointer bg-[#D97A7A] hover:bg-[#C76666] rounded-2xl text-white w-fit py-3 px-5 font-semibold`}>
                         Remove Friend
                     </button>
                 </div>
-                <button onClick={(()=>openChat(user._id))} className={` ${requestStatus === "accepted"? "flex":"hidden"} border rounded h-fit w-fit py-2 px-3`}>
+                <button onClick={(()=>openChat(user._id))} className={` ${requestStatus === "accepted"? "flex":"hidden"} rounded-2xl font-semibold px-8 py-3 bg-[#1B1D21] hover:bg-[#6B5DD3] text-white`}>
                     Message
                 </button>
             </div>
