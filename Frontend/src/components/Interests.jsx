@@ -48,7 +48,7 @@ const Interests = () => {
     }
 
     if(!user){
-        return <div className='h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>
+        return <div className='text-[#808191] h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>
     }
 
   return (

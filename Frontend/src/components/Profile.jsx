@@ -85,8 +85,10 @@ const Profile = () => {
                 </div>
                 <div className=' flex h-50 items-center gap-20'>
                     {!user.profilePic ? (
-                        <div className="h-40 w-40 border rounded-full flex items-center justify-center overflow-hidden text-[160px]">
-                            <i className="ri-user-line"></i>
+                        <div className="text-white h-40 w-40 border-6 rounded-full flex items-center justify-center overflow-hidden text-[160px]">
+                            <div className='mt-2.5'>
+                                <i class="ri-user-fill"></i>
+                            </div>
                         </div>
                         ) : (
 

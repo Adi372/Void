@@ -34,10 +34,10 @@ const Search = () => {
     <div className='sticky w-full top-0 z-10 flex items-center justify-center'>
         <div className='bg-transparent rounded relative'>
           <input value={name} onChange={(e)=>{setName(e.target.value)}} className='focus:outline-none text-white placeholder:text-[#808191] rounded w-140 py-2 px-3' placeholder='Search...' type="text" />
-          <div className={` ${result?.length > 0 ? "flex" : "hidden"} px-2 bg-transparent text-white overflow-x-hidden overflow-y-auto hide-scrollbar absolute h-fit w-full max-h-100 flex flex-col`}>
+          <div className={` ${result?.length > 0 ? "flex" : "hidden"} px-2 bg-black/20 rounded-b-4xl text-white overflow-x-hidden overflow-y-auto hide-scrollbar absolute h-fit w-full max-h-100 flex flex-col`}>
             {
               result.map((r)=>(
-                <div className=' my-1 flex items-center gap-3'>
+                <div className='hover:bg-white/20 rounded-4xl p-1 my-2 flex items-center gap-3'>
                   <Link to={`/userProfile/${r._id}`} className=" h-10 w-10 rounded-full overflow-hidden cursor-pointer">
                       {!r?.profilePic ? (
                       <div className="h-full w-full flex items-center justify-center text-2xl">

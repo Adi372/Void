@@ -162,7 +162,7 @@ const Notifications = ({
                       <i className="ri-user-line"></i>
                   </div>
                   ) : (
-                  <div className="hover:border-[#6B5DD3] hover:border-2 h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
+                  <div className="hover:border-white hover:border-2 h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
                       <img
                           src={n.profilePic}
                           alt="Profile Preview"
@@ -195,7 +195,7 @@ const Notifications = ({
               </Link>
 
               <Link to={`/userProfile/${n.userId}`} className={`${n.type === "friend-accepted"?"flex":"hidden"}`}>
-                <h1><span className='font-semibold'>{n.username}</span> accepted your friend request</h1>
+                <h1><span className='font-semibold text-white'>{n.username}</span> accepted your friend request</h1>
               </Link>
             </div>
           ))

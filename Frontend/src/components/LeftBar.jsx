@@ -134,13 +134,13 @@ useEffect(() => {
             </Link>
 
             <Link to='/aichat' className={`hover:text-white ${location.pathname.startsWith('/aichat') ? "text-white bg-[#6B5DD3] hover:text-white":"text-[#808191]"} w-fit px-4 py-3 rounded-full text-2xl`}><i class="ri-robot-2-line"></i></Link>
-            <Link to='/profile' className={` ${location.pathname.startsWith('/profile') ? " border-2 border-[#6B5DD3]":"hover:border-white hover:border-2"} h-14.5 w-14.5 rounded-full overflow-hidden cursor-pointer`}>
+            <Link to='/profile' className={`h-14.5 w-14.5 rounded-full overflow-hidden cursor-pointer`}>
                 {!user?.profilePic ? (
-                <div className="h-full w-full flex items-center justify-center text-2xl">
+                <div className="text-[#808191] hover:text-white h-full w-full flex items-center justify-center text-2xl">
                     <i className="ri-user-line"></i>
                 </div>
                 ) : (
-                <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl">
+                <div className={`${location.pathname.startsWith('/profile') ? " border-2 border-[#6B5DD3]":"hover:border-white hover:border-2"} h-full w-full rounded-full flex items-center justify-center overflow-hidden text-xl`}>
                     <img
                         src={user.profilePic}
                         alt="Profile Preview"

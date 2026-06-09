@@ -16,6 +16,7 @@ const Feed = ({post, user}) => {
     const[me, setMe] = useState(null);
 
     const [isLiked, setIsLiked] = useState(false);
+    const [isSaved, setIsSaved] = useState(false);
 
     useEffect(() => {
         axios.get('http://localhost:3000/api/auth/findUser', {
@@ -29,6 +30,13 @@ const Feed = ({post, user}) => {
                     id.toString() === post._id.toString()
                 )
             );
+
+            setIsSaved(
+                res.data.savedPosts.some(id =>
+                    id.toString() === post._id.toString()
+                )
+            );
+
         })
         .catch((err) => {
             console.log(err);
@@ -37,7 +45,7 @@ const Feed = ({post, user}) => {
                 navigate('/login');
             }
         });
-    }, [like, post._id]);
+    }, [like, post._id, saves]);
 
     console.log("post: ", post)
     console.log("user: ", user);
@@ -122,7 +130,7 @@ const Feed = ({post, user}) => {
 
   return (
     <div className='flex gap-20'>
-            <div className={`shadow-[0_10px_40px_rgba(0,0,0,0.6)] rounded-2xl ${location.pathname === '/' ? "w-180":"w-120"} bg-[#1F2128] h-fit overflow-hidden text-white rounded-md flex flex-col`}>
+            <div className={`shadow-[0_10px_40px_rgba(0,0,0,0.6)] rounded-2xl ${location.pathname === '/' || location.pathname.startsWith('/post') ? "w-180":"w-120"} bg-[#1F2128] h-fit overflow-hidden text-white rounded-md flex flex-col`}>
                 <div className='flex py-3 px-4 items-center gap-2'>
                     <label onClick={() => navigate(`/userProfile/${post.user}`)} className="h-10 w-10 rounded-full overflow-hidden cursor-pointer">
                         {!post.profilePic ? (
@@ -166,7 +174,12 @@ const Feed = ({post, user}) => {
                             <i class="ri-link"></i>
                         </div>
                         <div onClick={() => savePost(post._id)} className='flex items-center gap-1 text-2xl hover:text-white'>
-                            <i class="ri-bookmark-line"></i>
+                            <div className={`${isSaved? "hidden": "flex"}`}>
+                                <i class="ri-bookmark-line"></i>
+                            </div>
+                            <div className={`${isSaved? "flex": "hidden"}`}>
+                                <i class="ri-bookmark-fill"></i>
+                            </div>
                             <h1 className={` ${saves > 0 ? "flex" : "hidden"} text-sm font-semibold`}>{saves}</h1>
                         </div>  
                     </div>
