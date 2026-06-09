@@ -90,7 +90,7 @@ const Profile = () => {
                         </div>
                         ) : (
 
-                        <div className="h-40 w-40 border rounded-full flex items-center justify-center overflow-hidden text-[160px]">
+                        <div className="h-40 w-40 rounded-full flex items-center justify-center overflow-hidden text-[160px]">
                             <img
                                 src={user.profilePic}
                                 alt="Profile Preview"

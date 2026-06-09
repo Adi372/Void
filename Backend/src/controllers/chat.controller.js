@@ -258,7 +258,7 @@ async function loadMessages(req, res) {
                 messages: []
             })
         }
-        const messages = await messageModel.find({chatId}).sort({createdAt: 1});
+        const messages = await messageModel.find({chatId}).populate("sender", "profilePic username").sort({createdAt: 1});
   
         return res.status(200).json({
             message: "Messages loaded",

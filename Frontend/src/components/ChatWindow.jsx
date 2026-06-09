@@ -51,13 +51,13 @@ const ChatWindow = () => {
       {withCredentials: true}
     )
     .then((res)=>{
-      console.log(res.data);
+      console.log(res.data.messages);
       const formatted = res.data.messages.map((msg)=>({
           id: msg._id.toString(),
-          senderId: msg.sender,
-          sender: msg.sender === user._id? "me":"friend",
+          senderId: msg.sender._id,
+          sender: msg.sender._id.toString() === user._id.toString()? "me":"friend",
           message: msg.text,
-          senderPic: msg.senderPic
+          senderPic: msg.sender.profilePic
         }));
         setMessages(formatted);
     })
@@ -166,9 +166,11 @@ const ChatWindow = () => {
       <div className='border-y-2 text-white border-[#373A43] h-[76%] flex flex-col px-5 py-5 overflow-y-auto hide-scrollbar gap-5'>
 
         {
-          messages.map((msg)=>(
+          messages.map((msg)=>{
+            console.log(msg)
+            return (
             <div key={msg.id} className={`flex gap-3 items-center w-fit max-w-[93%] break-all ${msg.sender === 'me'?'self-end flex-row-reverse':''}`}>
-              <Link to={`/userProfile/${msg?.senderId}`} className=" h-10 w-10 rounded-full overflow-hidden cursor-pointer">
+              {/* <Link to={`/userProfile/${msg?.senderId}`} className=" h-10 w-10 rounded-full overflow-hidden cursor-pointer">
                   {!msg?.senderPic ? (
                   <div className=" h-full w-full flex items-center justify-center text-2xl">
                       <i className="ri-user-line"></i>
@@ -182,12 +184,12 @@ const ChatWindow = () => {
                       />
                   </div>
                   )}
-              </Link>
+              </Link> */}
               <div className={` ${msg.sender === 'me'?'bg-[#181A20]':'bg-[#1F2128]'} px-3 py-2 rounded-md h-fit w-fit`}>
                 {msg.message}
               </div>
             </div>
-          ))
+          )})
         }
       </div>
 
