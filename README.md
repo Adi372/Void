@@ -3,7 +3,6 @@
 > 🚧 **Project Status:** This project is currently under active development. Features, APIs, UI components, and documentation may change as development continues.
 
 > 🎬 **Teaser:**
-https://github.com/user-attachments/assets/74e8d908-ef62-4754-9f76-4fa96c71de71
 
 ## Overview
 A full-stack social media application featuring user authentication, social posting, friendships, notifications, real-time messaging, and an AI-powered chat assistant with long-term memory using embeddings and vector search.
