@@ -15,3 +15,289 @@ body,
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* Global overrides to prevent profile pictures/icons in flex containers from squishing */
+a.h-10.w-10, label.h-10.w-10, div.h-10.w-10,
+a.h-15.w-15, label.h-15.w-15, div.h-15.w-15,
+[class*="h-14.5"] {
+  flex-shrink: 0 !important;
+}
+
+/* AI chat message bubbles max width */
+div[class*="max-w-[45%]"] {
+  max-width: 93% !important;
+}
+
+/* Responsive Styles for Screens <= 768px (Mobile & Tablets) */
+@media (max-width: 768px) {
+  /* 1. Main layout container (Routing.jsx) */
+  #root > div > div.flex.h-screen {
+    flex-direction: column-reverse !important;
+    height: 100vh !important;
+    overflow: hidden !important;
+  }
+
+  /* 2. LeftBar: transform from left sidebar into a bottom navigation bar */
+  #root > div > div.flex.h-screen > div[class*="w-[100px]"] {
+    width: 100vw !important;
+    height: 60px !important;
+    min-height: 60px !important;
+    flex-direction: row !important;
+    border-right: none !important;
+    border-top: 2px solid #373A43 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    gap: 0 !important;
+  }
+
+  /* Hide the Logo link inside LeftBar on mobile */
+  #root > div > div.flex.h-screen > div[class*="w-[100px]"] > a:first-child {
+    display: none !important;
+  }
+
+  /* Re-layout the LeftBar links container */
+  #root > div > div.flex.h-screen > div[class*="w-[100px]"] > div.relative {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    gap: 0 !important;
+  }
+
+  /* Shrink LeftBar icons padding and size */
+  #root > div > div.flex.h-screen > div[class*="w-[100px]"] a {
+    padding: 8px !important;
+    font-size: 1.5rem !important;
+    line-height: 1 !important;
+  }
+
+  /* Shrink the profile image container size inside bottom navbar */
+  #root > div > div.flex.h-screen > div[class*="w-[100px]"] a.h-14\.5 {
+    height: 2.5rem !important;
+    width: 2.5rem !important;
+  }
+
+  /* Re-position notification & message count badges relative to the bottom navbar */
+  #root > div > div.flex.h-screen > div[class*="w-[100px]"] > div.relative > a.absolute.right-3.top-3 {
+    left: calc(8.33vw + 10px) !important;
+    right: auto !important;
+    top: 4px !important;
+  }
+
+  #root > div > div.flex.h-screen > div[class*="w-[100px]"] > div.relative > a[class*="top-70"] {
+    left: calc(58.33vw + 10px) !important;
+    right: auto !important;
+    top: 4px !important;
+  }
+
+  /* 3. RightBar: hide suggested accounts sidebar */
+  #root > div > div.flex.h-screen > div[class*="w-[300px]"] {
+    display: none !important;
+  }
+
+  /* 4. Routing Page Wrapper: limit viewable area to exclude the bottom nav */
+  #root > div > div.flex.h-screen > div.flex-1 {
+    height: calc(100vh - 60px) !important;
+    width: 100vw !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Force inner h-screen containers to occupy full remaining height instead of viewport height */
+  #root > div > div.flex.h-screen > div.flex-1 .h-screen {
+    height: 100% !important;
+  }
+
+  /* 5. General Utility & Layout Overrides */
+  /* General width adjustments to fit mobile screen */
+  .w-180, .w-120 {
+    width: calc(100% - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+  }
+
+  .w-150 {
+    width: 90% !important;
+    max-width: 600px !important;
+  }
+
+  .w-140 {
+    width: calc(100vw - 32px) !important;
+    max-width: 560px !important;
+  }
+
+  .w-200 {
+    width: 100% !important;
+    max-width: 800px !important;
+  }
+
+  .w-80 {
+    width: 100% !important;
+    max-width: 320px !important;
+  }
+
+  /* General padding & margin overrides */
+  .px-15, .px-20 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .py-5, .py-20 {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .p-7, .p-5 {
+    padding: 1rem !important;
+  }
+
+  /* Shrink gap sizes on mobile */
+  .gap-20 {
+    gap: 1.5rem !important;
+  }
+
+  /* 6. Feed & Post layout */
+  .flex.gap-20 {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    width: 100% !important;
+    align-items: center !important;
+  }
+
+  /* Post image container height */
+  div.h-100:has(> img) {
+    height: 300px !important;
+  }
+
+  /* Profile page posts wrapper breakout to match home page feed width */
+  div.flex-col.gap-5 > div.flex-col.gap-2 > div.flex-wrap.py-3 {
+    margin-left: -2rem !important;
+    margin-right: -2rem !important;
+    width: calc(100% + 4rem) !important;
+  }
+
+  /* UserProfile / SavedPosts / LikedPosts / CommentedPosts container padding reset on mobile */
+  div.px-15.py-5.flex.flex-wrap,
+  div.mt-10.px-15 {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  /* 7. Profile Header adjustments */
+  /* Edit profile, my profile user header row */
+  .flex.pt-15.pb-10.gap-10 {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 1.5rem !important;
+    padding-top: 2rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .flex.h-50.items-center.gap-20 {
+    flex-direction: column !important;
+    height: auto !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 1.5rem !important;
+    padding-top: 1.5rem !important;
+  }
+
+  .flex.flex-col.gap-3.text-white, 
+  .flex.flex-col.gap-2.text-white {
+    align-items: center !important;
+  }
+
+  /* Profile Edit button container */
+  .h-full.w-40.flex.justify-center {
+    width: 100% !important;
+    justify-content: center !important;
+    margin-top: 0.5rem !important;
+  }
+
+  /* Profile action buttons wrapper */
+  .items-center.h-15.flex.justify-center.gap-10 {
+    gap: 1rem !important;
+    height: auto !important;
+    padding: 1rem 0 !important;
+    flex-wrap: wrap !important;
+  }
+
+  /* My Profile Logout & Delete buttons row */
+  .flex.py-2.px-1.justify-end.gap-5 {
+    justify-content: center !important;
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    gap: 0.75rem !important;
+  }
+
+  /* Profile stats (Liked posts, comments, saved posts) */
+  .flex.px-1.py-5.gap-2.font-semibold.justify-between.text-\[\#808191\] {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    padding: 1rem 0 !important;
+    border-bottom: 1px solid #373A43 !important;
+  }
+
+  /* 8. Chats Layout Switcher (mobile toggle list vs window) */
+  /* Target the Chats component container */
+  div.h-full.flex:has(div[class*="w-[30%]"]) {
+    flex-direction: row !important;
+  }
+
+  div[class*="w-[30%]"] {
+    width: 100% !important;
+    border-right: none !important;
+  }
+
+  div[class*="w-[70%]"] {
+    width: 100% !important;
+  }
+
+  /* Toggle display logic based on whether there's a child element (active chat) in w-[70%] */
+  div.h-full.flex:has(div[class*="w-[70%]"] > div) div[class*="w-[30%]"] {
+    display: none !important;
+  }
+
+  div.h-full.flex:not(:has(div[class*="w-[70%]"] > div)) div[class*="w-[70%]"] {
+    display: none !important;
+  }
+
+  /* 9. Chat details & messaging components */
+  .h-\[12\%\] {
+    height: 60px !important;
+  }
+
+  .h-\[76\%\] {
+    height: calc(100% - 120px) !important;
+  }
+
+  form.h-\[12\%\] {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  form.h-\[12\%\] > input {
+    width: 80% !important;
+    flex-grow: 1 !important;
+  }
+
+  form.h-\[12\%\] > button {
+    width: auto !important;
+    min-width: 44px !important;
+  }
+
+  /* (AI Chat max-width is now handled globally above) */
+
+  /* 10. AddPost textarea container height */
+  textarea.h-100 {
+    height: 180px !important;
+  }
+}
+

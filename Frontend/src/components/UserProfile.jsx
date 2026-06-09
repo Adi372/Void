@@ -95,15 +95,15 @@ const UserProfile = () => {
 
     useEffect(()=>{
         searchUser(userId);
-    }, []);
+    }, [userId]);
 
     useEffect(()=>{
         searchMe(userId);
-    }, []);
+    }, [userId]);
 
     useEffect(()=>{
         getPosts(userId);
-    },[]);
+    },[userId]);
 
     useEffect(()=>{
         checkStatus();
@@ -252,8 +252,10 @@ const UserProfile = () => {
             <div className='flex pt-15 pb-10 gap-10 px-5 w-full justify-center'>
                 <label onClick={() => navigate(`/userProfile/${post.user}`)} className="h-40 w-40 rounded-full overflow-hidden cursor-pointer">
                     {!user.profilePic ? (
-                    <div className="h-full w-full flex items-center justify-center text-[170px]">
-                        <i className="ri-user-line"></i>
+                    <div className="text-white h-40 w-40 border rounded-full flex items-center justify-center overflow-hidden text-[160px]">
+                        <div className='mt-2.5'>
+                            <i class="ri-user-fill"></i>
+                        </div>
                     </div>
                     ) : (
                     <div className="h-full w-full rounded-full flex items-center justify-center overflow-hidden text-[160px]">

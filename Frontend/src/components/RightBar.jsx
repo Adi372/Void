@@ -42,10 +42,10 @@ const RightBar = () => {
                       )}
                   </Link>
 
-                  <div className='hover:text-white flex flex-col justify-center text-[#808191]'>
+                  <Link to={`/userProfile/${a._id}`} className='hover:text-white flex flex-col justify-center text-[#808191]'>
                     <h1 className='font-semibold text-xl'>{a.username}</h1>
                     <h1 className='text-sm'>{a.fullName.firstName} {a.fullName.lastName}</h1>
-                  </div>
+                  </Link>
                 </div>
               ))
             }

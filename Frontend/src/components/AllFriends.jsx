@@ -66,7 +66,7 @@ const AllFriends = () => {
                                 <h1 className='text-sm'>{f.fullName.firstName} {f.fullName.lastName}</h1>
                             </div>
                         </Link>
-                        <button onClick={(()=>removeFriend(f._id))} className='cursor-pointer bg-red-500 hover:bg-red-600 rounded-2xl text-white w-fit py-3 px-5 font-semibold'>
+                        <button onClick={(()=>removeFriend(f._id))} className='cursor-pointer bg-[#D97A7A] hover:bg-[#C76666] rounded-2xl text-white w-fit py-3 px-5 font-semibold'>
                             <h1>Remove</h1>
                         </button>
 

@@ -114,7 +114,7 @@ const EditProfile = () => {
 
   if (loading) {
     return (
-      <div className="h-screen flex justify-center items-center text-4xl font-semibold">
+      <div className="text-[#808191] h-screen flex justify-center items-center text-4xl font-semibold">
         Loading...
       </div>
     );
@@ -131,10 +131,12 @@ const EditProfile = () => {
         className="flex flex-col items-center gap-10 px-6 pb-10"
       >
         <div className="flex justify-center">
-          <label className="h-40 w-40 rounded-full border overflow-hidden cursor-pointer">
+          <label className="h-40 w-40 text-white rounded-full border overflow-hidden cursor-pointer">
             {!imagePreview ? (
-              <div className="h-full w-full flex items-center justify-center text-[170px]">
-                <i className="ri-user-line"></i>
+              <div className="h-full w-full flex items-center justify-center text-[170px] overflow-hidden">
+                <div className="mt-2.5">
+                  <i class="ri-user-fill"></i>
+                </div>
               </div>
             ) : (
               <img
