@@ -10,6 +10,7 @@ body,
   height: 100%;
   width: 100%;
   overflow-x: hidden;
+  background-color: #232630;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
@@ -26,6 +27,19 @@ a.h-15.w-15, label.h-15.w-15, div.h-15.w-15,
 /* AI chat message bubbles max width */
 div[class*="max-w-[45%]"] {
   max-width: 93% !important;
+}
+
+/* Responsive Styles for Screens <= 1024px (Tablets & Nest Hub) */
+@media (max-width: 1024px) {
+  /* Hide suggested accounts right sidebar */
+  #root > div > div.flex.h-screen > div[class*="w-[300px]"] {
+    display: none !important;
+  }
+
+  /* Prevent feed overflow when LeftBar is on the left */
+  .w-180 {
+    max-width: calc(100vw - 140px) !important;
+  }
 }
 
 /* Responsive Styles for Screens <= 768px (Mobile & Tablets) */
