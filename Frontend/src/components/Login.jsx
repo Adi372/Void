@@ -27,13 +27,16 @@ const Login = () => {
             setUserDetails(res.data);
             socket.disconnect().connect();
             navigate('/profile');
-            console.log(res.data)
+            // console.log(res.data)
         })
         .catch((err)=>{
-            if(err.response?.status === 409){
-              alert("Username already exists");
+            if(err.response?.status === 401){
+              alert("Wrong Email or Password");
             }
-            console.log(err)
+            if(err.response?.status === 500){
+              alert("Internal Server Error");
+            }
+            // console.log(err)
         })
         console.log(userDetails)
     }

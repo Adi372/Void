@@ -15,11 +15,11 @@ const Chats = ({newMsg, setNewMsg}) => {
             }
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             setFriends(res.data.friends);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
     }
 
@@ -33,7 +33,7 @@ const Chats = ({newMsg, setNewMsg}) => {
             setUser(res.data);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
             setUser(null);
         });
     }
@@ -45,11 +45,11 @@ const Chats = ({newMsg, setNewMsg}) => {
             }
         )
         .then((res)=>{
-            console.log("chats: ", res.data);
+            // console.log("chats: ", res.data);
             setChats(res.data.chats);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
     }
 

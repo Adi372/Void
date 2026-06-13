@@ -25,7 +25,7 @@ const UserProfile = () => {
             setMe(res.data);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
             setMe(null);
         });
     }
@@ -40,11 +40,11 @@ const UserProfile = () => {
           }
       )
       .then((res)=>{
-        console.log(res.data.user)
+        // console.log(res.data.user)
           setUser(res.data.user);
       })
       .catch((err)=>{
-          console.log(err);
+        //   console.log(err);
       });
     }
 
@@ -85,11 +85,11 @@ const UserProfile = () => {
             }
         )
         .then((res)=>{
-            console.log(res.data.posts);
+            // console.log(res.data.posts);
             setPosts(res.data.posts)
         })
         .catch((err)=>{
-            console.log(err)
+            // console.log(err)
         })
     }
 
@@ -115,11 +115,11 @@ const UserProfile = () => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             setRequestStatus(res.data.status);
         })
         .catch((err)=>{
-            console.log(err)
+            // console.log(err)
         })
     }
 
@@ -137,11 +137,11 @@ const UserProfile = () => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             setRequestStatus(res.data.status);
         })
         .catch((err)=>{
-            console.log(err)
+            // console.log(err)
         })
     }
 
@@ -154,7 +154,7 @@ const UserProfile = () => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             setRequestStatus(res.data.status);
             setMe(prev => ({
             ...prev,
@@ -173,7 +173,7 @@ const UserProfile = () => {
             }));
         })
         .catch((err)=>{
-            console.log(err)
+            // console.log(err)
         })
     }
 
@@ -186,11 +186,11 @@ const UserProfile = () => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             setRequestStatus(res.data.status);
         })
         .catch((err)=>{
-            console.log(err)
+            // console.log(err)
         })
     }
 
@@ -203,7 +203,7 @@ const UserProfile = () => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             setRequestStatus(res.data.status);
 
             setRequestStatus("unsent");
@@ -223,12 +223,12 @@ const UserProfile = () => {
             }));
         })
         .catch((err)=>{
-            console.log(err)
+            // console.log(err)
         })
     }
 
-    console.log(requestStatus)
-    console.log(me)
+    // console.log(requestStatus)
+    // console.log(me)
 
     function openChat(user2Id){
         axios.post('http://localhost:3000/api/chat/findOrCreate',
@@ -236,12 +236,12 @@ const UserProfile = () => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             socket.emit("join-chat", res.data.chatId);
             navigate(`/chat/${res.data.chatId}`)
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
     }
     

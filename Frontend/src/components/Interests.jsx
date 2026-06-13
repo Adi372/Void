@@ -28,7 +28,7 @@ const Interests = () => {
             setUser(res.data);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
             setUser(null);
         });
     }, []);
@@ -39,11 +39,11 @@ const Interests = () => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             navigate('/profile');
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
     }
 

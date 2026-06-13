@@ -38,11 +38,15 @@ const Register = () => {
         })
         .catch((err)=>{
             if(err.response?.status === 409){
-              alert("Username already exists");
+              alert("Email or Username already exists");
+            }
+            if(err.response?.status === 500){
+              alert("Internal Server Error");
             }
             console.log(err)
+            // console.log(err)
         })
-        console.log(userDetails);
+        // console.log(userDetails);
     }
 
   return (

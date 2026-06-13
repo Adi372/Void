@@ -21,7 +21,7 @@ const ChatWindow = () => {
           setUser(res.data);
       })
       .catch((err)=>{
-          console.log(err);
+          // console.log(err);
           setUser(null);
       });
   }
@@ -33,15 +33,15 @@ const ChatWindow = () => {
           }
       )
       .then((res)=>{
-          console.log(res.data);
+          // console.log(res.data);
           const myChat = res.data.chats.find(chat=>
             chat._id === id
           )
-          console.log("my chat:",myChat)
+          // console.log("my chat:",myChat)
           setChat(myChat);
       })
       .catch((err)=>{
-          console.log(err);
+          // console.log(err);
       })
   }
 
@@ -51,7 +51,7 @@ const ChatWindow = () => {
       {withCredentials: true}
     )
     .then((res)=>{
-      console.log(res.data.messages);
+      // console.log(res.data.messages);
       const formatted = res.data.messages.map((msg)=>({
           id: msg._id.toString(),
           senderId: msg.sender._id,
@@ -62,7 +62,7 @@ const ChatWindow = () => {
         setMessages(formatted);
     })
     .catch((err)=>{
-      console.log(err);
+      // console.log(err);
     })
   }
 
@@ -85,7 +85,7 @@ const ChatWindow = () => {
 
     const joinRoom = () => {
       socket.emit("join-chat", id);
-      console.log("Joined room:", id);
+      // console.log("Joined room:", id);
     };
 
     if (socket.connected) {

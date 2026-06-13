@@ -39,7 +39,7 @@ const Feed = ({post, user}) => {
 
         })
         .catch((err) => {
-            console.log(err);
+            // console.log(err);
             setMe(null);
             if (err.response?.status === 401) {
                 navigate('/login');
@@ -47,8 +47,8 @@ const Feed = ({post, user}) => {
         });
     }, [like, post._id, saves]);
 
-    console.log("post: ", post)
-    console.log("user: ", user);
+    // console.log("post: ", post)
+    // console.log("user: ", user);
 
     function likePost (post){
         axios.post('http://localhost:3000/api/post/like',
@@ -80,12 +80,12 @@ const Feed = ({post, user}) => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res);
+            // console.log(res);
             setComments(res.data.totalComments);
             setComment('');
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
     }
 
@@ -95,11 +95,11 @@ const Feed = ({post, user}) => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res);
+            // console.log(res);
             setComments(res.data.totalComments);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
     }
 
@@ -109,7 +109,7 @@ const Feed = ({post, user}) => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res);
+            // console.log(res);
             setSavesCount(res.data.totalSaves)
         })
         .catch((err)=>{
@@ -120,7 +120,7 @@ const Feed = ({post, user}) => {
                     {withCredentials: true}
                 )
                 .then((res)=>{
-                    console.log(res);
+                    // console.log(res);
                     setSavesCount(res.data.totalSaves)
                 })
                 .catch(console.log);

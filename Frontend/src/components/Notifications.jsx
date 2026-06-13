@@ -23,7 +23,7 @@ const Notifications = ({
           }
       )
       .then((res) => {
-        console.log("User: ", res.data);
+        // console.log("User: ", res.data);
         const likeNotifications = res.data.notifications.likes.map((n) => ({
           postId: n.postId,
           postCaption: n.postCaption,
@@ -83,7 +83,7 @@ const Notifications = ({
         setNotifications(allNotifications);
       })
       .catch((err)=>{
-          console.log(err);
+          // console.log(err);
           setUser(null);
       });
   }, []);
@@ -133,15 +133,15 @@ const Notifications = ({
         {withCredentials: true}
       )
       .then((res)=>{
-        console.log(res.data);
+        // console.log(res.data);
         setNotifications([]);
       })
       .catch((err)=>{
-        console.log(err);
+        // console.log(err);
       })
     }
 
-  console.log("Notifications: ", notifications);
+  // console.log("Notifications: ", notifications);
 
   return (
     <div className='h-screen flex flex-col gap-5'>

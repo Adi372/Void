@@ -17,12 +17,12 @@ const AIChat = () => {
             }
         )
         .then((res)=>{
-          console.log("user fetched")
-          console.log(res.data)
+          // console.log("user fetched")
+          // console.log(res.data)
             setUser(res.data);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
             setUser(null);
         });
     }, []);
@@ -34,19 +34,19 @@ const AIChat = () => {
         }
       )
       .then((res)=>{
-        console.log("chat opened")
+        // console.log("chat opened")
         socket.emit("join-aiChat", res.data.chatId);
-        console.log(res.data);
+        // console.log(res.data);
         setChatId(res.data.chatId);
       })
       .catch((err)=>{
-        console.log(err);
+        // console.log(err);
       })
     }, []);
 
     useEffect(()=>{
       if(!chatId) {
-        console.log("chatId not loaded yet")
+        // console.log("chatId not loaded yet")
         return;
       }
       axios.post('http://localhost:3000/api/aiChat/loadAIMessages',
@@ -58,7 +58,7 @@ const AIChat = () => {
         }
       )
       .then((res)=>{
-        console.log("messages loaded")
+        // console.log("messages loaded")
         const formatted = res.data.messages.map((msg)=>({
           id: msg._id.toString(),
           sender: msg.role === "user"? "user":"assistant",
@@ -67,17 +67,17 @@ const AIChat = () => {
         setMessages(formatted);
       })
       .catch((err)=>{
-        console.log(err);
+        // console.log(err);
       })
     }, [chatId]);
 
-    console.log(messages);
+    // console.log(messages);
 
 
     useEffect(()=>{
 
       const handler = (data) => {
-        console.log(data);
+        // console.log(data);
         const msg = {
           id: Date.now(),
           sender: "assistant",
@@ -109,7 +109,7 @@ const AIChat = () => {
         sender: "user",
         message: userMessage
       }
-      console.log("message submited")
+      // console.log("message submited")
       setMessages((prev)=>[...prev, msg]);
       setUserMessage("");
     }

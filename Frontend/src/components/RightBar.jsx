@@ -11,11 +11,11 @@ const RightBar = () => {
       {withCredentials: true}
     )
     .then((res)=>{
-      console.log("Suggested Accounts: ", res.data.accountWithSimilarInterests);
+      // console.log("Suggested Accounts: ", res.data.accountWithSimilarInterests);
       setSimilarAccounts(res.data.accountWithSimilarInterests);
     })
     .catch((err)=>{
-      console.log(err);
+      // console.log(err);
     })
   }, []);
 

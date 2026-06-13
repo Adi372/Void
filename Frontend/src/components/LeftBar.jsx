@@ -24,7 +24,7 @@ const LeftBar = (
   const [msgNotificationLength, setMsgNotificationLength] = useState('');
   const [notificationsLength, setNotificationsLength] = useState(0);
   const location = useLocation();
-  console.log(location.pathname);
+  // console.log(location.pathname);
 
   useEffect(()=>{
         axios.get('http://localhost:3000/api/auth/findUser',
@@ -33,11 +33,11 @@ const LeftBar = (
             }
         )
         .then((res)=>{
-          console.log(res.data)
+          // console.log(res.data)
             setUser(res.data);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
             setUser(null);
         });
     }, []);
@@ -68,14 +68,14 @@ useEffect(() => {
 
   useEffect(() => {
     setMsgNotificationLength(Math.min(newMsg.length, 99));
-    console.log('Msg Notifications: ', newMsg);
+    // console.log('Msg Notifications: ', newMsg);
   }, [newMsg]);
   
 
-  console.log('like notifications: ', likeNotification);
-  console.log('comment notifications: ', commentNotification);
-  console.log('Friend requests received notifications: ', friendRequestReceivedNotification);
-  console.log('Friend requests accepted notifications: ', friendRequestAcceptedNotification);
+  // console.log('like notifications: ', likeNotification);
+  // console.log('comment notifications: ', commentNotification);
+  // console.log('Friend requests received notifications: ', friendRequestReceivedNotification);
+  // console.log('Friend requests accepted notifications: ', friendRequestAcceptedNotification);
 
 
     const prevPath = useRef(location.pathname);

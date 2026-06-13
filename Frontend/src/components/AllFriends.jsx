@@ -11,11 +11,11 @@ const AllFriends = () => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             setFriends(res.data.friends);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
     }, []);
 
@@ -25,13 +25,13 @@ const AllFriends = () => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             setFriends(prev =>
                 prev.filter(friend => friend._id !== user2Id)
             );
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
     }
 

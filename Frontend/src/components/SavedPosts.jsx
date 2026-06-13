@@ -14,11 +14,11 @@ const SavedPosts = () => {
             }
         )
         .then((res)=>{
-            console.log(res.data)
+            // console.log(res.data)
             setUser(res.data);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
             setUser(null);
         });
     }
@@ -28,11 +28,11 @@ const SavedPosts = () => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             setSavedPosts(res.data.savedPosts);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
     }
 

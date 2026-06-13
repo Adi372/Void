@@ -21,7 +21,7 @@ const Profile = () => {
             setUser(res.data);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
             setUser(null);
             if (err.response?.status === 401) {
                 navigate('/login');
@@ -36,11 +36,11 @@ const Profile = () => {
             }
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             setPosts(res.data.posts)
         })
         .catch((err)=>{
-            console.log(err)
+            // console.log(err)
         })
     },[]);
 
@@ -49,11 +49,11 @@ const Profile = () => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             navigate('/login');
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
     }
 
@@ -62,11 +62,11 @@ const Profile = () => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             navigate('/register');
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
     }
 

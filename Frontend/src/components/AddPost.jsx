@@ -22,7 +22,7 @@ const AddPost = () => {
             setUser(res.data);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
             setUser(null);
         });
     }, []);
@@ -43,7 +43,7 @@ const AddPost = () => {
             navigate('/profile');
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
     }
 

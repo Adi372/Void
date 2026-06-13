@@ -12,11 +12,11 @@ const CommentedPosts = () => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             setCommentedPosts(res.data.commentedPosts);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
     }
 
@@ -27,11 +27,11 @@ const CommentedPosts = () => {
             }
         )
         .then((res)=>{
-            console.log(res.data)
+            // console.log(res.data)
             setUser(res.data);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
             setUser(null);
         });
     }

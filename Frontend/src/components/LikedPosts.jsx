@@ -12,11 +12,11 @@ const LikedPosts = () => {
             {withCredentials: true}
         )
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             setlikedPosts(res.data.likedPosts);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
         })
     }
 
@@ -27,11 +27,11 @@ const LikedPosts = () => {
             }
         )
         .then((res)=>{
-            console.log(res.data)
+            // console.log(res.data)
             setUser(res.data);
         })
         .catch((err)=>{
-            console.log(err);
+            // console.log(err);
             setUser(null);
         });
     }

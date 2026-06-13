@@ -15,10 +15,10 @@ const Search = () => {
     )
     .then((res)=>{
       setResult(res.data);
-      console.log("Search Results: ", res.data);
+      // console.log("Search Results: ", res.data);
     })
     .catch((err)=>{
-      console.log(err);
+      // console.log(err);
     })
   }
 

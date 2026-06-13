@@ -58,7 +58,7 @@ const EditProfile = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       })
       .finally(() => {
         setLoading(false);
@@ -108,7 +108,7 @@ const EditProfile = () => {
 
       navigate("/profile");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
