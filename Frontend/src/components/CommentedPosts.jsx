@@ -8,7 +8,7 @@ const CommentedPosts = () => {
     const [commentedPosts, setCommentedPosts] = useState([]);
 
     function allCommentedPosts(){
-        axios.get('http://localhost:3000/api/post/commentedPosts',
+        axios.get('https://void-tup9.onrender.com/api/post/commentedPosts',
             {withCredentials: true}
         )
         .then((res)=>{
@@ -21,7 +21,7 @@ const CommentedPosts = () => {
     }
 
     function findUser(){
-        axios.get('http://localhost:3000/api/auth/findUser',
+        axios.get('https://void-tup9.onrender.com/api/auth/findUser',
             {
                 withCredentials: true
             }

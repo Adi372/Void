@@ -9,7 +9,7 @@ const Chats = ({newMsg, setNewMsg}) => {
     const [chats, setChats] = useState([]);
 
     function allFriends(){
-        axios.get('http://localhost:3000/api/user/allFriends', 
+        axios.get('https://void-tup9.onrender.com/api/user/allFriends', 
             {
                 withCredentials: true
             }
@@ -24,7 +24,7 @@ const Chats = ({newMsg, setNewMsg}) => {
     }
 
     function me(){
-        axios.get('http://localhost:3000/api/auth/findUser',
+        axios.get('https://void-tup9.onrender.com/api/auth/findUser',
             {
                 withCredentials: true
             }
@@ -39,7 +39,7 @@ const Chats = ({newMsg, setNewMsg}) => {
     }
 
     function allChats(){
-        axios.get('http://localhost:3000/api/chat/allRealChats', 
+        axios.get('https://void-tup9.onrender.com/api/chat/allRealChats', 
             {
                 withCredentials: true
             }

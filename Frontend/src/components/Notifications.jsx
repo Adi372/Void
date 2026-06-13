@@ -17,7 +17,7 @@ const Notifications = ({
     const [notifications, setNotifications] = useState([]);
 
     useEffect(()=>{
-      axios.get('http://localhost:3000/api/auth/findUser',
+      axios.get('https://void-tup9.onrender.com/api/auth/findUser',
           {
               withCredentials: true
           }
@@ -129,7 +129,7 @@ const Notifications = ({
   }, [likeNotification, commentNotification, friendRequestReceivedNotification, friendRequestAcceptedNotification]);
 
   function clearNotifications(){
-      axios.get('http://localhost:3000/api/user/clearNotifications',
+      axios.get('https://void-tup9.onrender.com/api/user/clearNotifications',
         {withCredentials: true}
       )
       .then((res)=>{

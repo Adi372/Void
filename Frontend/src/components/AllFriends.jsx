@@ -7,7 +7,7 @@ const AllFriends = () => {
     const [friends, setFriends] = useState([]);
 
     useEffect(()=>{
-        axios.get('http://localhost:3000/api/user/allFriends',
+        axios.get('https://void-tup9.onrender.com/api/user/allFriends',
             {withCredentials: true}
         )
         .then((res)=>{
@@ -20,7 +20,7 @@ const AllFriends = () => {
     }, []);
 
     function removeFriend(user2Id){
-        axios.post('http://localhost:3000/api/user/removeFriend',
+        axios.post('https://void-tup9.onrender.com/api/user/removeFriend',
             {user2Id},
             {withCredentials: true}
         )

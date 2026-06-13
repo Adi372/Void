@@ -11,7 +11,7 @@ const AIChat = () => {
   const [userMessage, setUserMessage] = useState('');
 
   useEffect(()=>{
-        axios.get('http://localhost:3000/api/auth/findUser',
+        axios.get('https://void-tup9.onrender.com/api/auth/findUser',
             {
                 withCredentials: true
             }
@@ -28,7 +28,7 @@ const AIChat = () => {
     }, []);
 
     useEffect(()=>{
-      axios.get('http://localhost:3000/api/aiChat/findOrCreate',
+      axios.get('https://void-tup9.onrender.com/api/aiChat/findOrCreate',
         {
           withCredentials: true
         }
@@ -49,7 +49,7 @@ const AIChat = () => {
         // console.log("chatId not loaded yet")
         return;
       }
-      axios.post('http://localhost:3000/api/aiChat/loadAIMessages',
+      axios.post('https://void-tup9.onrender.com/api/aiChat/loadAIMessages',
         {
           chatId
         },

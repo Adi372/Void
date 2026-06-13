@@ -8,7 +8,7 @@ const SavedPosts = () => {
     const [savedPosts, setSavedPosts] = useState([]);
 
     function findUser(){
-        axios.get('http://localhost:3000/api/auth/findUser',
+        axios.get('https://void-tup9.onrender.com/api/auth/findUser',
             {
                 withCredentials: true
             }
@@ -24,7 +24,7 @@ const SavedPosts = () => {
     }
 
     function allSavedPosts(){
-        axios.get('http://localhost:3000/api/post/savedPosts',
+        axios.get('https://void-tup9.onrender.com/api/post/savedPosts',
             {withCredentials: true}
         )
         .then((res)=>{

@@ -13,7 +13,7 @@ const AddPost = () => {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        axios.get('http://localhost:3000/api/auth/findUser',
+        axios.get('https://void-tup9.onrender.com/api/auth/findUser',
             {
                 withCredentials: true
             }
@@ -35,7 +35,7 @@ const AddPost = () => {
         formData.append("caption", caption);
         formData.append("image", image);
 
-        axios.post('http://localhost:3000/api/post/create',
+        axios.post('https://void-tup9.onrender.com/api/post/create',
             formData,
             {withCredentials: true}
         )

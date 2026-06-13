@@ -9,7 +9,7 @@ const Search = () => {
   const [result, setResult] = useState([]);
   
   function searchProfile(name){
-    axios.post('http://localhost:3000/api/user/searchUser', 
+    axios.post('https://void-tup9.onrender.com/api/user/searchUser', 
       {name},
       {withCredentials: true}
     )

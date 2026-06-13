@@ -16,7 +16,7 @@ const Login = () => {
         if(!email || !password){
             return alert("Please fill all fields");
         }
-        axios.post('http://localhost:3000/api/auth/login',
+        axios.post('https://void-tup9.onrender.com/api/auth/login',
             {
                 email,
                 password

@@ -19,7 +19,7 @@ const Feed = ({post, user}) => {
     const [isSaved, setIsSaved] = useState(false);
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/auth/findUser', {
+        axios.get('https://void-tup9.onrender.com/api/auth/findUser', {
             withCredentials: true
         })
         .then((res) => {
@@ -51,7 +51,7 @@ const Feed = ({post, user}) => {
     // console.log("user: ", user);
 
     function likePost (post){
-        axios.post('http://localhost:3000/api/post/like',
+        axios.post('https://void-tup9.onrender.com/api/post/like',
             {post},
             {withCredentials: true}
         )
@@ -61,7 +61,7 @@ const Feed = ({post, user}) => {
         .catch((err)=>{
             if(err.response?.status === 400){
                 axios.post(
-                    'http://localhost:3000/api/post/removeLike',
+                    'https://void-tup9.onrender.com/api/post/removeLike',
                     { post },
                     { withCredentials: true }
                 )
@@ -75,7 +75,7 @@ const Feed = ({post, user}) => {
 
     function submitComment (postId, comment){
         if(!comment.trim()) return;
-        axios.post('http://localhost:3000/api/post/comment',
+        axios.post('https://void-tup9.onrender.com/api/post/comment',
             {postId, comment},
             {withCredentials: true}
         )
@@ -90,7 +90,7 @@ const Feed = ({post, user}) => {
     }
 
     function deleteComment (postId, comment, commentId){
-        axios.post('http://localhost:3000/api/post/removeComment', 
+        axios.post('https://void-tup9.onrender.com/api/post/removeComment', 
             {postId, comment, commentId},
             {withCredentials: true}
         )
@@ -104,7 +104,7 @@ const Feed = ({post, user}) => {
     }
 
     function savePost (postId){
-        axios.post('http://localhost:3000/api/post/save', 
+        axios.post('https://void-tup9.onrender.com/api/post/save', 
             {postId},
             {withCredentials: true}
         )
@@ -115,7 +115,7 @@ const Feed = ({post, user}) => {
         .catch((err)=>{
             if(err.response?.status === 400){
                 axios.post(
-                    'http://localhost:3000/api/post/unsave',
+                    'https://void-tup9.onrender.com/api/post/unsave',
                     { postId },
                     {withCredentials: true}
                 )

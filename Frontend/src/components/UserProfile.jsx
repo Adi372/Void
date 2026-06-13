@@ -16,7 +16,7 @@ const UserProfile = () => {
 
 
     function searchMe(userId){
-        axios.get('http://localhost:3000/api/auth/findUser',
+        axios.get('https://void-tup9.onrender.com/api/auth/findUser',
             {
                 withCredentials: true
             }
@@ -31,7 +31,7 @@ const UserProfile = () => {
     }
 
     function searchUser(userId){
-        axios.post('http://localhost:3000/api/user/searchOneUser',
+        axios.post('https://void-tup9.onrender.com/api/user/searchOneUser',
             {
                userId 
             },
@@ -76,7 +76,7 @@ const UserProfile = () => {
     }
 
     function getPosts(userId){
-        axios.post('http://localhost:3000/api/post/userPosts',
+        axios.post('https://void-tup9.onrender.com/api/post/userPosts',
             {
                 userId
             },
@@ -110,7 +110,7 @@ const UserProfile = () => {
     }, [me, user]);
 
     function sendFriendRequest(user2Id){
-        axios.post('http://localhost:3000/api/user/sendFriendRequest',
+        axios.post('https://void-tup9.onrender.com/api/user/sendFriendRequest',
             {user2Id},
             {withCredentials: true}
         )
@@ -132,7 +132,7 @@ const UserProfile = () => {
         if(requestStatus === "unsent" || requestStatus === ""){
             return;
         }
-        axios.post('http://localhost:3000/api/user/unsendFriendRequest',
+        axios.post('https://void-tup9.onrender.com/api/user/unsendFriendRequest',
             {user2Id},
             {withCredentials: true}
         )
@@ -149,7 +149,7 @@ const UserProfile = () => {
         if(requestStatus === "unsent" || requestStatus === "sent"){
             return;
         }
-        axios.post('http://localhost:3000/api/user/acceptFriendRequest',
+        axios.post('https://void-tup9.onrender.com/api/user/acceptFriendRequest',
             {user2Id},
             {withCredentials: true}
         )
@@ -181,7 +181,7 @@ const UserProfile = () => {
         if(requestStatus === "unsent" || requestStatus === "sent"){
             return;
         }
-        axios.post('http://localhost:3000/api/user/rejectFriendRequest',
+        axios.post('https://void-tup9.onrender.com/api/user/rejectFriendRequest',
             {user2Id},
             {withCredentials: true}
         )
@@ -198,7 +198,7 @@ const UserProfile = () => {
         if(requestStatus === "unsent" || requestStatus === "sent"){
             return;
         }
-        axios.post('http://localhost:3000/api/user/removeFriend',
+        axios.post('https://void-tup9.onrender.com/api/user/removeFriend',
             {user2Id},
             {withCredentials: true}
         )
@@ -231,7 +231,7 @@ const UserProfile = () => {
     // console.log(me)
 
     function openChat(user2Id){
-        axios.post('http://localhost:3000/api/chat/findOrCreate',
+        axios.post('https://void-tup9.onrender.com/api/chat/findOrCreate',
             {user2Id},
             {withCredentials: true}
         )

@@ -12,7 +12,7 @@ const ChatWindow = () => {
   const { id } = useParams();
 
   function me(){
-      axios.get('http://localhost:3000/api/auth/findUser',
+      axios.get('https://void-tup9.onrender.com/api/auth/findUser',
           {
               withCredentials: true
           }
@@ -27,7 +27,7 @@ const ChatWindow = () => {
   }
 
   function myChat(){
-      axios.get('http://localhost:3000/api/chat/allChats', 
+      axios.get('https://void-tup9.onrender.com/api/chat/allChats', 
           {
               withCredentials: true
           }
@@ -46,7 +46,7 @@ const ChatWindow = () => {
   }
 
   function loadMessages(chatId){
-    axios.post('http://localhost:3000/api/chat/loadMessages',
+    axios.post('https://void-tup9.onrender.com/api/chat/loadMessages',
       {chatId},
       {withCredentials: true}
     )

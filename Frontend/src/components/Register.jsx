@@ -19,7 +19,7 @@ const Register = () => {
         if(!email || !password || !username){
             return alert("Please fill all fields");
         }
-        axios.post('http://localhost:3000/api/auth/register',
+        axios.post('https://void-tup9.onrender.com/api/auth/register',
             {
                 fullName:{
                     firstName,

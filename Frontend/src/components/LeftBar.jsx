@@ -27,7 +27,7 @@ const LeftBar = (
   // console.log(location.pathname);
 
   useEffect(()=>{
-        axios.get('http://localhost:3000/api/auth/findUser',
+        axios.get('https://void-tup9.onrender.com/api/auth/findUser',
             {
                 withCredentials: true
             }

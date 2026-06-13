@@ -19,7 +19,7 @@ const Interests = () => {
     const [chosen, setChosen] = useState([]);
 
     useEffect(()=>{
-        axios.get('http://localhost:3000/api/auth/findUser',
+        axios.get('https://void-tup9.onrender.com/api/auth/findUser',
             {
                 withCredentials: true
             }
@@ -34,7 +34,7 @@ const Interests = () => {
     }, []);
 
     function updateInterests(interests){
-        axios.post('http://localhost:3000/api/user/updateInterests',
+        axios.post('https://void-tup9.onrender.com/api/user/updateInterests',
             {interests},
             {withCredentials: true}
         )

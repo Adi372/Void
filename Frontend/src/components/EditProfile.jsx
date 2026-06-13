@@ -41,7 +41,7 @@ const EditProfile = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/auth/findUser", {
+      .get("https://void-tup9.onrender.com/api/auth/findUser", {
         withCredentials: true,
       })
       .then((res) => {
@@ -99,7 +99,7 @@ const EditProfile = () => {
       formData.append("interests", JSON.stringify(chosen));
 
       await axios.post(
-        "http://localhost:3000/api/user/updateProfile",
+        "https://void-tup9.onrender.com/api/user/updateProfile",
         formData,
         {
           withCredentials: true,

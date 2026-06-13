@@ -8,7 +8,7 @@ const LikedPosts = () => {
     const [likedPosts, setlikedPosts] = useState([]);
 
     function allLikedPosts(){
-        axios.get('http://localhost:3000/api/post/likedPosts',
+        axios.get('https://void-tup9.onrender.com/api/post/likedPosts',
             {withCredentials: true}
         )
         .then((res)=>{
@@ -21,7 +21,7 @@ const LikedPosts = () => {
     }
 
     function findUser(){
-        axios.get('http://localhost:3000/api/auth/findUser',
+        axios.get('https://void-tup9.onrender.com/api/auth/findUser',
             {
                 withCredentials: true
             }

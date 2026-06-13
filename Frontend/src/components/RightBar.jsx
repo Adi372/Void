@@ -7,7 +7,7 @@ const RightBar = () => {
   const [similarAccounts, setSimilarAccounts] = useState([]);
 
   useEffect(()=>{
-    axios.get('http://localhost:3000/api/user/similarAccounts', 
+    axios.get('https://void-tup9.onrender.com/api/user/similarAccounts', 
       {withCredentials: true}
     )
     .then((res)=>{

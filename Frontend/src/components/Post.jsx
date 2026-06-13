@@ -10,7 +10,7 @@ const Post = () => {
     const {postId} = useParams();
 
     useEffect(()=>{
-      axios.get('http://localhost:3000/api/auth/findUser',
+      axios.get('https://void-tup9.onrender.com/api/auth/findUser',
           {
               withCredentials: true
           }
@@ -25,7 +25,7 @@ const Post = () => {
     }, []);
 
     useEffect(()=>{
-      axios.get('http://localhost:3000/api/post/allPosts',
+      axios.get('https://void-tup9.onrender.com/api/post/allPosts',
           {
               withCredentials: true
           }

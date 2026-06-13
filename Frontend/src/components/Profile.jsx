@@ -12,7 +12,7 @@ const Profile = () => {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        axios.get('http://localhost:3000/api/auth/findUser',
+        axios.get('https://void-tup9.onrender.com/api/auth/findUser',
             {
                 withCredentials: true
             }
@@ -30,7 +30,7 @@ const Profile = () => {
     }, []);
 
     useEffect(()=>{
-        axios.get('http://localhost:3000/api/post/myPosts',
+        axios.get('https://void-tup9.onrender.com/api/post/myPosts',
             {
                 withCredentials: true
             }
@@ -45,7 +45,7 @@ const Profile = () => {
     },[]);
 
     function logout(){
-        axios.get('http://localhost:3000/api/auth/logout', 
+        axios.get('https://void-tup9.onrender.com/api/auth/logout', 
             {withCredentials: true}
         )
         .then((res)=>{
@@ -58,7 +58,7 @@ const Profile = () => {
     }
 
     function deleteAccount(){
-        axios.get('http://localhost:3000/api/auth/delete', 
+        axios.get('https://void-tup9.onrender.com/api/auth/delete', 
             {withCredentials: true}
         )
         .then((res)=>{
