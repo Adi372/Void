@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios';
 import {socket} from '../utils/socket';
+import gsap from 'gsap';
 
 const AIChat = () => {
+
+  const messagesContainerRef = useRef(null);
 
   const [user, setUser] = useState(null);
   const [chatId, setChatId] = useState('');
@@ -92,6 +95,17 @@ const AIChat = () => {
       };
     }, []);
 
+    useEffect(() => {
+      const el = messagesContainerRef.current;
+      if (!el) return;
+
+      gsap.to(el, {
+        scrollTop: el.scrollHeight,
+        duration: 0.5,
+        ease: "power2.out"
+      });
+    }, [messages]);
+
     if(!user){
         return <div className='text-[#808191] h-full flex justify-center items-center font-semibold text-4xl'>Loading...</div>
     }
@@ -125,7 +139,7 @@ const AIChat = () => {
         </div>
       </div>
 
-      <div className='border-y-2 text-white border-[#373A43] h-[76%] flex flex-col px-5 py-5 overflow-y-auto hide-scrollbar gap-5'>
+      <div ref={messagesContainerRef} className='border-y-2 text-white border-[#373A43] h-[76%] flex flex-col px-5 py-5 overflow-y-auto hide-scrollbar gap-5'>
 
         {
           messages.map((msg)=>(
