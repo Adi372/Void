@@ -1,8 +1,11 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
+import gsap from "gsap";
 
 const Chats = ({newMsg, setNewMsg}) => {
+
+    const chatsContainerRef = useRef(null);
 
     const [user, setUser] = useState(null);
     const [friends, setFriends] = useState([]);
@@ -97,6 +100,17 @@ const Chats = ({newMsg, setNewMsg}) => {
                 : updatedChats;
         });
 
+        setTimeout(() => {
+            const el = chatsContainerRef.current;
+            if (!el) return;
+
+            gsap.to(el, {
+                scrollTop: 0,
+                duration: 0.4,
+                ease: "power2.out"
+            });
+        }, 0);
+
     }, [newMsg]);
     
 
@@ -104,7 +118,7 @@ const Chats = ({newMsg, setNewMsg}) => {
   return (
     <div className='h-screen'>
         <div className='h-full flex '>
-            <div className='w-[30%] border-r-2 border-[#373A43] flex flex-col items-start overflow-y-auto hide-scrollbar'>
+            <div ref={chatsContainerRef} className='w-[30%] border-r-2 border-[#373A43] flex flex-col items-start overflow-y-auto hide-scrollbar'>
                 <h1 className='text-2xl text-white font-semibold p-5'>Chats</h1>
 
                 {

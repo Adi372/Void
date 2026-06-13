@@ -170,7 +170,7 @@ const Feed = ({post, user}) => {
                             <i class="ri-chat-1-line"></i>
                             <h1 className={` ${comments?.length > 0 ? "flex" : "hidden"} text-sm font-semibold`}>{comments.length}</h1>
                         </div>
-                        <div type="button" onClick={()=>navigator.clipboard.writeText(`http://localhost:5173/post/${post._id}`)} className='hover:text-white cursor-pointer flex items-center gap-1 text-2xl'>
+                        <div type="button" onClick={()=>navigator.clipboard.writeText(`https://void-tup9.onrender.com/post/${post._id}`)} className='hover:text-white cursor-pointer flex items-center gap-1 text-2xl'>
                             <i class="ri-link"></i>
                         </div>
                         <div onClick={() => savePost(post._id)} className='flex items-center gap-1 text-2xl hover:text-white'>
