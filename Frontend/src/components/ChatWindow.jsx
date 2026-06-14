@@ -1,10 +1,12 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { socket } from '../utils/socket';
+import gsap from 'gsap';
 
 const ChatWindow = () => {
 
+  const messagesContainerRef = useRef(null);
   const [user, setUser] = useState(null);
   const [chat, setChat] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -127,6 +129,26 @@ const ChatWindow = () => {
     };
   }, [user, id, chat]);   // added `chat` only if you still need it elsewhere
 
+  useEffect(() => {
+    const el = messagesContainerRef.current;
+    if (!el) return;
+
+    el.scrollTop = el.scrollHeight;
+  }, []);
+
+  useEffect(() => {
+    if (messages.length <= 1) return;
+
+    const el = messagesContainerRef.current;
+    if (!el) return;
+
+    gsap.to(el, {
+      scrollTop: el.scrollHeight,
+      duration: 0.3,
+      ease: "power2.out"
+    });
+  }, [messages]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!myMessage.trim() || !chat) return;   // don't send if chat not loaded
@@ -163,7 +185,7 @@ const ChatWindow = () => {
         </Link>
       </div>
 
-      <div className='border-y-2 text-white border-[#373A43] h-[76%] flex flex-col px-5 py-5 overflow-y-auto hide-scrollbar gap-5'>
+      <div ref={messagesContainerRef} className='border-y-2 text-white border-[#373A43] h-[76%] flex flex-col px-5 py-5 overflow-y-auto hide-scrollbar gap-5'>
 
         {
           messages.map((msg)=>{

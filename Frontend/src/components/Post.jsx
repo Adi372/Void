@@ -40,7 +40,7 @@ const Post = () => {
     },[]);
 
     if (posts.length === 0) {
-        return <div>Loading...</div>;
+        return <div className='h-full text-[#808191] flex justify-center items-center font-semibold text-4xl'>Loading...</div>;
     }
   
     const currentPost = posts.find(post => post._id === postId);

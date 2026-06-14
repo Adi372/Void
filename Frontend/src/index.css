@@ -18,8 +18,12 @@ body,
 }
 
 /* Global overrides to prevent profile pictures/icons in flex containers from squishing */
-a.h-10.w-10, label.h-10.w-10, div.h-10.w-10,
-a.h-15.w-15, label.h-15.w-15, div.h-15.w-15,
+a.h-10.w-10,
+label.h-10.w-10,
+div.h-10.w-10,
+a.h-15.w-15,
+label.h-15.w-15,
+div.h-15.w-15,
 [class*="h-14.5"] {
   flex-shrink: 0 !important;
 }
@@ -31,8 +35,9 @@ div[class*="max-w-[45%]"] {
 
 /* Responsive Styles for Screens <= 1024px (Tablets & Nest Hub) */
 @media (max-width: 1024px) {
+
   /* Hide suggested accounts right sidebar */
-  #root > div > div.flex.h-screen > div[class*="w-[300px]"] {
+  #root>div>div.flex.h-screen>div[class*="w-[300px]"] {
     display: none !important;
   }
 
@@ -44,15 +49,16 @@ div[class*="max-w-[45%]"] {
 
 /* Responsive Styles for Screens <= 768px (Mobile & Tablets) */
 @media (max-width: 768px) {
+
   /* 1. Main layout container (Routing.jsx) */
-  #root > div > div.flex.h-screen {
+  #root>div>div.flex.h-screen {
     flex-direction: column-reverse !important;
     height: 100vh !important;
     overflow: hidden !important;
   }
 
   /* 2. LeftBar: transform from left sidebar into a bottom navigation bar */
-  #root > div > div.flex.h-screen > div[class*="w-[100px]"] {
+  #root>div>div.flex.h-screen>div[class*="w-[100px]"] {
     width: 100vw !important;
     height: 60px !important;
     min-height: 60px !important;
@@ -67,12 +73,12 @@ div[class*="max-w-[45%]"] {
   }
 
   /* Hide the Logo link inside LeftBar on mobile */
-  #root > div > div.flex.h-screen > div[class*="w-[100px]"] > a:first-child {
+  #root>div>div.flex.h-screen>div[class*="w-[100px]"]>a:first-child {
     display: none !important;
   }
 
   /* Re-layout the LeftBar links container */
-  #root > div > div.flex.h-screen > div[class*="w-[100px]"] > div.relative {
+  #root>div>div.flex.h-screen>div[class*="w-[100px]"]>div.relative {
     display: flex !important;
     flex-direction: row !important;
     width: 100% !important;
@@ -82,52 +88,100 @@ div[class*="max-w-[45%]"] {
   }
 
   /* Shrink LeftBar icons padding and size */
-  #root > div > div.flex.h-screen > div[class*="w-[100px]"] a {
+  #root>div>div.flex.h-screen>div[class*="w-[100px]"] a {
     padding: 8px !important;
     font-size: 1.5rem !important;
     line-height: 1 !important;
   }
 
   /* Shrink the profile image container size inside bottom navbar */
-  #root > div > div.flex.h-screen > div[class*="w-[100px]"] a.h-14\.5 {
+  #root>div>div.flex.h-screen>div[class*="w-[100px]"] a.h-14\.5 {
     height: 2.5rem !important;
     width: 2.5rem !important;
   }
 
   /* Re-position notification & message count badges relative to the bottom navbar */
-  #root > div > div.flex.h-screen > div[class*="w-[100px]"] > div.relative > a.absolute.right-3.top-3 {
+  #root>div>div.flex.h-screen>div[class*="w-[100px]"]>div.relative>a.absolute.right-3.top-3 {
     left: calc(8.33vw + 10px) !important;
     right: auto !important;
     top: 4px !important;
   }
 
-  #root > div > div.flex.h-screen > div[class*="w-[100px]"] > div.relative > a[class*="top-70"] {
+  #root>div>div.flex.h-screen>div[class*="w-[100px]"]>div.relative>a[class*="top-70"] {
     left: calc(58.33vw + 10px) !important;
     right: auto !important;
     top: 4px !important;
   }
 
   /* 3. RightBar: hide suggested accounts sidebar */
-  #root > div > div.flex.h-screen > div[class*="w-[300px]"] {
+  #root>div>div.flex.h-screen>div[class*="w-[300px]"] {
     display: none !important;
   }
 
   /* 4. Routing Page Wrapper: limit viewable area to exclude the bottom nav */
-  #root > div > div.flex.h-screen > div.flex-1 {
+  #root>div>div.flex.h-screen>div.flex-1 {
     height: calc(100vh - 60px) !important;
     width: 100vw !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
   }
 
+  /* When there are no sidebars/bottom navigation (Login/Register/Interests), occupy full screen */
+  #root>div>div.flex.h-screen>div.flex-1:only-child {
+    height: 100vh !important;
+  }
+
+  /* Override h-screen container height on mobile for login/register layout to allow auto-scrolling */
+  #root>div>div.flex.h-screen>div.flex-1 .h-screen.flex.justify-center.py-10 {
+    height: auto !important;
+    min-height: 100% !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    align-items: center !important;
+  }
+
+  /* Adjust inner login/register card layout for small viewport heights */
+  #root>div>div.flex.h-screen>div.flex-1 .h-screen.flex.justify-center.py-10 > div {
+    height: auto !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  /* Reduce logo size and margins specifically for login/register pages on mobile */
+  #root>div>div.flex.h-screen>div.flex-1 .h-screen.flex.justify-center.py-10 div.h-35 {
+    height: 80px !important;
+  }
+  #root>div>div.flex.h-screen>div.flex-1 .h-screen.flex.justify-center.py-10 div.mt-15 {
+    margin-top: 1.5rem !important;
+  }
+  #root>div>div.flex.h-screen>div.flex-1 .h-screen.flex.justify-center.py-10 div.mt-25 {
+    margin-top: 2rem !important;
+  }
+  #root>div>div.flex.h-screen>div.flex-1 .h-screen.flex.justify-center.py-10 div.mb-10 {
+    margin-bottom: 1rem !important;
+  }
+
+  /* Reduce submit button margin on mobile */
+  #root>div>div.flex.h-screen>div.flex-1 .h-screen.flex.justify-center.py-10 button.mt-10 {
+    margin-top: 1.5rem !important;
+  }
+
+  /* Set explicit footer margin-top when card has height: auto */
+  #root>div>div.flex.h-screen>div.flex-1 .h-screen.flex.justify-center.py-10 div.mt-auto {
+    margin-top: 1.5rem !important;
+  }
+
   /* Force inner h-screen containers to occupy full remaining height instead of viewport height */
-  #root > div > div.flex.h-screen > div.flex-1 .h-screen {
+  #root>div>div.flex.h-screen>div.flex-1 .h-screen {
     height: 100% !important;
   }
 
   /* 5. General Utility & Layout Overrides */
   /* General width adjustments to fit mobile screen */
-  .w-180, .w-120 {
+  .w-180,
+  .w-120 {
     width: calc(100% - 24px) !important;
     max-width: calc(100vw - 24px) !important;
   }
@@ -153,17 +207,20 @@ div[class*="max-w-[45%]"] {
   }
 
   /* General padding & margin overrides */
-  .px-15, .px-20 {
+  .px-15,
+  .px-20 {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
   }
 
-  .py-5, .py-20 {
+  .py-5,
+  .py-20 {
     padding-top: 1.5rem !important;
     padding-bottom: 1.5rem !important;
   }
 
-  .p-7, .p-5 {
+  .p-7,
+  .p-5 {
     padding: 1rem !important;
   }
 
@@ -186,7 +243,7 @@ div[class*="max-w-[45%]"] {
   }
 
   /* Profile page posts wrapper breakout to match home page feed width */
-  div.flex-col.gap-5 > div.flex-col.gap-2 > div.flex-wrap.py-3 {
+  div.flex-col.gap-5>div.flex-col.gap-2>div.flex-wrap.py-3 {
     margin-left: -2rem !important;
     margin-right: -2rem !important;
     width: calc(100% + 4rem) !important;
@@ -219,7 +276,7 @@ div[class*="max-w-[45%]"] {
     padding-top: 1.5rem !important;
   }
 
-  .flex.flex-col.gap-3.text-white, 
+  .flex.flex-col.gap-3.text-white,
   .flex.flex-col.gap-2.text-white {
     align-items: center !important;
   }
@@ -297,12 +354,12 @@ div[class*="max-w-[45%]"] {
     padding-right: 1rem !important;
   }
 
-  form.h-\[12\%\] > input {
+  form.h-\[12\%\]>input {
     width: 80% !important;
     flex-grow: 1 !important;
   }
 
-  form.h-\[12\%\] > button {
+  form.h-\[12\%\]>button {
     width: auto !important;
     min-width: 44px !important;
   }
@@ -314,4 +371,3 @@ div[class*="max-w-[45%]"] {
     height: 180px !important;
   }
 }
-
