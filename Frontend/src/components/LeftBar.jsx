@@ -112,7 +112,7 @@ useEffect(() => {
         </Link>
         <div className=' relative flex flex-col gap-8'>
 
-          <Link to='/notifications' className={`${notificationsLength && !location.pathname.startsWith("/notifications")? "flex":"hidden"} absolute h-5 w-5 overflow-hidden right-3 top-3 bg-[#6B5DD3] rounded-full text-2xl flex justify-center items-center`}>
+          <Link to='/notifications' className={`${notificationsLength && !location.pathname.startsWith("/notifications")? "flex":"hidden"} notification-badge absolute h-5 w-5 overflow-hidden right-3 top-3 bg-[#6B5DD3] rounded-full text-2xl flex justify-center items-center`}>
             <h1 className='text-[12px] font-semibold text-white'>{notificationsLength}</h1>
           </Link>
 
@@ -125,7 +125,7 @@ useEffect(() => {
             <Link to='/addPost' className={`hover:text-white ${location.pathname.startsWith('/addPost')? "text-white bg-[#6B5DD3] hover:text-white":"text-[#808191]"} w-fit px-4 py-3 rounded-full text-2xl`}><i class="ri-add-large-line"></i></Link>
             <Link to='/' className={`hover:text-white ${location.pathname === '/' ? "text-white bg-[#6B5DD3] hover:text-white":"text-[#808191]"} w-fit px-4 py-3 rounded-full text-2xl`}><i class="ri-home-line"></i></Link>
 
-            <Link to='/chat' className={`${msgNotificationLength && !location.pathname.startsWith("/chat")? "flex":"hidden"} absolute h-5 w-5 overflow-hidden right-2.5 top-70 bg-[#6B5DD3] rounded-full text-2xl flex justify-center items-center`}>
+            <Link to='/chat' className={`${msgNotificationLength && !location.pathname.startsWith("/chat")? "flex":"hidden"} message-badge absolute h-5 w-5 overflow-hidden right-2.5 top-70 bg-[#6B5DD3] rounded-full text-2xl flex justify-center items-center`}>
               <h1 className='text-[12px] font-semibold text-white'>{msgNotificationLength}</h1>
             </Link>
 

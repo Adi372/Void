@@ -101,16 +101,16 @@ div[class*="max-w-[45%]"] {
   }
 
   /* Re-position notification & message count badges relative to the bottom navbar */
-  #root>div>div.flex.h-screen>div[class*="w-[100px]"]>div.relative>a.absolute.right-3.top-3 {
-    left: calc(8.33vw + 10px) !important;
-    right: auto !important;
+  .notification-badge {
     top: 4px !important;
+    left: 8% !important;
+    right: auto !important;
   }
 
-  #root>div>div.flex.h-screen>div[class*="w-[100px]"]>div.relative>a[class*="top-70"] {
-    left: calc(58.33vw + 10px) !important;
-    right: auto !important;
+  .message-badge {
     top: 4px !important;
+    left: 58% !important;
+    right: auto !important;
   }
 
   /* 3. RightBar: hide suggested accounts sidebar */
