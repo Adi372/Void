@@ -4,7 +4,7 @@ const {GoogleGenAI} = require('@google/genai')
 const { ChatGroq } = require("@langchain/groq");
 
 const model = new ChatGroq({
-    model: "llama-3.1-8b-instant",
+    model: "openai/gpt-oss-20b",
     apiKey: process.env.GROQ_API_KEY,
 });
 
