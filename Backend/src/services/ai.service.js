@@ -3,7 +3,7 @@ const {createAgent} = require('langchain');
 const {GoogleGenAI} = require('@google/genai')
 
 const agent = createAgent({
-    model: "llama-3.1-8b-instant",
+    model: "openai/gpt-oss-120b",
 })
 
 const geminiAI = new GoogleGenAI({
