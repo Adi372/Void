@@ -1,10 +1,16 @@
 require("dotenv").config();
 const {createAgent} = require('langchain');
 const {GoogleGenAI} = require('@google/genai')
+const { ChatGroq } = require("@langchain/groq");
+
+const model = new ChatGroq({
+    model: "llama-3.1-8b-instant",
+    apiKey: process.env.GROQ_API_KEY,
+});
 
 const agent = createAgent({
-    model: "llama-3.1-8b-instant",
-})
+    model,
+});
 
 const geminiAI = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY
